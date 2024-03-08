@@ -1,0 +1,25 @@
+package honeycombData;
+
+public class IDGeneratorSingleton
+{
+	private static IDGeneratorSingleton generator;
+	private int current_id_num;
+	private IDGeneratorSingleton()
+	{
+		this.current_id_num = 0;
+	}
+	public String getNextID()
+	{
+		generator.current_id_num++; 
+		return Integer.toString(generator.current_id_num);
+	}
+	
+	public static IDGeneratorSingleton getInstance()
+	{
+		if(generator == null)
+		{
+			generator = new IDGeneratorSingleton();
+		}
+		return generator;
+	}
+}
