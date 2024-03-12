@@ -1,31 +1,33 @@
 package honeycombData;
 
-public class Project extends Page
+public class NewsArticle extends Page
 {
 
 	/**
 	 * @param name
 	 * @param description
 	 */
-	public Project(String name, String description)
+	public NewsArticle(String name, String description)
 	{
 		super(name, description);
 	}
 	public String[] getAssumableRoles()
 	{
 		String[] assumableRoles ={
-				"project",
-				"followed"};
+				"",
+				""};
 		return assumableRoles;
 	}
 	
 	public String[] getLinkableRoles()
 	{
 		String[] linkableRoles = {
-				"viewer",
-				"contributor",
-				"editor",
-				"follower"
+				"",
+				"",
+				"",
+				"",
+				"",
+				""
 		};
 		return linkableRoles;
 	}
