@@ -28,10 +28,10 @@ public class Person extends Page
 				"contributor",
 				"employee",
 				"editor",
-				"followed",
 				"follower",
 				"mentor",
-				"viewer"};
+				"viewer",
+				"friend"};
 		return assumableRoles;
 	}
 	
@@ -39,15 +39,13 @@ public class Person extends Page
 	{
 		String[] linkableRoles ={
 				"application",
-				"contribution",
 				"employer",
-				"followed",
 				"follower",
 				"friend",
-				"friend_request_received",
-				"friend_request_sent",
 				"project",
-				"skill"};
+				"skill",
+				"viewer",
+				"editor"};
 		return linkableRoles;
 	}
 

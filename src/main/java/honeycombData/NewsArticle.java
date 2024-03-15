@@ -14,20 +14,16 @@ public class NewsArticle extends Page
 	public String[] getAssumableRoles()
 	{
 		String[] assumableRoles ={
-				"",
-				""};
+				};
 		return assumableRoles;
 	}
 	
 	public String[] getLinkableRoles()
 	{
 		String[] linkableRoles = {
-				"",
-				"",
-				"",
-				"",
-				"",
-				""
+				"viewer",
+				"editor",
+				"contributor"
 		};
 		return linkableRoles;
 	}

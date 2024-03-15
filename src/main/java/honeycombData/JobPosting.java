@@ -26,7 +26,7 @@ public class JobPosting extends Page
 				"follower",
 				"editor",
 				"viewer",
-				"desired_skill",
+				"qualification",
 				"applicant"
 		};
 		return linkableRoles;

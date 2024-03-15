@@ -15,10 +15,7 @@ public class Company extends Page
 	{
 		String[] assumableRoles ={
 				"employer",
-				"contributor",
-				"editor",
-				"followed",
-				"viewer"};
+				"contributor"};
 		return assumableRoles;
 	}
 	
@@ -26,10 +23,11 @@ public class Company extends Page
 	{
 		String[] linkableRoles = {
 				"employee",
-				"contribution",
 				"follower",
 				"project",
-				"job_posting"
+				"job_posting",
+				"editor",
+				"viewer"
 		};
 		return linkableRoles;
 	}

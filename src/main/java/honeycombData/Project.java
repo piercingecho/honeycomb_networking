@@ -14,8 +14,7 @@ public class Project extends Page
 	public String[] getAssumableRoles()
 	{
 		String[] assumableRoles ={
-				"project",
-				"followed"};
+				"project"};
 		return assumableRoles;
 	}
 	

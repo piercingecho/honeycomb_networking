@@ -15,8 +15,7 @@ public class Skill extends Page
 	{
 		String[] assumableRoles ={
 				"skill",
-				"desired_skill",
-				"followed",};
+				"qualification"};
 		return assumableRoles;
 	}
 	
