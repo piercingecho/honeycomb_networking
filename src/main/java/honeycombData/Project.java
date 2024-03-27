@@ -24,7 +24,8 @@ public class Project extends Page
 				"viewer",
 				"contributor",
 				"editor",
-				"follower"
+				"follower",
+				"mentor"
 		};
 		return linkableRoles;
 	}

@@ -5,30 +5,28 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestSkill
+class TestJobPosting
 {
-	Skill testSkill;
-	JobPosting testJob;
 	Person testPerson;
+	JobPosting testJob;
+	
 	@BeforeEach
 	void setUp() throws Exception
 	{
-		testPerson = new Person("A","");
-		testSkill = new Skill("", "");
+		testPerson = new Person("", "");
 		testJob = new JobPosting("","");
 	}
 
 	@Test
 	void testRolesIs() throws RoleNotAllowedException
 	{
-		testPerson.addInternalLink(testSkill, "skill");
-		testJob.addInternalLink(testSkill, "qualification");	
+		testPerson.addInternalLink(testJob, "job_posting");
 	}
-		
+	
 	@Test
 	void testRolesHas() throws RoleNotAllowedException
 	{
-		testSkill.addInternalLink(testPerson, "editor");
+		testJob.addInternalLink(testPerson, "follower");
 	}
 
 }

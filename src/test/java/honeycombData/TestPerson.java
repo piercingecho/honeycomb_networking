@@ -45,6 +45,14 @@ class TestPerson
 		assertEquals("111-111-1111", bob.getPhone());
 		assertEquals("", alice.getPhone());
 		
+		alice.setPhone("111-111-1112");
+		alice.setPronouns("he/they");
+		bob.setEmail("bobwhenhesobs@gmail.com");
+		
+		assertEquals("he/they", alice.getPronouns());
+		assertEquals("bobwhenhesobs@gmail.com", bob.getEmail());
+		assertEquals("111-111-1112", alice.getPhone());
+
 	}
 
 	@Test
@@ -69,4 +77,33 @@ class TestPerson
 		friend.addInternalLink(alice, "friend");
 		
 	}
+	
+	@Test
+	void TestCanView() throws RoleNotAllowedException
+	{
+		// without any viewers, view returns true
+		assertEquals(true, viewingPerson.canView(employerOne));
+		assertEquals(true, editingPerson.canView(employerOne));
+
+		//if it's not empty, returns if they're contained
+		employerOne.addInternalLink(viewingPerson, "viewer");
+		
+		assertEquals(true, viewingPerson.canView(employerOne));
+		assertEquals(false, editingPerson.canView(employerOne));
+	}
+	
+	@Test
+	void TestCanEdit() throws RoleNotAllowedException
+	{
+		// without any viewers, edit returns false
+		assertEquals(false, viewingPerson.canEdit(employerOne));
+		assertEquals(false, editingPerson.canEdit(employerOne));
+
+		//if it's not empty, returns if they're contained
+		employerOne.addInternalLink(editingPerson, "editor");
+		
+		assertEquals(false, viewingPerson.canEdit(employerOne));
+		assertEquals(true, editingPerson.canEdit(employerOne));
+	}
+
 }

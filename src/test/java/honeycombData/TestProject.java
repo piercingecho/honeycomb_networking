@@ -26,5 +26,11 @@ class TestProject
 		testCompany.addInternalLink(testProject, "project");
 		testPerson.addInternalLink(testProject, "project");
 	}
+	
+	@Test
+	void testRolesHas() throws RoleNotAllowedException
+	{
+		testProject.addInternalLink(testPerson, "viewer");
+	}
 
 }

@@ -1,5 +1,7 @@
 package honeycombData;
 
+import java.util.ArrayList;
+
 public class Person extends Page
 { 
 	String pronouns;
@@ -38,12 +40,13 @@ public class Person extends Page
 	public final String[] getLinkableRoles()
 	{
 		String[] linkableRoles ={
-				"application",
 				"employer",
 				"follower",
 				"friend",
 				"project",
 				"skill",
+				"news",
+				"job_posting",
 				"viewer",
 				"editor"};
 		return linkableRoles;
@@ -97,6 +100,34 @@ public class Person extends Page
 		this.phone = phone;
 	}
 	
+	public boolean canView(Page page) throws RoleNotAllowedException
+	{
+		ArrayList<Page> viewers = page.getInternalLinks("viewer");
+		if(viewers.isEmpty())
+		{
+			return true;
+		}
+		
+		if(viewers.contains(this))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean canEdit(Page page) throws RoleNotAllowedException
+	{
+		ArrayList<Page> viewers = page.getInternalLinks("editor");
+		
+		if(viewers.contains(this))
+		{
+			return true;
+		}
+		
+		return false;
+
+	}
 	
 
 }

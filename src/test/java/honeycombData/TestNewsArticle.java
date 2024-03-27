@@ -7,16 +7,21 @@ import org.junit.jupiter.api.Test;
 
 class TestNewsArticle
 {
-
+	
+	NewsArticle testNews;
+	Person testPerson;
+	
 	@BeforeEach
 	void setUp() throws Exception
 	{
+		testNews = new NewsArticle("testnews", "testnews");
+		testPerson = new Person("testperson", "testperson");
 	}
 
 	@Test
-	void testAssumableRoles()
+	void testRolesIs() throws RoleNotAllowedException
 	{
-		//doesn't have assumable roles
+		testPerson.addInternalLink(testNews, "news");
 	}
 
 }

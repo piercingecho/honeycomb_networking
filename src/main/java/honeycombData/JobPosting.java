@@ -27,7 +27,8 @@ public class JobPosting extends Page
 				"editor",
 				"viewer",
 				"qualification",
-				"applicant"
+				"applicant",
+				"mentor"
 		};
 		return linkableRoles;
 	}

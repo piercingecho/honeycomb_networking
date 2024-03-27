@@ -13,7 +13,7 @@ public class Skill extends Page
 	}
 	public String[] getAssumableRoles()
 	{
-		String[] assumableRoles ={
+		String[] assumableRoles = {
 				"skill",
 				"qualification"};
 		return assumableRoles;

@@ -27,7 +27,10 @@ public class Company extends Page
 				"project",
 				"job_posting",
 				"editor",
-				"viewer"
+				"viewer",
+				"mentor",
+				"follower",
+				"news"
 		};
 		return linkableRoles;
 	}

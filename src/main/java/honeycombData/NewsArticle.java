@@ -14,6 +14,7 @@ public class NewsArticle extends Page
 	public String[] getAssumableRoles()
 	{
 		String[] assumableRoles ={
+				"news"
 				};
 		return assumableRoles;
 	}
@@ -23,7 +24,9 @@ public class NewsArticle extends Page
 		String[] linkableRoles = {
 				"viewer",
 				"editor",
-				"contributor"
+				"contributor",
+				"mentor",
+				"follower"
 		};
 		return linkableRoles;
 	}

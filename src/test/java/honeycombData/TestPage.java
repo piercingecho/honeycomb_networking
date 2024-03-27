@@ -24,6 +24,21 @@ class TestPage
 	}
 
 	@Test
+	void testConstructor()
+	{
+		assertEquals("Alice", alice.getName());
+		assertEquals("Test person one", alice.getDescription());
+		
+		alice.setDescription("Test person on");
+		assertEquals("Test person on", alice.getDescription());
+		
+		alice.setName("Alic");
+		assertEquals("Alic", alice.getName());
+
+
+		}
+	
+	@Test
 	void testIDs()
 	{
 		//ensures IDs increment across classes
@@ -34,13 +49,21 @@ class TestPage
 	}
 
 	@Test
-	void addingURLs()
+	void testingExternalLinks()
 	{
 		ArrayList<String> strings = new ArrayList<String>();
 		strings.add("linkedin.com");
 		place.addExternalLink("linkedin.com");
 		assertEquals(strings, place.getExternalLinks());
+		place.addExternalLink("github.com");
+		place.removeExternalLink("github.com");
+		assertEquals(strings, place.getExternalLinks());
+		
+		assertEquals(true, place.hasExternaLink("linkedin.com"));
+		assertEquals(false, place.hasExternaLink("notalink.org"));
 	}
+	
+	
 	@Test
 	void addingLinks() throws RoleNotAllowedException{
 		
@@ -74,7 +97,18 @@ class TestPage
 	}
 	
 	@Test
-	void exceptionalLinks()
+	void testRepeatAddLinks() throws RoleNotAllowedException
+	{
+		alice.addInternalLink(place, "employer");
+		alice.addInternalLink(place, "employer");
+		ArrayList<Page> aliceEmployerLinks = new ArrayList<>();
+		aliceEmployerLinks.add(place);
+		assertEquals(aliceEmployerLinks, alice.getInternalLinks("employer"));
+		
+	}
+	
+	@Test
+	void testExceptionalLinks()
 	{
 		//Tests the ways we expect addLink() to fail.
 		
@@ -83,16 +117,14 @@ class TestPage
 			place.deleteInternalLink(alice, "THING THAT'S NOT ALLOWED");
 			fail("Didn't catch invalid  link");
 		} catch(RoleNotAllowedException e)
-		{	
-		}
-		
+		{}
+	
 		try
 		{
 			place.deleteInternalLink(alice, "employer");
 			fail("Alice can't be an employer of place.");
 		} catch(RoleNotAllowedException e)
-		{
-		}
+		{}
 		
 		try
 		{
@@ -102,6 +134,35 @@ class TestPage
 		{
 			fail("Deleting where a page isn't there should fail silently.");
 		}
+		
+		try
+		{
+			place.addInternalLink(alice, "skill");
+			fail("Alice can't assume that");
+		}
+		catch(Exception e)
+		{	
+		}
+		
+		try
+		{
+			alice.getInternalLinks("notalinkalicehas");
+			fail("Alice can't assume that");
+		}
+		catch(Exception e)
+		{
+		}
+		
+		try
+		{
+			place.addInternalLink(alice, "friend");
+			fail("place can't have friends");
+		}
+		catch(Exception e)
+		{
+		}
+
+		
 
 	}
 }
