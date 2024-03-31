@@ -10,20 +10,19 @@ public abstract class Page
 	ArrayList<String> externalLinks;
 	HashMap<String, ArrayList<Page>> internalLinks;
 	
-	// Each page subclass will have their own version of assumed_roles
-	// and linked_roles, static variables.
+	// Each page subclass will have their own version of roles_has
+	// and roles_is, static functions.
 	// This allows for pages to ensure consistency with
 	// which link names are connected to which subclasses.
 	
-	// assumedRoles = String[]
 	//   the roles a page can take when instantiated in another page.
-	//   e.g. a person can be an "applicant" to a job post.
+	//   e.g. a person can be an "applicant" to a job 
 
-	public abstract String[] getAssumableRoles();
+	public abstract String[] getRolesIs();
 	
 	//   the roles a page can store from others. 
 	//   e.g. a person can link their "employer" (a company).
-	public abstract String[] getLinkableRoles();
+	public abstract String[] getRolesHas();
 	
 	
 	public Page(String name, String description)
@@ -87,7 +86,7 @@ public abstract class Page
 	 */
 	public boolean canAssumeRole(String target)
 	{
-		String[] assumableRoles = this.getAssumableRoles();
+		String[] assumableRoles = this.getRolesIs();
 		for(int i=0; i<assumableRoles.length; i++)
 		{
 			if(assumableRoles[i].equals(target))
@@ -106,7 +105,7 @@ public abstract class Page
 
 	public boolean canBeLinkedAsRole(String target)
 	{
-		String[] linkableRoles = this.getLinkableRoles();
+		String[] linkableRoles = this.getRolesHas();
 		for(int i=0; i<linkableRoles.length; i++)
 		{
 			if(linkableRoles[i].equals(target))

@@ -11,22 +11,22 @@ public class Project extends Page
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	public String[] getRolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"project"};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	public String[] getRolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"viewer",
 				"contributor",
 				"editor",
 				"follower",
 				"mentor"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
 }

@@ -11,23 +11,23 @@ public class NewsArticle extends Page
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	public String[] getRolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"news"
 				};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	public String[] getRolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"viewer",
 				"editor",
 				"contributor",
 				"mentor",
 				"follower"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
 }

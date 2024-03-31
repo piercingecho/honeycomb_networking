@@ -11,22 +11,22 @@ public class Skill extends Page
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	public String[] getRolesIs()
 	{
-		String[] assumableRoles = {
+		String[] rolesIs = {
 				"skill",
 				"qualification"};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	public String[] getRolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"editor",
 				"viewer",
 				"follower",
 				"mentor"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
 }

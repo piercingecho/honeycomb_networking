@@ -23,9 +23,9 @@ public class Person extends Page
 		this.phone = phone;
 	}
 	
-	public final String[] getAssumableRoles()
+	public final String[] getRolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"applicant",
 				"contributor",
 				"employee",
@@ -34,12 +34,12 @@ public class Person extends Page
 				"mentor",
 				"viewer",
 				"friend"};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public final String[] getLinkableRoles()
+	public final String[] getRolesHas()
 	{
-		String[] linkableRoles ={
+		String[] rolesHas ={
 				"employer",
 				"follower",
 				"friend",
@@ -49,7 +49,7 @@ public class Person extends Page
 				"job_posting",
 				"viewer",
 				"editor"};
-		return linkableRoles;
+		return rolesHas;
 	}
 
 	/**

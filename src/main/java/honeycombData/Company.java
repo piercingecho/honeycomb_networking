@@ -11,17 +11,17 @@ public class Company extends Page
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	public String[] getRolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"employer",
 				"contributor"};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	public String[] getRolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"employee",
 				"follower",
 				"project",
@@ -32,6 +32,6 @@ public class Company extends Page
 				"follower",
 				"news"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
 }

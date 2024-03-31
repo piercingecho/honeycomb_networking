@@ -11,17 +11,17 @@ public class JobPosting extends Page
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	public String[] getRolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"job_posting",
 				"contribution"};
-		return assumableRoles;
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	public String[] getRolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"contributor",
 				"follower",
 				"editor",
@@ -30,6 +30,6 @@ public class JobPosting extends Page
 				"applicant",
 				"mentor"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
 }
