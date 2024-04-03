@@ -1,18 +1,28 @@
 package honeycombData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Person extends Page
 { 
 	String pronouns;
 	String email;
 	String phone;
+	public Person(String id, String name, String description, ArrayList<String> externalLinks, HashMap<String, ArrayList<String>> internalLinks, String pronouns, String email, String phone)
+	{
+		super(id, name, description, externalLinks, internalLinks);
+		this.pronouns = pronouns;
+		this.email = email;
+		this.phone = phone;
+
+	}
 	public Person(String name, String description)
 	{
 		super(name, description);
 		this.pronouns = "";
 		this.email = "";
 		this.phone = "";
+		Storage.create(this);
 	}
 
 	public Person(String name, String description, String pronouns, String email, String phone)
@@ -21,9 +31,10 @@ public class Person extends Page
 		this.pronouns = pronouns;
 		this.email = email;
 		this.phone = phone;
+		Storage.create(this);
 	}
 	
-	public final String[] getRolesIs()
+	public final String[] rolesIs()
 	{
 		String[] rolesIs ={
 				"applicant",
@@ -31,17 +42,19 @@ public class Person extends Page
 				"employee",
 				"editor",
 				"follower",
+				"following",
 				"mentor",
 				"viewer",
 				"friend"};
 		return rolesIs;
 	}
 	
-	public final String[] getRolesHas()
+	public final String[] rolesHas()
 	{
 		String[] rolesHas ={
 				"employer",
 				"follower",
+				"following",
 				"friend",
 				"project",
 				"skill",
@@ -102,13 +115,13 @@ public class Person extends Page
 	
 	public boolean canView(Page page) throws RoleNotAllowedException
 	{
-		ArrayList<Page> viewers = page.getInternalLinks("viewer");
+		ArrayList<String> viewers = page.getInternalLinks("viewer");
 		if(viewers.isEmpty())
 		{
 			return true;
 		}
 		
-		if(viewers.contains(this))
+		if(viewers.contains(this.getId()))
 		{
 			return true;
 		}
@@ -118,15 +131,21 @@ public class Person extends Page
 	
 	public boolean canEdit(Page page) throws RoleNotAllowedException
 	{
-		ArrayList<Page> viewers = page.getInternalLinks("editor");
+		ArrayList<String> viewers = page.getInternalLinks("editor");
 		
-		if(viewers.contains(this))
+		if(viewers.contains(this.getId()))
 		{
 			return true;
 		}
 		
 		return false;
 
+	}
+	
+	public void follow(Page page) throws RoleNotAllowedException
+	{
+		this.addInternalLink(page, "following");
+		page.addInternalLink(this, "follower");
 	}
 	
 

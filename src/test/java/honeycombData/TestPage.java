@@ -71,10 +71,10 @@ class TestPage
 		
 		alice.addInternalLink(place, "employer");
 		
-		ArrayList<Page> testPageList = new ArrayList<>();
-		testPageList.add(place);
+		ArrayList<String> testPageList = new ArrayList<>();
+		testPageList.add(place.getId());
 		
-		ArrayList<Page> emptyPagesList = new ArrayList<>();
+		ArrayList<String> emptyPagesList = new ArrayList<>();
 		
 		assertEquals(alice.getInternalLinks("employer"), testPageList);
 		
@@ -101,8 +101,8 @@ class TestPage
 	{
 		alice.addInternalLink(place, "employer");
 		alice.addInternalLink(place, "employer");
-		ArrayList<Page> aliceEmployerLinks = new ArrayList<>();
-		aliceEmployerLinks.add(place);
+		ArrayList<String> aliceEmployerLinks = new ArrayList<>();
+		aliceEmployerLinks.add(place.getId());
 		assertEquals(aliceEmployerLinks, alice.getInternalLinks("employer"));
 		
 	}

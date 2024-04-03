@@ -8,7 +8,7 @@ public abstract class Page
 	String name;
 	String description;
 	ArrayList<String> externalLinks;
-	HashMap<String, ArrayList<Page>> internalLinks;
+	HashMap<String, ArrayList<String>> internalLinks;
 	
 	// Each page subclass will have their own version of roles_has
 	// and roles_is, static functions.
@@ -18,12 +18,20 @@ public abstract class Page
 	//   the roles a page can take when instantiated in another page.
 	//   e.g. a person can be an "applicant" to a job 
 
-	public abstract String[] getRolesIs();
+	public abstract String[] rolesIs();
 	
 	//   the roles a page can store from others. 
 	//   e.g. a person can link their "employer" (a company).
-	public abstract String[] getRolesHas();
+	public abstract String[] rolesHas();
 	
+	public Page(String id, String name, String description, ArrayList<String> externalLinks, HashMap<String, ArrayList<String>> internalLinks)
+	{
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.externalLinks = externalLinks;
+		this.internalLinks = internalLinks;
+		}
 	
 	public Page(String name, String description)
 	{
@@ -35,7 +43,7 @@ public abstract class Page
 		//things like a github or linkedin url.
 		this.externalLinks = new ArrayList<String>();
 		//links to others within honeycomb.
-		this.internalLinks = new HashMap<String, ArrayList<Page>>();
+		this.internalLinks = new HashMap<String, ArrayList<String>>();
 	}
 	
 	/**
@@ -46,6 +54,7 @@ public abstract class Page
 		return id;
 	}
 
+	
 	/**
 	 * @return the name
 	 */
@@ -60,6 +69,7 @@ public abstract class Page
 	public void setName(String name)
 	{
 		this.name = name;
+		Storage.update(this);
 	}
 
 	/**
@@ -76,8 +86,13 @@ public abstract class Page
 	public void setDescription(String description)
 	{
 		this.description = description;
+		Storage.update(this);
 	}
 	
+	public HashMap<String, ArrayList<String>> getInternalLinks()
+	{
+		return this.internalLinks;
+	}
 	
 	/**
 	 * @param target
@@ -86,7 +101,7 @@ public abstract class Page
 	 */
 	public boolean canAssumeRole(String target)
 	{
-		String[] assumableRoles = this.getRolesIs();
+		String[] assumableRoles = this.rolesIs();
 		for(int i=0; i<assumableRoles.length; i++)
 		{
 			if(assumableRoles[i].equals(target))
@@ -105,7 +120,7 @@ public abstract class Page
 
 	public boolean canBeLinkedAsRole(String target)
 	{
-		String[] linkableRoles = this.getRolesHas();
+		String[] linkableRoles = this.rolesHas();
 		for(int i=0; i<linkableRoles.length; i++)
 		{
 			if(linkableRoles[i].equals(target))
@@ -127,11 +142,13 @@ public abstract class Page
 	public void removeExternalLink(String link)
 	{
 		this.externalLinks.remove(link);
+		Storage.update(this);
 	}
 	
 	public void addExternalLink(String link)
 	{
 		this.externalLinks.add(link);
+		Storage.update(this);
 	}
 	
 	public boolean hasExternaLink(String link)
@@ -164,15 +181,18 @@ public abstract class Page
 		// add while ensuring no duplicates
 		if(!internalLinks.containsKey(role))
 		{
-			internalLinks.put(role, new ArrayList<Page>());
+			internalLinks.put(role, new ArrayList<String>());
 		}
 		
-		ArrayList<Page> current_pages = internalLinks.get(role);
+		ArrayList<String> current_pages = internalLinks.get(role);
 		
-		if(!current_pages.contains(page))
+		String newPageId = page.getId();
+		if(!current_pages.contains(newPageId))
 		{
-			current_pages.add(page);
+			current_pages.add(newPageId);
 		}
+
+		Storage.update(this);
 	}
 	
 	/**
@@ -192,8 +212,10 @@ public abstract class Page
 		{
 			return;
 		}
-		ArrayList<Page> current_pages = internalLinks.get(role);
-		current_pages.remove(page);
+		ArrayList<String> current_pages = internalLinks.get(role);
+		
+		current_pages.remove(page.getId());
+		Storage.update(this);
 	}
 	
 	/**
@@ -202,7 +224,7 @@ public abstract class Page
 	 * @return all pages linked as role to this
 	 * @throws RoleNotAllowedException if this cannot have links to that role
 	 */
-	public ArrayList<Page> getInternalLinks(String role) throws RoleNotAllowedException
+	public ArrayList<String> getInternalLinks(String role) throws RoleNotAllowedException
 	{
 		if(!this.canBeLinkedAsRole(role))
 		{
@@ -211,7 +233,7 @@ public abstract class Page
 
 		if(!this.internalLinks.containsKey(role))
 		{
-			this.internalLinks.put(role, new ArrayList<Page>());
+			this.internalLinks.put(role, new ArrayList<String>());
 		}
 		return this.internalLinks.get(role);
 	}
