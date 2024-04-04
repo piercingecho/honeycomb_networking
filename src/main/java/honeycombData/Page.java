@@ -1,6 +1,7 @@
 package honeycombData;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public abstract class Page
 {
@@ -54,9 +55,9 @@ public abstract class Page
 		return id;
 	}
 	
-	public String setId()
+	public void setId(String id)
 	{
-		return id;
+		this.id = id;
 	}
 
 	
@@ -140,6 +141,10 @@ public abstract class Page
 	public ArrayList<String> getExternalLinks()
 	{
 		return this.externalLinks;
+	}
+	public void setExternalLinks(ArrayList<String> s)
+	{
+		this.externalLinks = s;
 	}
 	
 	public void removeExternalLink(String link)
@@ -245,6 +250,21 @@ public abstract class Page
 	public boolean createInStorage()
 	{
 		return Storage.create(this);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Page other = (Page) obj;
+		return Objects.equals(description, other.description) && Objects.equals(externalLinks, other.externalLinks)
+				&& Objects.equals(id, other.id) && Objects.equals(internalLinks, other.internalLinks)
+				&& Objects.equals(name, other.name);
 	}
 	
 	

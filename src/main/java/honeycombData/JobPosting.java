@@ -28,6 +28,7 @@ public class JobPosting extends Page
 	{
 		String[] rolesIs ={
 				"job_posting",
+				"pending_job",
 				"following",
 				"contribution"};
 		return rolesIs;
@@ -45,5 +46,20 @@ public class JobPosting extends Page
 				"mentor"
 		};
 		return rolesHas;
+	}
+	
+	public ArrayList<Person> recommendJob(ArrayList<Person> peopleToRecommend, RecommenderStrategy recommender) throws RoleNotAllowedException
+	{
+		for(int i=0;i<peopleToRecommend.size();i++)
+		{
+			Person currPerson = peopleToRecommend.get(i);
+			boolean isRecommended = recommender.recommend(this, currPerson);
+			if(isRecommended)
+			{
+				currPerson.addInternalLink(this, "pending_job");
+			}
+		}
+		
+		return peopleToRecommend;
 	}
 }

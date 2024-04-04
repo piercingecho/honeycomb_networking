@@ -2,6 +2,7 @@ package honeycombData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Person extends Page
 { 
@@ -58,6 +59,7 @@ public class Person extends Page
 				"skill",
 				"news",
 				"job_posting",
+				"pending_job",
 				"viewer",
 				"editor"};
 		return rolesHas;
@@ -144,6 +146,19 @@ public class Person extends Page
 	{
 		this.addInternalLink(page, "following");
 		page.addInternalLink(this, "follower");
+	}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(email, other.email) && Objects.equals(phone, other.phone)
+				&& Objects.equals(pronouns, other.pronouns);
 	}
 	
 

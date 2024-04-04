@@ -14,7 +14,7 @@ class TestRecommender
 	}
 
 	@Test
-	void testAllRecommender()
+	void testAllRecommender() throws RoleNotAllowedException
 	{
 		//just returns true lol
 		Person p = new Person("","");

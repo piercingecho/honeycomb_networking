@@ -17,6 +17,8 @@ class TestCompany
 	@BeforeEach
 	void setUp() throws Exception
 	{
+		UtilTest.recreateRestDirectory();
+
 		c = new Company("a","b");
 		p = new Person("a","b");
 		n = new NewsArticle("a","b");

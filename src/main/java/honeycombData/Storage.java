@@ -6,9 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import RESTAPI.PostResponse;
-import RESTAPI.RGetString;
-
 import org.springframework.http.MediaType;
 import java.util.ArrayList;
 
@@ -28,8 +25,7 @@ public class Storage
 			"Skill",
 			"JobPosting",
 			"Project",
-			"NewsArticle",
-			"PageWithoutStorageImplementation"
+			"NewsArticle"
 	};
 	
 	
@@ -39,10 +35,10 @@ public class Storage
 	{
 		String uri = Storage.uriBase + Storage.getUriExtension(newPage);
 		//does something exist there?
-		PostResponse getExisting = Storage.client.get()
+		RObjectResp getExisting = Storage.client.get()
 				.uri(uri)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 				
 		if(getExisting.successful() == true)
 		{
@@ -51,11 +47,11 @@ public class Storage
 		}
 				
 		
-		PostResponse rest_result = Storage.client.post()
+		RObjectResp rest_result = Storage.client.post()
 				.uri(uri)
 				.body(newPage)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 		
 		return rest_result.successful();
 	}
@@ -68,7 +64,7 @@ public class Storage
 		{
 			String classString = pageTypes[i];
 			Response r = Storage.responseFactory(id, classString);
-			if(r.successful())
+			if(r != null)
 			{
 				Page p = Storage.pageFactory(r, classString);
 				return p;
@@ -78,25 +74,13 @@ public class Storage
 	}
 	
 	
-	//IMPLEMENT THESE
-	static Response responseFactory(String id, String classString)
-	{
-		return null;
-	}
-	
-	static Page pageFactory(Response r, String classString)
-	{
-		return null;
-	}
-	
-	
 	static boolean update(Page p)
 	{
 		String uri = Storage.uriBase + Storage.getUriExtension(p);
-		PostResponse getExisting = Storage.client.get()
+		RObjectResp getExisting = Storage.client.get()
 				.uri(uri)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 				
 		if(getExisting.successful() == false)
 		{
@@ -104,28 +88,68 @@ public class Storage
 			return false;
 		}
 
-		PostResponse rest_result = Storage.client.put()
+		RObjectResp rest_result = Storage.client.put()
 				.uri(uri)
 				.body(p)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 
 		return rest_result.successful();
 		
 	}
 	
-	static String getNextId()
+	static String getNextID()
 	{
 		//IMPLEMENT THIS
 		
-		String uri = uriBase + "IDGeneratorSingleton" + "/" + "generator";
-		return uri;
+		String uri = uriBase + "/IDGenerator/0";
+		RNextIDResp nextIDResp = Storage.client.get()
+				.uri(uri)
+				.retrieve()
+				.body(RNextIDResp.class);
+		
+		int nextId = nextIDResp.data().nextIdToGive();
+		
+		String idToReturn = Integer.toString(nextId);
+		
+		RNextID newIDToStore = new RNextID("0",nextId + 1);
+		
+		RObjectResp resp = Storage.client.put()
+				.uri(uri)
+				.body(newIDToStore)
+				.retrieve()
+				.body(RObjectResp.class);
+		return idToReturn;
 
 	}
-	
+		
 	static ArrayList<Person> getAllPeople()
 	{
-		return new ArrayList<Person>();
+		RRestDescriptionResp peopleResponse = Storage.client.get()
+				.uri(Storage.uriBase + "/" + "Person")
+				.retrieve()
+				.body(RRestDescriptionResp.class);
+		
+		ArrayList<RRestDescription> peopleDescriptions = peopleResponse.data();
+		
+		ArrayList<Person> people = new ArrayList<Person>();
+		for(int i=0; i<peopleDescriptions.size(); i++)
+		{
+			String personId = peopleDescriptions.get(i).name();
+			Person nextPerson = (Person) Storage.pull(personId);
+			people.add(nextPerson);
+		}
+		
+		return people;
+	}
+	
+	static void updateAllPeople(ArrayList<Person> people)
+	{
+		for(int i=0; i<people.size(); i++)
+		{
+			Person p = people.get(i);
+			Storage.update(p);
+		}
 	}
 	
 	private static String getUriExtension(Page page)
@@ -139,36 +163,159 @@ public class Storage
 	}
 	
 	
-	
-	public static void main(String[] args)
+	//IMPLEMENT THESE
+	static Response responseFactory(String id, String classString)
 	{
-		System.out.println(Storage.client);
-		
-		
-		Person alice = new Person("","");
-		System.out.println(alice.getClass().getName());
-		Page bob = new Person("","");
-		System.out.println(bob.getClass().getName());
-		
-		
-		System.out.println(alice.getId());
-		
-		/*
-		Storage.push(alice);
-		System.out.println("Alice pushed!");
-		Storage.push(bob);
-		System.out.println("Bob pushed!");
-		try
+		String uri = Storage.uriBase + "/" + classString + "/" + id;
+		RObjectResp getResult = Storage.client.get()
+				.uri(uri)
+				.retrieve()
+				.body(RObjectResp.class);
+		if(!getResult.successful())
 		{
-			Storage).push(alice);
+			return null;
 		}
-		catch (Exception e)
-		{
-			System.out.print("Bad: ");
-			System.out.print(e);
-		}
-		*/
 		
+		//response got something, return the specific response type
+		if(classString == "Person")
+		{			
+			RPersonResp getPerson = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RPersonResp.class);
+			return getPerson;
+
+		}
+		else if(classString == "Company")
+		{
+			RPersonResp getPerson = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RPersonResp.class);
+
+			RCompanyResp getCompany = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RCompanyResp.class);
+			return getCompany;
+
+		}
+		else if(classString == "Skill")
+		{
+			RSkillResp getSkill = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RSkillResp.class);
+			return getSkill;
+		}
+		else if(classString == "JobPosting")
+		{
+			RJobPostingResp getJobPosting= Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RJobPostingResp.class);
+			return getJobPosting;
+
+		}
+		else if(classString == "Project")
+		{
+			RProjectResp getProject = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RProjectResp.class);
+			
+			return getProject;
+		}
+		else
+		{
+			//classString == "NewsArticle"
+			RNewsArticleResp getNews = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RNewsArticleResp.class);
+			return getNews;
+		}
 	}
 	
+	static Page pageFactory(Response r, String classString)
+	{
+		/**
+		 * Uses a response and class string to
+		 * generate a page based on the response.
+		 * 
+		 */
+		if(classString == "Person")
+		{
+			RPerson responseData = ((RPersonResp) r).data();
+			Person person = new Person(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks(),
+					responseData.pronouns(),
+					responseData.email(),
+					responseData.phone());
+			return person;
+		}
+		else if(classString == "Company")
+		{
+			RCompany responseData = ((RCompanyResp) r).data();
+			Company company = new Company(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+				
+			return company;
+
+		}
+		else if(classString == "Skill")
+		{
+			RSkill responseData = ((RSkillResp) r).data();
+			Skill skill = new Skill(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+			return skill;
+		}
+		else if(classString == "Project")
+		{
+			RProject responseData = ((RProjectResp) r).data();
+			Project project = new Project(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+			return project;
+		}
+		else if(classString == "NewsArticle")
+		{
+			RNewsArticle responseData = ((RNewsArticleResp) r).data();
+			NewsArticle skill = new NewsArticle(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+			return skill;
+		}
+		else if(classString == "JobPosting")
+		{
+			RJobPosting responseData = ((RJobPostingResp) r).data();
+			JobPosting job = new JobPosting(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+			return job;
+		}
+
+		return null;
+	}
 }

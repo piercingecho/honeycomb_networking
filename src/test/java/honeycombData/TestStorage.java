@@ -21,23 +21,28 @@ class TestStorage
 			"Skill",
 			"JobPosting",
 			"Project",
-			"PageWithoutStorageImplementation",
 			"NewsArticle"
 	};
-	void recreateRestDirectory()
+	public void recreateRestDirectory()
 	{
+		try {
 		String deleteMainDir = Storage.client.delete()
 				.uri(Storage.uriBase)
 				.retrieve()
 				.body(String.class);
+		}
+		catch(Exception e)
+		{
+			//do nothing
+		}
 
 		
 		//create the base directory for Honeycomb
-		PostResponse rest_result = Storage.client.post()
+		RObjectResp rest_result = Storage.client.post()
 				.uri(Storage.uriBase)
 				.body(new RDesc("Honeycomb", "Professional networking app", "v1/Honeycomb"))
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 		
 		
 		System.out.println(rest_result.successful());
@@ -50,16 +55,21 @@ class TestStorage
 					.uri(Storage.uriBase + "/" + pageType)
 					.body(new RDesc(pageType, "An instance of " + pageType, "v1/Honeycomb/" + pageType))
 					.retrieve()
-					.body(PostResponse.class);
+					.body(RObjectResp.class);
 		}
-		
 		//class for ids
 		rest_result = Storage.client.post()
-				.uri(Storage.uriBase + "/" + "IDGeneratorSingleton")
+				.uri(Storage.uriBase + "/" + "IDGenerator")
 				.body(new RDesc("IDGenerator", "An instance of ID Generator", "v1/Honeycomb/IDGeneratorSingleton"))
 				.retrieve()
-				.body(PostResponse.class);
-	}
+				.body(RObjectResp.class);
+		
+		rest_result = Storage.client.post()
+				.uri(Storage.uriBase + "/" + "IDGenerator" + "/" + "0")
+				.body(new RNextID("0", 0))
+				.retrieve()
+				.body(RObjectResp.class);
+		}
 	
 	@BeforeAll
 	static void setup() throws Exception
@@ -69,7 +79,7 @@ class TestStorage
 	@BeforeEach
 	void setUp() throws Exception
 	{
-		recreateRestDirectory();
+		UtilTest.recreateRestDirectory();
 	}
 
 	@Test
@@ -99,11 +109,11 @@ class TestStorage
 		s.createInStorage();
 		
 		
-		PostResponse rest_result = Storage.client.post()
+		RObjectResp rest_result = Storage.client.post()
 				.uri(Storage.uriBase + "/Skill/" + s.getId())
 				.body(s)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 		
 		//the post was already sent in skill's Storage.create().
 		assertEquals(false, rest_result.successful());
@@ -199,17 +209,17 @@ class TestStorage
 		p.setPronouns("she/they");
 		p.setPhone("222-222-2221");
 
-		PostResponse getExisting = Storage.client.get()
+		RObjectResp getExisting = Storage.client.get()
 				.uri(Storage.uriBase + "/Person/" + p.getId())
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 
 		
-		PostResponse res = Storage.client.put()
+		RObjectResp res = Storage.client.put()
 				.uri(Storage.uriBase + "/Person/" + p.getId())
 				.body(p)
 				.retrieve()
-				.body(PostResponse.class);
+				.body(RObjectResp.class);
 		
 		System.out.println(res);
 		
@@ -271,77 +281,280 @@ class TestStorage
 	}
 
 	
+	@Test
+	void testUpdateAllPeople()
+	{
+		Person p1 = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		Person p2 = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		Person p3 = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		ArrayList<Person> people = new ArrayList<Person>();
+		people.add(p1);
+		people.add(p2);
+		people.add(p3);
+		for(int i=0; i<people.size(); i++)
+		{
+			Storage.create(people.get(i));
+			people.get(i).setDescription("Hi new description! :D");
+		}
+		
+		Storage.updateAllPeople(people);
+		
+		
+		for(int i=0; i<people.size(); i++)
+		{
+
+			RPersonResp personRetrieved = Storage.client.get()
+					.uri(Storage.uriBase + "/Person/" + people.get(i).getId())
+					.retrieve()
+					.body(RPersonResp.class);
+			
+			assertEquals(personRetrieved.data().description(), people.get(i).getDescription());
+		}
+
+	}
+	
+	@Test
+	void testResponseFactory()
+	{
+		Person person = new Person("Alice", "likes malice");
+		Company company = new Company("Company", "likes company");
+		NewsArticle news = new NewsArticle("News", "woah it's new");
+		Project project = new Project("Project", "projected to do well");
+		Skill skill = new Skill("Skill", "seems skillful");
+		JobPosting job = new JobPosting("Job", "post pun idk");
+		
+		Storage.create(person);
+		Storage.create(news);
+		Storage.create(company);
+		Storage.create(project);
+		Storage.create(skill);
+		Storage.create(job);
+		
+		//person
+		String id = person.getId();
+		RPersonResp personRetrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Person/" + id)
+				.retrieve()
+				.body(RPersonResp.class);
+		
+		RPersonResp storagePerson= (RPersonResp) Storage.responseFactory(id, "Person");
+		
+		assertEquals(personRetrieved, storagePerson);
+		
+		
+		//company
+		id = company.getId();
+		RCompanyResp retrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Company/" + id)
+				.retrieve()
+				.body(RCompanyResp.class);
+		
+		RCompanyResp storage= (RCompanyResp) Storage.responseFactory(id, "Company");
+		
+		assertEquals(retrieved, storage);
+
+		//skill
+		id = skill.getId();
+		RSkillResp skillRetrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Skill/" + id)
+				.retrieve()
+				.body(RSkillResp.class);
+		
+		RSkillResp skillStorage= (RSkillResp) Storage.responseFactory(id, "Skill");
+		
+		assertEquals(skillRetrieved, skillStorage);
+
+		
+		//project
+		id = project.getId();
+		RProjectResp retrievedProject = Storage.client.get()
+				.uri(Storage.uriBase + "/Project/" + id)
+				.retrieve()
+				.body(RProjectResp.class);
+		
+		RProjectResp storageProject = (RProjectResp) Storage.responseFactory(id, "Project");
+		
+		assertEquals(retrievedProject, storageProject);
+
+		//news
+		id = news.getId();
+		RNewsArticleResp retrievedNewsArticle = Storage.client.get()
+				.uri(Storage.uriBase + "/NewsArticle/" + id)
+				.retrieve()
+				.body(RNewsArticleResp.class);
+		
+		RNewsArticleResp storageNewsArticle = (RNewsArticleResp) Storage.responseFactory(id, "NewsArticle");
+		
+		assertEquals(retrievedNewsArticle, storageNewsArticle);
+
+		//job
+		id = job.getId();
+		RJobPostingResp retrievedJobPosting = Storage.client.get()
+				.uri(Storage.uriBase + "/JobPosting/" + id)
+				.retrieve()
+				.body(RJobPostingResp.class);
+		
+		RJobPostingResp storageJobPosting = (RJobPostingResp) Storage.responseFactory(id, "JobPosting");
+		
+		assertEquals(retrievedJobPosting, storageJobPosting);
+	}
+	
+	@Test
+	void testPageFactory()
+	{
+		Person person = new Person("Alice", "likes malice");
+		Company company = new Company("Company", "likes company");
+		NewsArticle news = new NewsArticle("News", "woah it's new");
+		Project project = new Project("Project", "projected to do well");
+		Skill skill = new Skill("Skill", "seems skillful");
+		JobPosting job = new JobPosting("Job", "post pun idk");
+		
+		Storage.create(person);
+		Storage.create(news);
+		Storage.create(company);
+		Storage.create(project);
+		Storage.create(skill);
+		Storage.create(job);
+		
+		//person
+		String id = person.getId();
+		Response storagePersonResp = Storage.responseFactory(id, "Person");
+		Person storagePerson = (Person) Storage.pageFactory(storagePersonResp, "Person");
+		
+		assertEquals(storagePerson, person);
+	
+		
+		
+		//company
+		id = company.getId();
+		Response storageCompanyResp = Storage.responseFactory(id, "Company");
+		Company storageCompany = (Company) Storage.pageFactory(storageCompanyResp, "Company");
+
+		
+		assertEquals(company, storageCompany);
+
+		//skill
+		id = skill.getId();
+		Response storageSkillResp = Storage.responseFactory(id, "Skill");
+		Page storageSkill = Storage.pageFactory(storageSkillResp, "Skill");
+
+		
+		assertEquals(skill, storageSkill);
+
+		
+		//project
+		id = project.getId();
+		Response storageProjectResp = Storage.responseFactory(id, "Project");
+		Page storageProject = Storage.pageFactory(storageProjectResp, "Project");
+
+		
+		assertEquals(project, storageProject);
+
+		//news
+		id = news.getId();
+		Response storageNewsResp = Storage.responseFactory(id, "NewsArticle");
+		Page storageNews= Storage.pageFactory(storageNewsResp, "NewsArticle");
+		assertEquals(news, storageNews);
+
+		//job
+		id = job.getId();
+		Response storageJobResp = Storage.responseFactory(id, "JobPosting");
+		Page storageJob =  Storage.pageFactory(storageJobResp, "JobPosting");
+		assertEquals(job, storageJob);
+
+	}
+	
+	@Test
+	void testGet()
+	{
+		Person person = new Person("Alice", "likes malice");
+		Company company = new Company("Company", "likes company");
+		NewsArticle news = new NewsArticle("News", "woah it's new");
+		Project project = new Project("Project", "projected to do well");
+		Skill skill = new Skill("Skill", "seems skillful");
+		JobPosting job = new JobPosting("Job", "post pun idk");
+		
+		Storage.create(person);
+		Storage.create(news);
+		Storage.create(company);
+		Storage.create(project);
+		Storage.create(skill);
+		Storage.create(job);
+
+		ArrayList<Page> pages = new ArrayList<Page>();
+		pages.add(person);
+		pages.add(company);
+		pages.add(news);
+		pages.add(project);
+		pages.add(skill);
+		pages.add(job);
+		
+		
+		RPersonResp r = (RPersonResp) Storage.responseFactory("2", "Person");
+	
+		System.out.println(r);
+		
+		String id;
+		for(int i=0; i<pages.size(); i++)
+		{
+			Page currpage = pages.get(i);
+			id = currpage.getId();
+
+			Page storageRetrieved = Storage.pull(id);
+			assertEquals(currpage, storageRetrieved);
+		}
+		
+	}
+	@Test
+	void testNulls()
+	{
+		assertEquals(null, Storage.pull("-1"));
+		
+		Person p = new Person("","");
+		p.setId("5"); //never do this in production
+		assertEquals(false, p.updateInStorage());
+		
+		assertEquals(null, Storage.responseFactory("2", "NOTAVALIDNAME.mp4"));
+		
+		String id = p.getId();
+		Response storagePersonResp = Storage.responseFactory(id, "Person");
+		Page storageNull = Storage.pageFactory(storagePersonResp, "NOTAVALIDNAME.mp4");
+
+		assertEquals(null, storageNull);
+	}
+	
+	@Test
+	void testIDs()
+	{
+		String idone = Storage.getNextID();
+		String idtwo = Storage.getNextID();
+		
+		assertEquals(Integer.parseInt(idtwo), Integer.parseInt(idone)+1);
+	}
+	
+	@Test
+	void testGetAllPeople()
+	{
+		ArrayList<Person> allPeopleInRest = Storage.getAllPeople();
+		assertEquals(allPeopleInRest, new ArrayList<Person>());
+		
+		Person a = new Person("a","b");
+		Person b = new Person("c","d");
+		Storage.create(a);
+		Storage.create(b);
+		
+		ArrayList<Person> compareAgainst = new ArrayList<Person>();
+
+		compareAgainst.add(a);
+		compareAgainst.add(b);
+		
+		allPeopleInRest = Storage.getAllPeople();
+		assertEquals(allPeopleInRest, compareAgainst);
+		
+	}
+
+	
 }
 
 
-
-
-	/*
-	@Test
-	void testSinglePush()
-	{
-		boolean baseResult = Storage.create(new Skill("Python", "Can write in python"));
-		assertEquals(true, baseResult);
-
-		
-		//boolean baseResult = Storage.create(new PageWithoutStorageImplementation("SecondPage", "This is another page!"));
-		//assertEquals(true, baseResult);
-	}
-	/*
-	@Test
-	void testSinglePush()
-	{
-		boolean baseResult = Storage.create(new PageWithoutStorageImplementation("SecondPage", "This is another page!"));
-		assertEquals(true, baseResult);
-	}
-	
-	
-	@Test
-	void testStoringUsingBruteCode()
-	{
-		PageWithoutStorageImplementation p = new PageWithoutStorageImplementation("SecondPage", "This is another page!");
-		String rest_result = Storage.client.post()
-				.uri("http://localhost:8080/v1/Honeycomb/PageWithoutStorageImplementation/" + p.getId())
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(p)
-				.retrieve()
-				.body(String.class);
-		System.out.println(rest_result);
-		
-		ResponsePage getExisting = Storage.client.get()
-				.uri("http://localhost:8080/v1/Honeycomb/PageWithoutStorageImplementation/" + p.getId())
-				.retrieve()
-				.body(ResponsePage.class);
-		
-		System.out.println(getExisting.successful());
-
-	}
-	
-	@Test	
-	void testPush()
-	{
-		PageWithoutStorageImplementation p = new PageWithoutStorageImplementation("SecondPage", "This is another page!");
-		boolean baseResult = Storage.create(p);
-		assertEquals(true, baseResult);
-		
-//		String getExisting = Storage.client.get()
-//				.uri(Storage.uriBase + "/PageWithoutStorageImplementation/" + p.getId())
-//				.retrieve()
-//				.body(String.class);
-//		
-//		RResponse existingResponse = Storage.getRResponseFromString(getExisting);
-		
-
-		
-		PageWithoutStorageImplementation repeatedPage= new PageWithoutStorageImplementation("SamplePage", "This is a page!");
-		boolean unrepeatedResult = Storage.create(repeatedPage);
-		assertEquals(true, unrepeatedResult);
-		
-		
-		System.out.println("Hello");
-		boolean repeatedResult = Storage.create(repeatedPage);
-		assertEquals(false, repeatedResult);
-		
-		//assertEquals(true, result);
-	}*/
 
