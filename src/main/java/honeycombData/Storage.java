@@ -39,10 +39,10 @@ public class Storage
 	{
 		String uri = Storage.uriBase + Storage.getUriExtension(newPage);
 		//does something exist there?
-		RGetString getExisting = Storage.client.get()
+		PostResponse getExisting = Storage.client.get()
 				.uri(uri)
 				.retrieve()
-				.body(RGetString.class);
+				.body(PostResponse.class);
 				
 		if(getExisting.successful() == true)
 		{
@@ -62,32 +62,56 @@ public class Storage
 	
 	static Page pull(String id)
 	{
-//		for(int i=0; i<pageTypes.length; i++)
-//		{
-//			String classString = pageTypes[i];
-//			Response r = Storage.responseFactory(id, classString);
-//			if(r.successful())
-//			{
-//				Page p = Storage.pageFactory(r, classString);
-//				return p;
-//			}
-//		}
+		
+		//we try each page type
+		for(int i=0; i<pageTypes.length; i++)
+		{
+			String classString = pageTypes[i];
+			Response r = Storage.responseFactory(id, classString);
+			if(r.successful())
+			{
+				Page p = Storage.pageFactory(r, classString);
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	
+	//IMPLEMENT THESE
+	static Response responseFactory(String id, String classString)
+	{
+		return null;
+	}
+	
+	static Page pageFactory(Response r, String classString)
+	{
 		return null;
 	}
 	
 	
 	static boolean update(Page p)
 	{
-		return true;
+		String uri = Storage.uriBase + Storage.getUriExtension(p);
+		PostResponse getExisting = Storage.client.get()
+				.uri(uri)
+				.retrieve()
+				.body(PostResponse.class);
+				
+		if(getExisting.successful() == false)
+		{
+			//does not exist. Use post for creating objects.
+			return false;
+		}
 
-//		String uri = Storage.uriBase + Storage.getUriExtension(p);
-//		PostResponse rest_result = Storage.client.post()
-//				.uri(uri)
-//				.body(p)
-//				.retrieve()
-//				.body(PostResponse.class);
-//
-		//return rest_result.successful();
+		PostResponse rest_result = Storage.client.put()
+				.uri(uri)
+				.body(p)
+				.retrieve()
+				.body(PostResponse.class);
+
+		return rest_result.successful();
+		
 	}
 	
 	static String getNextId()

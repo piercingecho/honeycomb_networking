@@ -7,4 +7,5 @@ public record RNewsArticleResp(
 		boolean successful,
 		String message,
 		RNewsArticle data
-	) {};
+	) implements Response
+{};

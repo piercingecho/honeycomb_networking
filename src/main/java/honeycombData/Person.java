@@ -22,7 +22,6 @@ public class Person extends Page
 		this.pronouns = "";
 		this.email = "";
 		this.phone = "";
-		Storage.create(this);
 	}
 
 	public Person(String name, String description, String pronouns, String email, String phone)
@@ -31,7 +30,6 @@ public class Person extends Page
 		this.pronouns = pronouns;
 		this.email = email;
 		this.phone = phone;
-		Storage.create(this);
 	}
 	
 	public final String[] rolesIs()

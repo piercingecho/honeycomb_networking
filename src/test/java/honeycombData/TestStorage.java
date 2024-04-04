@@ -81,18 +81,24 @@ class TestStorage
 	void testPersonPost()
 	{
 		Person p = new Person("Alice", "Alice al", "she/her", "alice@alice.alice", "222-222-2222");
+		p.createInStorage();
 	}
 	@Test
 	void testNewsPost()
 	{
 		NewsArticle testNews = new NewsArticle("testnews", "testnews");
+		testNews.createInStorage();
 	}
 	
 	@Test
-	void testPost()
+	void testRepeatedPost()
 	{
 		// post a skill by instantiating it
 		Skill s = new Skill("Python", "Can write in python");
+		
+		s.createInStorage();
+		
+		
 		PostResponse rest_result = Storage.client.post()
 				.uri(Storage.uriBase + "/Skill/" + s.getId())
 				.body(s)
@@ -101,31 +107,170 @@ class TestStorage
 		
 		//the post was already sent in skill's Storage.create().
 		assertEquals(false, rest_result.successful());
-		
-		//what is working
-		PostResponse objRetrieved = Storage.client.get()
-				.uri(Storage.uriBase + "/Skill/" + s.getId())
-				.retrieve()
-				.body(PostResponse.class);
-		
-		System.out.println(objRetrieved);
-		Object newobj = objRetrieved.data();
-		System.out.println(newobj);
-		
 
-		//what i want to work
+	}
+	
+	@Test
+	void testRepeatedCreate()
+	{
+		// post a skill by instantiating it
+		Skill s = new Skill("Python", "Can write in python");
+		
+		boolean first_post = s.createInStorage();
+		
+		boolean second_post = s.createInStorage();
+				
+		//the post was already sent in skill's Storage.create().
+		assertEquals(false, second_post);
+		assertEquals(true, first_post);
+
+	}
+
+	
+	@Test
+	void testPostOtherPage()
+	{
+		//skill
+		Skill s = new Skill("Python", "Can write in python");
+		
+		s.createInStorage();
+		
 		RSkillResp skillRetrieved = Storage.client.get()
 				.uri(Storage.uriBase + "/Skill/" + s.getId())
 				.retrieve()
 				.body(RSkillResp.class);
 		
-		System.out.println(skillRetrieved);
 		RSkill newskill = skillRetrieved.data();
-		System.out.println(newskill);
+		
+		assertEquals(newskill.description(), s.getDescription());
+		assertEquals(newskill.id(), s.getId());
+		assertEquals(newskill.name(), s.getName());
+		
+		
+		//company
+		Company c = new Company("Python", "Can write in python");
+		
+		c.createInStorage();
+		
+		RCompanyResp companyRetrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Company/" + c.getId())
+				.retrieve()
+				.body(RCompanyResp.class);
+		
+		RCompany newcompany = companyRetrieved.data();
+		
+		assertEquals(newcompany.description(), c.getDescription());
+		assertEquals(newcompany.id(), c.getId());
+		assertEquals(newcompany.name(), c.getName());
+
+	}
+	
+	@Test
+	void testPostPerson()
+	{
+		Person p = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		
+		p.createInStorage();
+		
+		RPersonResp personRetrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Person/" + p.getId())
+				.retrieve()
+				.body(RPersonResp.class);
+		
+		RPerson newperson = personRetrieved.data();
+		
+		assertEquals(newperson.description(), p.getDescription());
+		assertEquals(newperson.id(), p.getId());
+		assertEquals(newperson.name(), p.getName());
+		
+		assertEquals(newperson.email(), p.getEmail());
+		assertEquals(newperson.pronouns(), p.getPronouns());
+
+
+	}
+	
+	@Test
+	void testPutManual()
+	{
+		Person p = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		p.createInStorage();
+
+		p.setEmail("c@d.org");
+		p.setPronouns("she/they");
+		p.setPhone("222-222-2221");
+
+		PostResponse getExisting = Storage.client.get()
+				.uri(Storage.uriBase + "/Person/" + p.getId())
+				.retrieve()
+				.body(PostResponse.class);
 
 		
+		PostResponse res = Storage.client.put()
+				.uri(Storage.uriBase + "/Person/" + p.getId())
+				.body(p)
+				.retrieve()
+				.body(PostResponse.class);
+		
+		System.out.println(res);
 		
 	}
+	
+	@Test
+	void testUpdatePerson()
+	{
+		Person p = new Person("person", "holds their purse in", "he/she", "a@b.com", "111-111-1112");
+		p.createInStorage();
+
+		p.setEmail("c@d.org");
+		p.setPronouns("she/they");
+		p.setPhone("222-222-2221");
+		
+		p.updateInStorage();
+		
+		RPersonResp personRetrieved = Storage.client.get()
+				.uri(Storage.uriBase + "/Person/" + p.getId())
+				.retrieve()
+				.body(RPersonResp.class);
+
+		
+		RPerson newperson = personRetrieved.data();
+		
+		assertEquals(newperson.description(), p.getDescription());
+		assertEquals(newperson.id(), p.getId());
+		assertEquals(newperson.name(), p.getName());
+		
+		assertEquals(newperson.email(), p.getEmail());
+		assertEquals(newperson.pronouns(), p.getPronouns());
+
+
+	}
+	
+	@Test
+	void testUpdateOtherPage()
+	{
+		Skill s = new Skill("Python", "Can write in python");
+		
+		s.createInStorage();
+		
+		s.setDescription("A snake");
+		s.setName("Live Python");
+		
+		s.updateInStorage();
+		
+		RSkillResp skillRetrieved = Storage.client.get()
+		.uri(Storage.uriBase + "/Skill/" + s.getId())
+		.retrieve()
+		.body(RSkillResp.class);
+
+		RSkill newskill = skillRetrieved.data();
+		
+		assertEquals(newskill.description(), s.getDescription());
+		assertEquals(newskill.id(), s.getId());
+		assertEquals(newskill.name(), s.getName());
+
+	}
+
+	
 }
 
 

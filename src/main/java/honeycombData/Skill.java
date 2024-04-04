@@ -22,7 +22,6 @@ public class Skill extends Page
 	public Skill(String name, String description)
 	{
 		super(name, description);
-		Storage.create(this);
 	}
 	public String[] rolesIs()
 	{

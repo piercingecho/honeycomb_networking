@@ -7,4 +7,5 @@ public record RJobPostingResp(
 	boolean successful,
 	String message,
 	RJobPosting data
-) {};
+) implements Response
+{};

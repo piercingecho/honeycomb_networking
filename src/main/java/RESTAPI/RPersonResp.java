@@ -6,5 +6,6 @@ public record RPersonResp(
 		String request,
 		boolean successful,
 		String message,
-		Person data
-	) {};
+		RPerson data
+	) implements Response
+{};

@@ -7,5 +7,6 @@ public record RProjectResp(
 	boolean successful,
 	String message,
 	RProject data
-) {};
+) implements Response
+{};
 

@@ -53,6 +53,11 @@ public abstract class Page
 	{
 		return id;
 	}
+	
+	public String setId()
+	{
+		return id;
+	}
 
 	
 	/**
@@ -69,7 +74,6 @@ public abstract class Page
 	public void setName(String name)
 	{
 		this.name = name;
-		Storage.update(this);
 	}
 
 	/**
@@ -86,7 +90,6 @@ public abstract class Page
 	public void setDescription(String description)
 	{
 		this.description = description;
-		Storage.update(this);
 	}
 	
 	public HashMap<String, ArrayList<String>> getInternalLinks()
@@ -142,13 +145,11 @@ public abstract class Page
 	public void removeExternalLink(String link)
 	{
 		this.externalLinks.remove(link);
-		Storage.update(this);
 	}
 	
 	public void addExternalLink(String link)
 	{
 		this.externalLinks.add(link);
-		Storage.update(this);
 	}
 	
 	public boolean hasExternaLink(String link)
@@ -192,7 +193,6 @@ public abstract class Page
 			current_pages.add(newPageId);
 		}
 
-		Storage.update(this);
 	}
 	
 	/**
@@ -215,7 +215,6 @@ public abstract class Page
 		ArrayList<String> current_pages = internalLinks.get(role);
 		
 		current_pages.remove(page.getId());
-		Storage.update(this);
 	}
 	
 	/**
@@ -238,7 +237,15 @@ public abstract class Page
 		return this.internalLinks.get(role);
 	}
 	
+	public boolean updateInStorage()
+	{
+		return Storage.update(this);
+	}
 	
+	public boolean createInStorage()
+	{
+		return Storage.create(this);
+	}
 	
 	
 	

@@ -23,7 +23,6 @@ public class JobPosting extends Page
 	public JobPosting(String name, String description)
 	{
 		super(name, description);
-		Storage.create(this);
 	}
 	public String[] rolesIs()
 	{

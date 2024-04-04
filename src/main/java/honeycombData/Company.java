@@ -18,7 +18,6 @@ public class Company extends Page
 	public Company(String name, String description)
 	{
 		super(name, description);
-		Storage.create(this);
 	}
 	public String[] rolesIs()
 	{

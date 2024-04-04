@@ -8,4 +8,5 @@ public record RSkillResp
 		boolean successful,
 		String message,
 		RSkill data
-	) {};
+	) implements Response
+{};

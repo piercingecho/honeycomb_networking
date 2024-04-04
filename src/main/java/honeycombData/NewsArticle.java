@@ -22,7 +22,6 @@ public class NewsArticle extends Page
 	public NewsArticle(String name, String description)
 	{
 		super(name, description);
-		Storage.create(this);
 	}
 	public String[] rolesIs()
 	{

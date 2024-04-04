@@ -21,7 +21,6 @@ public class Project extends Page
 	public Project(String name, String description)
 	{
 		super(name, description);
-		Storage.create(this);
 	}
 	public String[] rolesIs()
 	{

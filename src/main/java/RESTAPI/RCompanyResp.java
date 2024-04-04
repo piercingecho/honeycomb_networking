@@ -7,5 +7,6 @@ public record RCompanyResp(
 	boolean successful,
 	String message,
 	RCompany data
-) {};
+) implements Response
+{};
 
