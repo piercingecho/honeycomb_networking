@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
+//import org.springframework.http.MediaType;
 
-import RESTAPI.*;
+//import RESTAPI.*;
 import simpleRESTServer.*;
 
 class TestStorage
@@ -26,7 +26,7 @@ class TestStorage
 	public void recreateRestDirectory()
 	{
 		try {
-		String deleteMainDir = Storage.client.delete()
+		Storage.client.delete()
 				.uri(Storage.uriBase)
 				.retrieve()
 				.body(String.class);
@@ -45,7 +45,6 @@ class TestStorage
 				.body(RObjectResp.class);
 		
 		
-		System.out.println(rest_result.successful());
 		
 		//create the base directories for other classes
 		for(int i=0; i<Storage.pageTypes.length; i++)
@@ -69,6 +68,11 @@ class TestStorage
 				.body(new RNextID("0", 0))
 				.retrieve()
 				.body(RObjectResp.class);
+		
+		if(!rest_result.successful())
+		{
+			fail("REST Setup unsuccessful");
+		}
 		}
 	
 	@BeforeAll
@@ -209,20 +213,18 @@ class TestStorage
 		p.setPronouns("she/they");
 		p.setPhone("222-222-2221");
 
-		RObjectResp getExisting = Storage.client.get()
+		Storage.client.get()
 				.uri(Storage.uriBase + "/Person/" + p.getId())
 				.retrieve()
 				.body(RObjectResp.class);
 
 		
-		RObjectResp res = Storage.client.put()
+		Storage.client.put()
 				.uri(Storage.uriBase + "/Person/" + p.getId())
 				.body(p)
 				.retrieve()
 				.body(RObjectResp.class);
-		
-		System.out.println(res);
-		
+				
 	}
 	
 	@Test
@@ -490,9 +492,10 @@ class TestStorage
 		pages.add(job);
 		
 		
-		RPersonResp r = (RPersonResp) Storage.responseFactory("2", "Person");
-	
-		System.out.println(r);
+		//RPersonResp r = (RPersonResp) Storage.responseFactory("2", "Person");
+		Storage.responseFactory("2", "Person");
+		
+		//System.out.println("R" + r);
 		
 		String id;
 		for(int i=0; i<pages.size(); i++)

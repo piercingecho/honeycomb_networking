@@ -2,11 +2,6 @@ package honeycombData;
 
 import RESTAPI.*;
 import org.springframework.web.client.RestClient;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-
-import org.springframework.http.MediaType;
 import java.util.ArrayList;
 
 
@@ -119,6 +114,11 @@ public class Storage
 				.body(newIDToStore)
 				.retrieve()
 				.body(RObjectResp.class);
+		if(!resp.successful())
+		{
+			// pushing new ID to rest server did not succeed
+			idToReturn = "-1";
+		}
 		return idToReturn;
 
 	}
@@ -188,11 +188,6 @@ public class Storage
 		}
 		else if(classString == "Company")
 		{
-			RPersonResp getPerson = Storage.client.get()
-					.uri(uri)
-					.retrieve()
-					.body(RPersonResp.class);
-
 			RCompanyResp getCompany = Storage.client.get()
 					.uri(uri)
 					.retrieve()

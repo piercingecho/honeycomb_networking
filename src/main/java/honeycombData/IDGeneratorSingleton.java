@@ -3,7 +3,6 @@ package honeycombData;
 public class IDGeneratorSingleton
 {
 	private static IDGeneratorSingleton generator;
-	private int current_id_num;
 	private IDGeneratorSingleton()
 	{
 		//this.current_id_num = 0;

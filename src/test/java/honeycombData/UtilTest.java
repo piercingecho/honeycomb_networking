@@ -1,9 +1,9 @@
 package honeycombData;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
 
 import RESTAPI.RNextID;
 import RESTAPI.RObjectResp;
@@ -23,7 +23,7 @@ class UtilTest
 	public static void recreateRestDirectory()
 	{
 		try {
-		String deleteMainDir = Storage.client.delete()
+		Storage.client.delete()
 				.uri(Storage.uriBase)
 				.retrieve()
 				.body(String.class);

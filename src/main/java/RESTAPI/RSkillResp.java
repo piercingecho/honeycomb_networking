@@ -1,7 +1,5 @@
 package RESTAPI;
 
-import honeycombData.Skill;
-
 public record RSkillResp
 (
 		String request,

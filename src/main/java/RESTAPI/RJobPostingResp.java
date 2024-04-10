@@ -1,7 +1,5 @@
 package RESTAPI;
 
-import honeycombData.JobPosting;
-
 public record RJobPostingResp(
 	String request,
 	boolean successful,

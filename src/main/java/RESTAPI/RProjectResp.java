@@ -1,7 +1,5 @@
 package RESTAPI;
 
-import honeycombData.Company;
-
 public record RProjectResp(
 	String request,
 	boolean successful,

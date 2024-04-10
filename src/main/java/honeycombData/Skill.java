@@ -1,5 +1,4 @@
 package honeycombData;
-import RESTAPI.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
