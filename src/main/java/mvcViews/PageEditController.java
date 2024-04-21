@@ -2,12 +2,12 @@ package mvcViews;
 
 import javafx.event.ActionEvent;
 import mvcModel.PageTransitionModel;
-import mvcModel.PersonModel;
+import mvcModel.PersonDemoModel;
 
 public class PageEditController{
-	PersonModel model;
+	PersonDemoModel model;
 	PageTransitionModel transitionModel;
-	public void setModel(PersonModel newModel, PageTransitionModel transition) {
+	public void setModel(PersonDemoModel newModel, PageTransitionModel transition) {
 		model = newModel;
 		transitionModel = transition;
 	}

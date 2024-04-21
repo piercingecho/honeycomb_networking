@@ -9,10 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import mvcModel.AllPagesModel;
 import mvcModel.DirectoryTransitionModel;
-import mvcModel.PersonModel;
+import mvcModel.PersonDemoModel;
 
 public class AllPageTypesFlowController {
-	PersonModel model;
+	PersonDemoModel model;
 	AllPagesModel allPagesModel;
 	
     @FXML
@@ -69,7 +69,7 @@ public class AllPageTypesFlowController {
 
     }
 
-	public void setModel(PersonModel model, AllPagesModel allPagesModel)
+	public void setModel(PersonDemoModel model, AllPagesModel allPagesModel)
 	{
 		this.model = model;
 		this.allPagesModel = allPagesModel;

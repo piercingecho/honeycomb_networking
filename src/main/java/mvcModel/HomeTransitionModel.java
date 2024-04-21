@@ -11,22 +11,24 @@ import mvcViews.PersonCanEditController;
 
 public class HomeTransitionModel {
 	BorderPane mainview;
-	PersonModel model;
 	
-	public HomeTransitionModel(BorderPane view, PersonModel newModel) {
+	public HomeTransitionModel(BorderPane view) {
 		mainview = view;
-		model = newModel;
 	}
 	
 	public void showHome() {
+		//person edit for themselves
+		String personId = SessionSingleton.getInstance().getUserId();
+		
 	    FXMLLoader loader = new FXMLLoader();
 	    loader.setLocation(HomeTransitionModel.class
-	        .getResource("../views/PersonCanEditView.fxml"));
+	        .getResource("../mvcViews/PersonCanEditView.fxml"));
 	    try {
 	      Node view = (Node)loader.load();
 	      PersonCanEditController cont = loader.getController();
-	  	  PersonTransitionModel personTransitionModel = new PersonTransitionModel(mainview,model);
-	      cont.setModel(model,personTransitionModel);
+	  	  PersonTransitionModel personTransitionModel = new PersonTransitionModel(mainview,personId);
+	  	  	  	  
+	      cont.setModel(personId,personTransitionModel);
 	      mainview.setCenter(view);
 
 	    } catch (IOException e) {
@@ -35,14 +37,16 @@ public class HomeTransitionModel {
 	    }
 	}
 	public void showSearch() {
+		String personId = SessionSingleton.getInstance().getUserId();
+
 	    FXMLLoader loader = new FXMLLoader();
 	    loader.setLocation(HomeTransitionModel.class
-	        .getResource("../views/Directory.fxml"));
+	        .getResource("../mvcViews/Directory.fxml"));
 	    try {
 	      Node view = (Node)loader.load();
 	      DirectoryController cont = loader.getController();
-	      DirectoryTransitionModel transitionModel = new DirectoryTransitionModel(mainview,model);
-	      cont.setModel(model,transitionModel);
+	      DirectoryTransitionModel transitionModel = new DirectoryTransitionModel(mainview);
+	      cont.setModel(transitionModel);
 	      mainview.setCenter(view);
 	      
 	    } catch (IOException e) {
@@ -53,7 +57,7 @@ public class HomeTransitionModel {
 	public void showLogin() {
 	    FXMLLoader loader = new FXMLLoader();
 	    loader.setLocation(HomeTransitionModel.class
-	        .getResource("../views/LoginPage.fxml"));
+	        .getResource("../mvcViews/LoginPage.fxml"));
 	    try {
 	      Pane view = loader.load();
 

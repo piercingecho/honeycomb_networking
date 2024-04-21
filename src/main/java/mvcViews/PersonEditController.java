@@ -7,12 +7,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import mvcModel.PersonDemoModel;
 import mvcModel.PersonModel;
 import mvcModel.PersonTransitionModel;
 
 public class PersonEditController {
+	String personId;
 	PersonModel model;
 	PersonTransitionModel transition;
+	
+	
     @FXML
     private TextArea descriptionField;
 
@@ -38,37 +42,28 @@ public class PersonEditController {
     void onAddLinkClick(ActionEvent event) {
 
     }
-    public void setModel(PersonModel newModel, PersonTransitionModel transitionModel)
+    public void setModel(String id, PersonTransitionModel transitionModel)
     {
-    	model = newModel;
+    	personId = id;
+    	model = new PersonModel(id);
     	transition = transitionModel;
     	
-    	nameField.setText(model.getName().get()); 
-    	emailField.setText(model.getEmail().get()); 
-    	pronounsField.setText(model.getPronouns().get()); 
-    	phoneField.setText(model.getPhone().get()); 
-    	descriptionField.setText(model.getDescription().get()); 
+    	System.out.println(model.getName().getValue());
+    	System.out.println(model.getDescription().getValue());
 
     	
-    	
-//    	Bindings.bindBidirectional(nameField.textProperty(), model.getName());
-//    	Bindings.bindBidirectional(pronounsField.textProperty(), model.getPronouns());
-//    	Bindings.bindBidirectional(emailField.textProperty(), model.getEmail());
-//    	Bindings.bindBidirectional(phoneField.textProperty(), model.getPhone());
-//    	Bindings.bindBidirectional(descriptionField.textProperty(), model.getDescription());
+    	Bindings.bindBidirectional(nameField.textProperty(), model.getName());
+    	Bindings.bindBidirectional(pronounsField.textProperty(), model.getPronouns());
+    	Bindings.bindBidirectional(emailField.textProperty(), model.getEmail());
+    	Bindings.bindBidirectional(phoneField.textProperty(), model.getPhone());
+    	Bindings.bindBidirectional(descriptionField.textProperty(), model.getDescription());
 
     	
     }
     @FXML
     public void onUpdateClick(ActionEvent event) {
     	//update variables
-    	model.getName().setValue(nameField.getText());
-    	model.getEmail().setValue(emailField.getText());
-    	model.getPronouns().setValue(pronounsField.getText());
-    	model.getPhone().setValue(phoneField.getText());
-    	model.getDescription().setValue(descriptionField.getText());
-
-
+    	model.updatePageInStorage();
     	
     	transition.showUneditable();
     }

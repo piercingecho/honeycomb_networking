@@ -115,6 +115,10 @@ public class Person extends Page
 	
 	public boolean canView(Page page) throws RoleNotAllowedException
 	{
+		if(page.getId() == this.id)
+		{
+			return true;
+		}
 		ArrayList<String> viewers = page.getInternalLinks("viewer");
 		if(viewers.isEmpty())
 		{
@@ -131,6 +135,10 @@ public class Person extends Page
 	
 	public boolean canEdit(Page page) throws RoleNotAllowedException
 	{
+		if(page.getId() == this.id)
+		{
+			return true;
+		}
 		ArrayList<String> viewers = page.getInternalLinks("editor");
 		
 		if(viewers.contains(this.getId()))
@@ -147,6 +155,7 @@ public class Person extends Page
 		this.addInternalLink(page, "following");
 		page.addInternalLink(this, "follower");
 	}
+	
 	@Override
 	public boolean equals(Object obj)
 	{

@@ -12,14 +12,14 @@ import javafx.scene.layout.Pane;
 import mvcModel.AllLinksModel;
 import mvcModel.AllPagesModel;
 import mvcModel.LoginNavigationModel;
-import mvcModel.PersonModel;
+import mvcModel.PersonDemoModel;
 
 public class PersonLinksTypesFlowController {
-	PersonModel model; // this will be the page we're looking at
+	PersonDemoModel model; // this will be the page we're looking at
 	AllLinksModel allLinksModel;
 
 	
-	public void setModel(PersonModel model, AllLinksModel allLinks)
+	public void setModel(PersonDemoModel model, AllLinksModel allLinks)
 	{
 		this.model = model;
 		this.allLinksModel = allLinks;

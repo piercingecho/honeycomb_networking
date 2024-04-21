@@ -10,15 +10,22 @@ import mvcViews.PageEditController;
 
 public class PageTransitionModel extends TransitionModel {
 
+	PageModel currentPage;
+	String pageId;
 	
-	public PageTransitionModel(BorderPane view, PersonModel newModel, String personId) {
-		super(view, newModel);	}
+	public PageTransitionModel(BorderPane view, String pageId) {
+		super(view, pageId);	
+		currentPage = new PageModel(pageId);
+
+		
+		
+	}
 
 	public void showEditable()
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PageEditView.fxml"));
+			        .getResource("../mvcViews/PageEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
@@ -33,7 +40,7 @@ public class PageTransitionModel extends TransitionModel {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PageCanEditView.fxml"));
+			        .getResource("../mvcViews/PageCanEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
@@ -48,7 +55,7 @@ public class PageTransitionModel extends TransitionModel {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PageFollowedCanEditView.fxml"));
+			        .getResource("../mvcViews/PageFollowedCanEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
@@ -63,7 +70,7 @@ public class PageTransitionModel extends TransitionModel {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PageFollowedView.fxml"));
+			        .getResource("../mvcViews/PageFollowedView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
@@ -78,7 +85,7 @@ public class PageTransitionModel extends TransitionModel {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PageView.fxml"));
+			        .getResource("../mvcViews/PageView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);

@@ -7,7 +7,10 @@ import javafx.event.ActionEvent;
 public class HomeBarController {
 
 	HomeTransitionModel model;
-	
+	public HomeBarController()
+	{
+		
+	}
 	public void setModel(HomeTransitionModel newModel) {
 		model = newModel;
 	}

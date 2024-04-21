@@ -13,9 +13,9 @@ import mvcViews.PageCanEditController;
 public class AllLinksModel {
 	
 	BorderPane mainview;
-	PersonModel model;
+	PersonDemoModel model;
 	
-	AllLinksModel(BorderPane mainview, PersonModel model)
+	AllLinksModel(BorderPane mainview, PersonDemoModel model)
 	{
 		this.mainview = mainview;
 		this.model = model; //in the future this is the page that we want

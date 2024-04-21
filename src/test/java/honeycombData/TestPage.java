@@ -12,6 +12,8 @@ class TestPage
 	
 	Company place;
 	Company hub;
+	Company otherSpot;
+	Company thisSpot;
 	
 	@BeforeEach
 	void setUp() throws Exception
@@ -21,6 +23,8 @@ class TestPage
 		bob = new Person("Bob", "Test person two");
 		place = new Company("Place", "can be a place people work");
 		hub = new Company("Hub", "can be a hub people work");
+		thisSpot = new Company("","");
+		otherSpot = new Company("","");
 	}
 
 	@Test
@@ -161,8 +165,46 @@ class TestPage
 		catch(Exception e)
 		{
 		}
-
+	}
+	
+	@Test
+	void testInternalLinksEqual()
+	{
+		alice.addInternalLink(hub, "employer");
+		alice.addInternalLink(place, "employer");
+		bob.addInternalLink(hub, "employer");
+		bob.addInternalLink(place, "employer");
 		
+		assertTrue(alice.internalLinksEqual(bob));
+		
+		alice.addInternalLink(thisSpot, "employer");
+		assertFalse(alice.internalLinksEqual(bob));
+		
+		bob.addInternalLink(otherSpot, "employer");
+		assertFalse(alice.internalLinksEqual(bob));
+
+		bob.addInternalLink(thisSpot, "employer");
+		assertFalse(alice.internalLinksEqual(bob));
+		
+		bob.deleteInternalLink(thisSpot, "employer");
+		bob.addInternalLink(otherSpot, "employer");
+		assertFalse(alice.internalLinksEqual(bob));
+
+		bob.addInternalLink(thisSpot, "employer");
+		alice.addInternalLink(otherSpot, "employer");
+		assertTrue(alice.internalLinksEqual(bob));
+
+
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

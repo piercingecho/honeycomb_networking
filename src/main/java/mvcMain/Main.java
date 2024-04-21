@@ -16,14 +16,10 @@ public class Main extends Application
   public void start(Stage stage) throws Exception
   {        
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(Main.class.getResource("../views/BackgroundView.fxml"));
-	  BorderPane view = loader.load();
+    loader.setLocation(Main.class.getResource("../mvcViews/BackgroundView.fxml"));
+    BorderPane view = loader.load();
 	
     LoginPageController cont = loader.getController();
-    if(cont == null)
-    {
-    	System.out.println("SHIT");
-    }
     LoginNavigationModelInterface navModel = new LoginNavigationModel(view); 
 
     cont.setModel(navModel);

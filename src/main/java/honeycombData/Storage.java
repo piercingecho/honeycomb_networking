@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Storage
 {		
 	static RestClient client = RestClient.create();
-	static String uriBase = "http://localhost:9000/v1/Honeycomb";	
+	static String uriBase = "http://localhost:8080/v1/Honeycomb";	
 
 	
 	// For GET/pull to work, we must go through each class that we store.
@@ -26,7 +26,7 @@ public class Storage
 	
 	// uri format: uriBase/classname/objectid
 	
-	static boolean create(Page newPage)
+	public static boolean create(Page newPage)
 	{
 		String uri = Storage.uriBase + Storage.getUriExtension(newPage);
 		//does something exist there?
@@ -51,7 +51,7 @@ public class Storage
 		return rest_result.successful();
 	}
 	
-	static Page pull(String id)
+	public static Page pull(String id)
 	{
 		
 		//we try each page type
@@ -69,7 +69,7 @@ public class Storage
 	}
 	
 	
-	static boolean update(Page p)
+	public static boolean update(Page p)
 	{
 		String uri = Storage.uriBase + Storage.getUriExtension(p);
 		RObjectResp getExisting = Storage.client.get()

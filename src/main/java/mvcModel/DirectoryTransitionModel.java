@@ -15,9 +15,7 @@ import mvcViews.PersonLinksTypesFlowController;
 public class DirectoryTransitionModel 
 {
 	BorderPane mainview;
-	PersonModel model;
-	public DirectoryTransitionModel(BorderPane view, PersonModel newModel) {
-		model = newModel;
+	public DirectoryTransitionModel(BorderPane view) {
 		mainview = view;
 	}
 	
@@ -25,12 +23,12 @@ public class DirectoryTransitionModel
 	public void showAllPages() {
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/AllPageTypesFlowView.fxml"));
+			        .getResource("../mvcViews/AllPageTypesFlowView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      AllPageTypesFlowController cont = loader.getController();
-			      cont.setModel(model, new AllPagesModel(mainview, model));
+			      cont.setModel(new AllPagesModel(mainview));
 			    } catch (IOException e) {
 			      e.printStackTrace();
 			    }
@@ -38,9 +36,10 @@ public class DirectoryTransitionModel
 
 	public void showLinkPages()
 	{
+		String userId = SessionSingleton.getInstance().getUserId();
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonLinksTypesFlowView.fxml"));
+			        .getResource("../mvcViews/PersonLinksTypesFlowView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);

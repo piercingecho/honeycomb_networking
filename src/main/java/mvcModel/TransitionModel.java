@@ -4,10 +4,11 @@ import javafx.scene.layout.BorderPane;
 
 public abstract class TransitionModel {
 	BorderPane mainview;
-	PersonModel model;
-	public TransitionModel(BorderPane view, PersonModel newModel) {
+	PersonDemoModel model;
+	String currentlyViewedId;
+	public TransitionModel(BorderPane view, String id) {
 		mainview = view;
-		model = newModel;
+		currentlyViewedId = id;
 	}
 	public abstract void showEditable();
 	public abstract void showUneditable();

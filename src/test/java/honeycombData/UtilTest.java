@@ -1,5 +1,7 @@
 package honeycombData;
 
+import java.util.ArrayList;
+
 //import static org.junit.jupiter.api.Assertions.*;
 
 //import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +11,7 @@ import RESTAPI.RNextID;
 import RESTAPI.RObjectResp;
 import simpleRESTServer.RDesc;
 
-class UtilTest
+public class UtilTest
 {
 	static final String[] pageTypes = {
 			"Person",
@@ -42,7 +44,7 @@ class UtilTest
 				.body(RObjectResp.class);
 		
 		
-		System.out.println(rest_result.successful());
+		//System.out.println(rest_result.successful());
 		
 		//create the base directories for other classes
 		for(int i=0; i<Storage.pageTypes.length; i++)
@@ -54,6 +56,7 @@ class UtilTest
 					.retrieve()
 					.body(RObjectResp.class);
 		}
+		
 		//class for ids
 		rest_result = Storage.client.post()
 				.uri(Storage.uriBase + "/" + "IDGenerator")
@@ -67,6 +70,46 @@ class UtilTest
 				.retrieve()
 				.body(RObjectResp.class);
 		}
+
+	public static void createSampleData(ArrayList<Person> people, ArrayList<Company> companies, ArrayList<Skill> skills,
+			ArrayList<JobPosting> jobs)
+	{
+		for(int i=0; i<3; i++)
+		{
+			Person personi = new Person("number"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
+			personi.addExternalLink("github.io/" + Integer.toString(i*5));
+			personi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			people.add(personi);
+			
+			Storage.create(personi);
+			
+			Company companyi = new Company("number"+Integer.toString(i),"Indexed company");
+			companyi.addExternalLink("github.io/" + Integer.toString(i*5));
+			companyi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			companies.add(companyi);
+			
+			Storage.create(companyi);
+			
+			Skill skilli = new Skill("number"+Integer.toString(i),"Indexed company");
+			skilli.addExternalLink("github.io/" + Integer.toString(i*5));
+			skilli.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			skills.add(skilli);
+			
+			Storage.create(skilli);
+			
+			JobPosting jobi = new JobPosting("number"+Integer.toString(i),"Indexed company");
+			jobi.addExternalLink("github.io/" + Integer.toString(i*5));
+			jobi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			jobs.add(jobi);
+			
+			Storage.create(jobi);
+		}
+		
+	}
 
 
 }

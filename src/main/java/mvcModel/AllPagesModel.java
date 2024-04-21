@@ -6,9 +6,9 @@ import javafx.scene.layout.BorderPane;
 public class AllPagesModel
 {
 	BorderPane mainview;
-	PersonModel model;
+	PersonDemoModel model;
 	
-	AllPagesModel(BorderPane mainview, PersonModel model)
+	AllPagesModel(BorderPane mainview, PersonDemoModel model)
 	{
 		this.mainview = mainview;
 		this.model = model;

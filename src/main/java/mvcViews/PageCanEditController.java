@@ -4,14 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import mvcModel.PageTransitionModel;
+import mvcModel.PersonDemoModel;
 import mvcModel.PersonModel;
 
 public class PageCanEditController
 {
+	String personId;
 	PersonModel model;
 	PageTransitionModel transition;
-	public void setModel(PersonModel newModel, PageTransitionModel transitionModel) {
-		model = newModel;
+	public void setModel(String id, PageTransitionModel transitionModel)
+	{
+		personId = id;
+		model = new PersonModel(id);
 		transition = transitionModel;
 	}
     @FXML

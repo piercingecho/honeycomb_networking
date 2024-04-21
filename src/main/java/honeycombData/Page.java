@@ -251,6 +251,51 @@ public abstract class Page
 	{
 		return Storage.create(this);
 	}
+	
+	public boolean internalLinksEqual(Page that)
+	{
+		// internal links won't be equal if they aren't the same class.
+		if(this.getClass() != that.getClass()) return false;
+		
+		
+		//holds all links. We say links are equal if an undefined key for one is empty
+		ArrayList<String> links = new ArrayList<>();
+		
+		for(String linkName : this.internalLinks.keySet())
+		{
+			links.add(linkName);
+		}
+		for(String linkName : that.internalLinks.keySet())
+		{
+			if(!links.contains(linkName))
+			{
+				links.add(linkName);
+			}
+		}
+		
+		//They are equal if the sets of ids per linkName are the same.
+		for(String link : links)
+		{
+			ArrayList<String> thisLinkSet = this.getInternalLinks(link);
+			ArrayList<String> thatLinkSet = that.getInternalLinks(link);
+			if(thisLinkSet.size() != thatLinkSet.size())
+			{
+				return false;
+			}
+			for(int i=0; i<thisLinkSet.size(); i++)
+			{
+				String id = thisLinkSet.get(i);
+				if(!thatLinkSet.contains(id))
+				{
+					return false;
+				}
+			}
+		
+		}
+		
+		return true;
+	}
+
 
 	@Override
 	public boolean equals(Object obj)
@@ -263,8 +308,13 @@ public abstract class Page
 			return false;
 		Page other = (Page) obj;
 		return Objects.equals(description, other.description) && Objects.equals(externalLinks, other.externalLinks)
-				&& Objects.equals(id, other.id) && Objects.equals(internalLinks, other.internalLinks)
+				&& Objects.equals(id, other.id) && this.internalLinksEqual(other)
 				&& Objects.equals(name, other.name);
+	}
+
+	public void setInternalLinks(HashMap<String, ArrayList<String>> updatedInternalLinks)
+	{
+		this.internalLinks = updatedInternalLinks;
 	}
 	
 	

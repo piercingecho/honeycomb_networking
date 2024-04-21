@@ -12,22 +12,23 @@ public class PersonTransitionModel extends TransitionModel
 {
 	String personPageId;
 	
-	public PersonTransitionModel(BorderPane view, PersonModel newModel)
+	public PersonTransitionModel(BorderPane view, String id)
 	{
-		super(view,newModel);
-
+		super(view,id);
+		personPageId = id;
+		
 	}
 	
 	public void showEditable()
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonEditView.fxml"));
+			        .getResource("../mvcViews/PersonEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PersonEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(personPageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -37,27 +38,28 @@ public class PersonTransitionModel extends TransitionModel
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonCanEditView.fxml"));
+			        .getResource("../mvcViews/PersonCanEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PersonCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(personPageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
 			    }		
 	}
+	
 	public void showFollowed()
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonFollowedCanEdit.fxml"));
+			        .getResource("../mvcViews/PersonFollowedCanEdit.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PersonCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(personPageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -67,12 +69,12 @@ public class PersonTransitionModel extends TransitionModel
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonFollowedView.fxml"));
+			        .getResource("../mvcViews/PersonFollowedView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PersonCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(personPageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -82,12 +84,12 @@ public class PersonTransitionModel extends TransitionModel
 	{
 		FXMLLoader loader = new FXMLLoader();
 		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../views/PersonView.fxml"));
+			        .getResource("../mvcViews/PersonView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PersonCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(personPageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();

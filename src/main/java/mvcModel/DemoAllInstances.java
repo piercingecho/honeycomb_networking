@@ -61,11 +61,11 @@ public class DemoAllInstances
 		return null;
 	}
 	
-	public static PersonModel getPageFromId(String id)
+	public static PersonDemoModel getPageFromId(String id)
 	{
 		if(id == "26")
 		{
-			return new PersonModel();
+			return new PersonDemoModel();
 		}
 		
 		return null;

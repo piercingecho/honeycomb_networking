@@ -2,6 +2,7 @@ package mvcViews;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mvcModel.LoginNavigationModelInterface;
 import mvcModel.SessionSingleton;
@@ -31,6 +32,8 @@ public class LoginPageController {
     @FXML
     private TextField usernameLabel;
     
+    @FXML
+    private Label invalidLoginLabel;
     
     
     @FXML
@@ -40,13 +43,17 @@ public class LoginPageController {
     	
     	SessionSingleton currentSession = SessionSingleton.getInstance();
     	
+    	usernameLabel.setText("");
+    	passwordLabel.setText("");
     	if(currentSession.startSession(username, password))
     	{
+    		invalidLoginLabel.setText("");
+
     		this.loginNavModel.showHomepage();
     	}
     	else
     	{
-    		
+    		invalidLoginLabel.setText("Invalid login.");
     	}
     	
     }
