@@ -8,13 +8,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import mvcModel.PersonDemoModel;
-import mvcModel.PersonModel;
-import mvcModel.PersonTransitionModel;
+import mvcModel.PageModelPerson;
+import mvcModel.TransitionModelPerson;
 
 public class PersonEditController {
 	String personId;
-	PersonModel model;
-	PersonTransitionModel transition;
+	PageModelPerson model;
+	TransitionModelPerson transition;
 	
 	
     @FXML
@@ -42,10 +42,10 @@ public class PersonEditController {
     void onAddLinkClick(ActionEvent event) {
 
     }
-    public void setModel(String id, PersonTransitionModel transitionModel)
+    public void setModel(String id, TransitionModelPerson transitionModel)
     {
     	personId = id;
-    	model = new PersonModel(id);
+    	model = new PageModelPerson(id);
     	transition = transitionModel;
     	
     	System.out.println(model.getName().getValue());
@@ -65,9 +65,9 @@ public class PersonEditController {
     	//update variables
     	model.updatePageInStorage();
     	
-    	transition.showUneditable();
+    	transition.showCanEdit();
     }
     public void onCancelClick(ActionEvent event) {
-    	transition.showUneditable();
+    	transition.showCanEdit();
     }
 }

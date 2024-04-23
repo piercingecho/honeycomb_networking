@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import mvcModel.PageModel;
+import mvcModel.PageModelPerson;
+
 public class Person extends Page
 { 
 	String pronouns;
@@ -170,5 +173,22 @@ public class Person extends Page
 				&& Objects.equals(pronouns, other.pronouns);
 	}
 	
+	public boolean isFollowing(Page page)
+	{
+		return this.getInternalLinks("following")
+		.contains(page.getId());
+	}
+	
+	public void unfollow(Page page)
+	{
+		this.deleteInternalLink(page, "following");
+		page.deleteInternalLink(this, "follower");
+		
+	}
+	
+	public PageModel createPageModel()
+	{
+		return new PageModelPerson(this);
+	}
 
 }

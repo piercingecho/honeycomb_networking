@@ -3,6 +3,7 @@ package mvcModel;
 
 import java.io.IOException;
 
+import honeycombData.Storage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
@@ -22,7 +23,7 @@ public class DirectoryTransitionModel
 	
 	public void showAllPages() {
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/AllPageTypesFlowView.fxml"));
 			    try {
 			      Node view = loader.load();
@@ -37,17 +38,22 @@ public class DirectoryTransitionModel
 	public void showLinkPages()
 	{
 		String userId = SessionSingleton.getInstance().getUserId();
-		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
-			        .getResource("../mvcViews/PersonLinksTypesFlowView.fxml"));
-			    try {
-			      Node view = loader.load();
-			      mainview.setCenter(view);
-			      PersonLinksTypesFlowController cont = loader.getController();
-			      cont.setModel(model, new AllLinksModel(mainview, model));
-			    } catch (IOException e) {
-			      e.printStackTrace();
-			    }
+		PageModel userPageModel = StorageModel.pull(userId);
+		TransitionModel userTransitionModel = userPageModel.getTransitionModel(mainview);
+		
+		userTransitionModel.showLinks();
+		
+//		FXMLLoader loader = new FXMLLoader();
+//		 loader.setLocation(PageTransitionModelPerson.class
+//			        .getResource("../mvcViews/PersonLinksTypesFlowView.fxml"));
+//			    try {
+//			      Node view = loader.load();
+//			      mainview.setCenter(view);
+//			      PersonLinksTypesFlowController cont = loader.getController();
+//			      cont.setModel(, new AllLinksModel(mainview, model));
+//			    } catch (IOException e) {
+//			      e.printStackTrace();
+//			    }
 	}
 	
 }

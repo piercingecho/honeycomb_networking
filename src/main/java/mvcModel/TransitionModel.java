@@ -11,8 +11,8 @@ public abstract class TransitionModel {
 		currentlyViewedId = id;
 	}
 	public abstract void showEditable();
-	public abstract void showUneditable();
+	public abstract void showCanEdit();
 	public abstract void showFollowed();
-	public abstract void showFollowedNoEdit();
 	public abstract void showNoEdit();
+	public abstract void showLinks();
 }

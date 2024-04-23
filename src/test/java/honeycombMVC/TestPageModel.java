@@ -15,7 +15,7 @@ class TestPageModel
 {
 	ArrayList<Person> people;
 	ArrayList<String> peopleIds;
-	ArrayList<PersonModel> peopleModels;
+	ArrayList<PageModelPerson> peopleModels;
 	ArrayList<Page> pages;
 	ArrayList<PageModel> pageModels;
 	ArrayList<String> pageIds;
@@ -46,7 +46,7 @@ class TestPageModel
 			Storage.create(personi);
 			peopleIds.add(personi.getId());
 			
-			peopleModels.add(new PersonModel(personi));
+			peopleModels.add(new PageModelPerson(personi));
 			
 			//add to pages
 			
@@ -62,9 +62,9 @@ class TestPageModel
 			pages.add(skilli);
 			pages.add(jobi);
 			
-			pageModels.add(new PageModel(companyi));
-			pageModels.add(new PageModel(skilli));
-			pageModels.add(new PageModel(jobi));
+			pageModels.add(new PageModelCompany(companyi));
+			pageModels.add(new PageModelSkill(skilli));
+			pageModels.add(new PageModelJobPosting(jobi));
 			
 			pageIds.add(companyi.getId());
 			pageIds.add(skilli.getId());
@@ -152,7 +152,7 @@ class TestPageModel
 		a.setPhone("111");
 
 		
-		PersonModel pModel = peopleModels.get(0);
+		PageModelPerson pModel = peopleModels.get(0);
 		
 		String companyTwoId = pageIds.get(3);
 		//adding a company to person's employer

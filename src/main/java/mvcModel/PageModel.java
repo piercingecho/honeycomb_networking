@@ -4,6 +4,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.scene.layout.BorderPane;
 import javafx.beans.property.SimpleMapProperty;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import honeycombData.Person;
 import honeycombData.Storage;
 
 
-public class PageModel
+public abstract class PageModel
 {
 	Page associatedPage;
 	StringProperty id;
@@ -22,7 +23,7 @@ public class PageModel
 	StringProperty description;
 	ObservableList<String> externalLinks;
 	HashMap<String, ObservableList<String>> internalLinks;
-
+	
 	public PageModel(Page page)
 	{
 		this.associatedPage = page;
@@ -46,11 +47,20 @@ public class PageModel
 
 		}
 	}
-	
 	public PageModel(String id)
 	{
 		this(Storage.pull(id));
 	}
+
+	abstract public TransitionModel getTransitionModel(BorderPane mainview);
+	
+	@Override
+	public String toString()
+	{
+		return this.getName().getValue();
+	}
+	
+	
 	
 	public Page getAssociatedPage()
 	{

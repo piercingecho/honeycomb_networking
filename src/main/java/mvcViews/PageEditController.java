@@ -12,9 +12,9 @@ public class PageEditController{
 		transitionModel = transition;
 	}
     public void onUpdateClick(ActionEvent event) {
-    	transitionModel.showUneditable();
+    	transitionModel.showCanEdit();
     }
     public void onCancelClick(ActionEvent event) {
-    	transitionModel.showUneditable();
+    	transitionModel.showCanEdit();
     }
 }

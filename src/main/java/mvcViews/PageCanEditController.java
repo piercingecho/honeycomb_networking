@@ -5,17 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import mvcModel.PageTransitionModel;
 import mvcModel.PersonDemoModel;
-import mvcModel.PersonModel;
+import mvcModel.PageModelPerson;
 
 public class PageCanEditController
 {
 	String personId;
-	PersonModel model;
+	PageModelPerson model;
 	PageTransitionModel transition;
 	public void setModel(String id, PageTransitionModel transitionModel)
 	{
 		personId = id;
-		model = new PersonModel(id);
+		model = new PageModelPerson(id);
 		transition = transitionModel;
 	}
     @FXML
@@ -25,16 +25,24 @@ public class PageCanEditController
     private Label nameLabel;
     
     @FXML
-    public void onEditClick(ActionEvent event) {
+    public void onEditClick(ActionEvent event)
+    {
     	transition.showEditable();
     }
     @FXML
-    public void onFollowClick(ActionEvent event) {
+    public void onFollowClick(ActionEvent event)
+    {
     	transition.showFollowed();
     }
     @FXML
-    public void onUnfollowClick(ActionEvent event) {
-    	transition.showUneditable();
+    public void onUnfollowClick(ActionEvent event)
+    {
+    	transition.showCanEdit();
+    }
+    @FXML
+    public void onLinksClick(ActionEvent event)
+    {
+    	
     }
     
     public void setModel()

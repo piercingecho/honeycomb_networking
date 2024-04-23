@@ -1,34 +1,37 @@
 package mvcModel;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.BorderPane;
 
 public class AllPagesModel
 {
 	BorderPane mainview;
-	PersonDemoModel model;
+	PageModelPerson currentUser;
 	
-	AllPagesModel(BorderPane mainview, PersonDemoModel model)
+	AllPagesModel(BorderPane mainview)
 	{
 		this.mainview = mainview;
-		this.model = model;
+		currentUser = new PageModelPerson(SessionSingleton.getInstance()
+											.getUserId());
 	}
-	public ObservableList<String> getPeople()
+	
+	
+	public ObservableList<PageModel> getPeople()
 	{
-		DemoAllInstances storageDemo = new DemoAllInstances();
-		return storageDemo.getAllPeople();
+		return FXCollections.observableList(StorageModel.getAllPeopleModels());
 	}
-	public ObservableList<String> getCompanies()
+	public ObservableList<PageModel> getCompanies()
 	{
-		DemoAllInstances storageDemo = new DemoAllInstances();
-		return storageDemo.getAllCompanies();
+		return FXCollections.observableList(StorageModel.getAllCompanyModels());
 	}
-	public void getSkills()
+	public ObservableList<PageModel> getSkills()
 	{
-		
+		return FXCollections.observableList(StorageModel.getAllSkillModels());
+
 	}
-	public void getJobPostings()
+	public ObservableList<PageModel> getJobPostings()
 	{
-		
+		return FXCollections.observableList(StorageModel.getAllJobModels());
 	}
 }

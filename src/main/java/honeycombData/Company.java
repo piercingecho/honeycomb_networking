@@ -3,6 +3,9 @@ package honeycombData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mvcModel.PageModel;
+import mvcModel.PageModelCompany;
+
 public class Company extends Page
 {
 
@@ -43,4 +46,11 @@ public class Company extends Page
 		};
 		return rolesHas;
 	}
+	
+	public PageModel createPageModel()
+	{
+		return new PageModelCompany(this);
+		
+	}
+
 }

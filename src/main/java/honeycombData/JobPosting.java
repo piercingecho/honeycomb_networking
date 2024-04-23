@@ -3,6 +3,10 @@ package honeycombData;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mvcModel.PageModel;
+import mvcModel.PageModelJobPosting;
+import mvcModel.PageModelPerson;
+
 public class JobPosting extends Page
 {
 
@@ -62,4 +66,10 @@ public class JobPosting extends Page
 		
 		return peopleToRecommend;
 	}
+	
+	public PageModel createPageModel()
+	{
+		return new PageModelJobPosting(this);
+	}
+
 }

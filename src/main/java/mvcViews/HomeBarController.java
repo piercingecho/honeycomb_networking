@@ -1,17 +1,17 @@
 package mvcViews;
 
 import javafx.fxml.FXML;
-import mvcModel.HomeTransitionModel;
+import mvcModel.HomeNavigationModel;
 import javafx.event.ActionEvent;
 
 public class HomeBarController {
 
-	HomeTransitionModel model;
+	HomeNavigationModel model;
 	public HomeBarController()
 	{
 		
 	}
-	public void setModel(HomeTransitionModel newModel) {
+	public void setModel(HomeNavigationModel newModel) {
 		model = newModel;
 	}
 	

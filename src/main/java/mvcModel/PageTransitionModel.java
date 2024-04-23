@@ -8,14 +8,14 @@ import javafx.scene.layout.BorderPane;
 import mvcViews.PageCanEditController;
 import mvcViews.PageEditController;
 
-public class PageTransitionModel extends TransitionModel {
+abstract public class PageTransitionModel extends TransitionModel {
 
 	PageModel currentPage;
 	String pageId;
 	
 	public PageTransitionModel(BorderPane view, String pageId) {
 		super(view, pageId);	
-		currentPage = new PageModel(pageId);
+		currentPage = StorageModel.pull(pageId);
 
 		
 		
@@ -24,7 +24,7 @@ public class PageTransitionModel extends TransitionModel {
 	public void showEditable()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/PageEditView.fxml"));
 			    try {
 			      Node view = loader.load();
@@ -36,16 +36,16 @@ public class PageTransitionModel extends TransitionModel {
 			      e.printStackTrace();
 			    }		
 	}
-	public void showUneditable()
+	public void showCanEdit()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/PageCanEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PageCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(pageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -54,13 +54,13 @@ public class PageTransitionModel extends TransitionModel {
 	public void showFollowed()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/PageFollowedCanEditView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PageCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(pageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -69,13 +69,13 @@ public class PageTransitionModel extends TransitionModel {
 	public void showFollowedNoEdit()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/PageFollowedView.fxml"));
 			    try {
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      PageCanEditController cont = loader.getController();
-			      cont.setModel(model,this);
+			      cont.setModel(pageId,this);
 			    } catch (IOException e) {
 			      // TODO Auto-generated catch block
 			      e.printStackTrace();
@@ -84,7 +84,7 @@ public class PageTransitionModel extends TransitionModel {
 	public void showNoEdit()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		 loader.setLocation(PersonTransitionModel.class
+		 loader.setLocation(TransitionModelPerson.class
 			        .getResource("../mvcViews/PageView.fxml"));
 			    try {
 			      Node view = loader.load();
@@ -96,5 +96,6 @@ public class PageTransitionModel extends TransitionModel {
 			      e.printStackTrace();
 			    }		
 	}
+	
 
 }

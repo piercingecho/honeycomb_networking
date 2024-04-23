@@ -76,7 +76,7 @@ public class UtilTest
 	{
 		for(int i=0; i<3; i++)
 		{
-			Person personi = new Person("number"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
+			Person personi = new Person("person"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
 			personi.addExternalLink("github.io/" + Integer.toString(i*5));
 			personi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
 
@@ -84,7 +84,7 @@ public class UtilTest
 			
 			Storage.create(personi);
 			
-			Company companyi = new Company("number"+Integer.toString(i),"Indexed company");
+			Company companyi = new Company("company"+Integer.toString(i),"Indexed company");
 			companyi.addExternalLink("github.io/" + Integer.toString(i*5));
 			companyi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
 
@@ -92,7 +92,7 @@ public class UtilTest
 			
 			Storage.create(companyi);
 			
-			Skill skilli = new Skill("number"+Integer.toString(i),"Indexed company");
+			Skill skilli = new Skill("skill"+Integer.toString(i),"Indexed company");
 			skilli.addExternalLink("github.io/" + Integer.toString(i*5));
 			skilli.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
 
@@ -100,7 +100,7 @@ public class UtilTest
 			
 			Storage.create(skilli);
 			
-			JobPosting jobi = new JobPosting("number"+Integer.toString(i),"Indexed company");
+			JobPosting jobi = new JobPosting("job"+Integer.toString(i),"Indexed company");
 			jobi.addExternalLink("github.io/" + Integer.toString(i*5));
 			jobi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
 

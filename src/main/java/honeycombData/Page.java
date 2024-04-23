@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import mvcModel.PageModel;
+
 public abstract class Page
 {
 	String id;
@@ -317,6 +319,7 @@ public abstract class Page
 		this.internalLinks = updatedInternalLinks;
 	}
 	
+	abstract public PageModel createPageModel();
 	
 	
 }

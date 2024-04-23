@@ -5,14 +5,15 @@ import honeycombData.Person;
 import honeycombData.Storage;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.layout.BorderPane;
 
-public class PersonModel extends PageModel
+public class PageModelPerson extends PageModel
 {
 	StringProperty pronouns;
 	StringProperty email;
 	StringProperty phone;
 
-	public PersonModel(Person page)
+	public PageModelPerson(Person page)
 	{
 		super(page);
 
@@ -27,7 +28,7 @@ public class PersonModel extends PageModel
 		}
 	}
 	
-	public PersonModel(String id)
+	public PageModelPerson(String id)
 	{
 		this((Person) Storage.pull(id));
 	}
@@ -97,6 +98,13 @@ public class PersonModel extends PageModel
 	public void setPhone(StringProperty phone)
 	{
 		this.phone = phone;
+	}
+
+	
+	@Override
+	public TransitionModel getTransitionModel(BorderPane mainview)
+	{
+		return new TransitionModelPerson(mainview, (PageModel) this);
 	}
 
 	

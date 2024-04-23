@@ -3,15 +3,16 @@ package mvcViews;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import mvcModel.PersonDemoModel;
-import mvcModel.PersonModel;
-import mvcModel.PersonTransitionModel;
+import mvcModel.PageModelPerson;
+import mvcModel.TransitionModelPerson;
 
 public class PersonCanEditController {
 
-	PersonTransitionModel transitionModel;
-	PersonModel model;
+	TransitionModelPerson transitionModel;
+	PageModelPerson model;
 	String personId;
 	
     @FXML
@@ -29,11 +30,14 @@ public class PersonCanEditController {
     @FXML
     private Label pronounsLabel;
 
-    public void setModel(String id, PersonTransitionModel newTransitionModel)
+    @FXML
+    private Button followedButton;
+    
+    public void setModel(String id, TransitionModelPerson newTransitionModel)
     {
     	transitionModel = newTransitionModel;
     	personId = id;
-    	model = new PersonModel(id);
+    	model = new PageModelPerson(id);
     	
     	System.out.println(personId);
     	System.out.println(model.getName().getValue());
@@ -46,15 +50,19 @@ public class PersonCanEditController {
     	Bindings.bindBidirectional(descriptionLabel.textProperty(), model.getDescription());
     }
     @FXML
-    public void onEditClick(ActionEvent event) {
+    public void onEditClick(ActionEvent event) 
+    {
     	transitionModel.showEditable();
     }
     @FXML
-    public void onFollowClick(ActionEvent event) {
-    	transitionModel.showFollowed();
+    public void onFollowClick(ActionEvent event)
+    {
+    	transitionModel.handleFollowClick(followedButton);
     }
     @FXML
-    public void onUnfollowClick(ActionEvent event) {
-    	transitionModel.showUneditable();
+    public void onLinksClick(ActionEvent event)
+    {
+    	
     }
+    
 }

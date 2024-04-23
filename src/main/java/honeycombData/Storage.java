@@ -123,7 +123,7 @@ public class Storage
 
 	}
 		
-	static ArrayList<Person> getAllPeople()
+	public static ArrayList<Person> getAllPeople()
 	{
 		RRestDescriptionResp peopleResponse = Storage.client.get()
 				.uri(Storage.uriBase + "/" + "Person")
@@ -151,6 +151,21 @@ public class Storage
 			Storage.update(p);
 		}
 	}
+	public static ArrayList<Page> getLinkedPages(Page p, String link)
+	{
+		ArrayList<Page> pages = new ArrayList<Page>();
+		if(!p.canBeLinkedAsRole(link))
+		{
+			return pages;
+		}
+		for(String id: p.getInternalLinks(link))
+		{
+			pages.add(Storage.pull(id));
+		}
+		
+		return pages;
+	}
+	
 	
 	private static String getUriExtension(Page page)
 	{
@@ -313,4 +328,65 @@ public class Storage
 
 		return null;
 	}
+
+	public static ArrayList<Skill> getAllSkills()
+	{
+		RRestDescriptionResp skillResponse = Storage.client.get()
+				.uri(Storage.uriBase + "/" + "Skill")
+				.retrieve()
+				.body(RRestDescriptionResp.class);
+		
+		ArrayList<RRestDescription> skillDescriptions = skillResponse.data();
+		
+		ArrayList<Skill> skills = new ArrayList<Skill>();
+		for(int i=0; i<skillDescriptions.size(); i++)
+		{
+			String skillId = skillDescriptions.get(i).name();
+			Skill nextSkill = (Skill) Storage.pull(skillId);
+			skills.add(nextSkill);
+		}
+		
+		return skills;
+	}
+	public static ArrayList<Company> getAllCompanies()
+	{
+		RRestDescriptionResp skillResponse = Storage.client.get()
+				.uri(Storage.uriBase + "/" + "Company")
+				.retrieve()
+				.body(RRestDescriptionResp.class);
+		
+		ArrayList<RRestDescription> skillDescriptions = skillResponse.data();
+		
+		ArrayList<Company> skills = new ArrayList<Company>();
+		for(int i=0; i<skillDescriptions.size(); i++)
+		{
+			String skillId = skillDescriptions.get(i).name();
+			Company nextSkill = (Company) Storage.pull(skillId);
+			skills.add(nextSkill);
+		}
+		
+		return skills;
+	}
+	
+	public static ArrayList<JobPosting> getAllJobs()
+	{
+		RRestDescriptionResp skillResponse = Storage.client.get()
+				.uri(Storage.uriBase + "/" + "JobPosting")
+				.retrieve()
+				.body(RRestDescriptionResp.class);
+		
+		ArrayList<RRestDescription> skillDescriptions = skillResponse.data();
+		
+		ArrayList<JobPosting> skills = new ArrayList<JobPosting>();
+		for(int i=0; i<skillDescriptions.size(); i++)
+		{
+			String skillId = skillDescriptions.get(i).name();
+			JobPosting nextSkill = (JobPosting) Storage.pull(skillId);
+			skills.add(nextSkill);
+		}
+		
+		return skills;
+	}
+
+
 }
