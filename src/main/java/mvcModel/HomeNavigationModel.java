@@ -7,9 +7,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import mvcViews.DirectoryController;
 import mvcViews.LoginPageController;
-import mvcViews.PersonCanEditController;
 
-public class HomeNavigationModel {
+public class HomeNavigationModel implements HomeNavigationModelInterface{
 	BorderPane mainview;
 	
 	public HomeNavigationModel(BorderPane view) {

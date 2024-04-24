@@ -41,7 +41,6 @@ public class Company extends Page
 				"editor",
 				"viewer",
 				"mentor",
-				"follower",
 				"news"
 		};
 		return rolesHas;

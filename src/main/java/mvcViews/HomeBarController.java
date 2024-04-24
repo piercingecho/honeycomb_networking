@@ -1,18 +1,29 @@
 package mvcViews;
 
 import javafx.fxml.FXML;
-import mvcModel.HomeNavigationModel;
+import javafx.scene.control.Button;
+import mvcModel.HomeNavigationModelInterface;
 import javafx.event.ActionEvent;
 
 public class HomeBarController {
 
-	HomeNavigationModel model;
+	HomeNavigationModelInterface model;
+	
+	@FXML
+	Button homeBtn;
+	
+	@FXML
+	Button loginBtn;
+	
+	@FXML
+	Button searchBtn;
+	
 	public HomeBarController()
 	{
 		
 	}
-	public void setModel(HomeNavigationModel newModel) {
-		model = newModel;
+	public void setModel(HomeNavigationModelInterface homeTransitionModel) {
+		model = homeTransitionModel;
 	}
 	
     @FXML

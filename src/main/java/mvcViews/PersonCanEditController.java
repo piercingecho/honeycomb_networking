@@ -38,11 +38,7 @@ public class PersonCanEditController {
     	transitionModel = newTransitionModel;
     	personId = id;
     	model = new PageModelPerson(id);
-    	
-    	System.out.println(personId);
-    	System.out.println(model.getName().getValue());
-    	System.out.println(model.getDescription().getValue());
-    	
+    	    	
     	Bindings.bindBidirectional(nameLabel.textProperty(), model.getName());
     	Bindings.bindBidirectional(pronounsLabel.textProperty(), model.getPronouns());
     	Bindings.bindBidirectional(emailLabel.textProperty(), model.getEmail());

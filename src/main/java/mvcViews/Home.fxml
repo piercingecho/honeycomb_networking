@@ -7,7 +7,7 @@
 
 <HBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #96DED1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvcViews.HomeBarController">
    <children>
-      <Button mnemonicParsing="false" onAction="#onClickHome" text="Home">
+      <Button id="homeButton" fx:id="HomeBtn" mnemonicParsing="false" onAction="#onClickHome" text="Home">
          <HBox.margin>
             <Insets left="75.0" right="50.0" top="7.0" />
          </HBox.margin>
@@ -15,7 +15,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#onClickSearch" text="Search">
+      <Button id="searchButton" fx:id="SearchBtn" mnemonicParsing="false" onAction="#onClickSearch" text="Search">
          <HBox.margin>
             <Insets right="50.0" top="7.0" />
          </HBox.margin>
@@ -23,7 +23,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#onClickLogout" text="Logout">
+      <Button id="logoutButton" fx:id="LogoutBtn" mnemonicParsing="false" onAction="#onClickLogout" text="Logout">
          <HBox.margin>
             <Insets right="50.0" top="7.0" />
          </HBox.margin>

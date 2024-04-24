@@ -55,7 +55,7 @@ public class LoginNavigationModel implements LoginNavigationModelInterface
 
 	      Pane topBanner = homeLoader.load();
 	      HomeBarController cont = homeLoader.getController();
-	  	  HomeNavigationModel homeTransitionModel = new HomeNavigationModel(mainview);
+	  	  HomeNavigationModelInterface homeTransitionModel = new HomeNavigationModel(mainview);
 	      cont.setModel(homeTransitionModel);
 	      mainview.setTop(topBanner);
 	      
