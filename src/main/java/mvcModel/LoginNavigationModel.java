@@ -2,14 +2,11 @@ package mvcModel;
 
 import java.io.IOException;
 
-import honeycombData.Person;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import mvcViews.HomeBarController;
 import mvcViews.LoginPageController;
-import mvcViews.PersonCanEditController;
 
 public class LoginNavigationModel implements LoginNavigationModelInterface
 {
@@ -42,8 +39,6 @@ public class LoginNavigationModel implements LoginNavigationModelInterface
 	public void showHomepage()
 	{
 	    FXMLLoader homeLoader = new FXMLLoader();
-	    FXMLLoader personLoader = new FXMLLoader();
-
 	    
 	    //get the new person with the session singleton!
 	    

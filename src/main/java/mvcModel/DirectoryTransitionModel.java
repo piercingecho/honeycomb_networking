@@ -3,14 +3,10 @@ package mvcModel;
 
 import java.io.IOException;
 
-import honeycombData.Storage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import mvcViews.AllPageTypesFlowController;
-import mvcViews.DirectoryController;
-import mvcViews.PersonCanEditController;
-import mvcViews.PersonLinksTypesFlowController;
 
 
 public class DirectoryTransitionModel 
@@ -29,7 +25,7 @@ public class DirectoryTransitionModel
 			      Node view = loader.load();
 			      mainview.setCenter(view);
 			      AllPageTypesFlowController cont = loader.getController();
-			      cont.setModel(new AllPagesModel(mainview));
+			      cont.setModel(new AllPagesModel(mainview), mainview);
 			    } catch (IOException e) {
 			      e.printStackTrace();
 			    }

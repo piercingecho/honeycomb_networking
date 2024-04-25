@@ -4,12 +4,13 @@ import javafx.scene.layout.BorderPane;
 
 public abstract class TransitionModel {
 	BorderPane mainview;
-	PersonDemoModel model;
 	String currentlyViewedId;
-	public TransitionModel(BorderPane view, String id) {
+	
+	public TransitionModel(BorderPane view, PageModel currentPage) {
 		mainview = view;
-		currentlyViewedId = id;
+		currentlyViewedId = currentPage.getId().getValue();
 	}
+	
 	public abstract void showEditable();
 	public abstract void showCanEdit();
 	public abstract void showFollowed();

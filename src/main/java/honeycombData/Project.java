@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mvcModel.PageModel;
-import mvcModel.PageModelPerson;
 
 public class Project extends Page
 {

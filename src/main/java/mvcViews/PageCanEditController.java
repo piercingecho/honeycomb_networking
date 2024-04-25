@@ -1,22 +1,29 @@
 package mvcViews;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import mvcModel.PageTransitionModel;
-import mvcModel.PersonDemoModel;
-import mvcModel.PageModelPerson;
+import mvcModel.TransitionModelPage;
+import mvcModel.PageModel;
+import mvcModel.StorageModel;
 
 public class PageCanEditController
 {
 	String personId;
-	PageModelPerson model;
-	PageTransitionModel transition;
-	public void setModel(String id, PageTransitionModel transitionModel)
+	PageModel model;
+	TransitionModelPage transition;
+	
+	public void setModel(String id, TransitionModelPage transitionModel)
 	{
 		personId = id;
-		model = new PageModelPerson(id);
+		model = StorageModel.pull(id);
 		transition = transitionModel;
+		System.out.println(model.getName());
+		System.out.println(model.getDescription());
+    	Bindings.bindBidirectional(nameLabel.textProperty(), model.getName());
+    	Bindings.bindBidirectional(descriptionLabel.textProperty(), model.getDescription());
+
 	}
     @FXML
     private Label descriptionLabel;
@@ -42,11 +49,7 @@ public class PageCanEditController
     @FXML
     public void onLinksClick(ActionEvent event)
     {
-    	
+    	transition.showLinks();
     }
     
-    public void setModel()
-    {
-    	
-    }
 }

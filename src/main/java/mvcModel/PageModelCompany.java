@@ -1,6 +1,9 @@
 package mvcModel;
 
+import honeycombData.Company;
 import honeycombData.Page;
+import honeycombData.Storage;
+import javafx.scene.layout.BorderPane;
 
 public class PageModelCompany extends PageModel
 {
@@ -13,15 +16,19 @@ public class PageModelCompany extends PageModel
 	
 	public PageModelCompany(String id)
 	{
-		super(id);
-		// TODO Auto-generated constructor stub
+		this((Company) Storage.pull(id));
 	}
 
+	@Override
+	public Company getAssociatedPage()
+	{
+		return (Company) this.associatedPage;
+	}
 
 	@Override
-	public void getTransitionModel()
+	public TransitionModel getTransitionModel(BorderPane mainview)
 	{
-		
+		return new TransitionModelCompany(mainview, (PageModel) this);
 		
 	}
 

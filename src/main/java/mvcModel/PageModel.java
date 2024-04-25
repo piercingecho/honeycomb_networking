@@ -3,9 +3,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.scene.layout.BorderPane;
-import javafx.beans.property.SimpleMapProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,10 +75,7 @@ public abstract class PageModel
 	}
 	
 	private void initializeInternalLinks()
-	{
-		//for each page's key we want to get its values and 
-		HashMap<String, ArrayList<String>> pageInternalLinks = this.associatedPage.getInternalLinks();
-		
+	{		
 		//get all the links the page could be
 		for(String linkType : this.associatedPage.rolesHas())
 		{

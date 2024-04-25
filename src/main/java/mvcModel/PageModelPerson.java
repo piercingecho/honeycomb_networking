@@ -1,6 +1,5 @@
 package mvcModel;
 
-import honeycombData.Page;
 import honeycombData.Person;
 import honeycombData.Storage;
 import javafx.beans.property.SimpleStringProperty;

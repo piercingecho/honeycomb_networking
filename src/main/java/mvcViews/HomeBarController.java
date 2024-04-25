@@ -13,7 +13,7 @@ public class HomeBarController {
 	Button homeBtn;
 	
 	@FXML
-	Button loginBtn;
+	Button logoutBtn;
 	
 	@FXML
 	Button searchBtn;

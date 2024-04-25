@@ -12,20 +12,20 @@ import mvcViews.PageCanEditController;
 import mvcViews.PersonCanEditController;
 import mvcViews.PersonEditController;
 
-public class TransitionModelPerson extends TransitionModel
+public class TransitionModelPerson extends TransitionModelPage
 {
 	
 	public TransitionModelPerson(BorderPane view, String id)
 	{
-		super(view,id);
-		
+		super(view,StorageModel.pull(id));
 	}
 	
 	public TransitionModelPerson(BorderPane view, PageModel p)
 	{
-		super(view,p.getId().getValue());
+		super(view,p);
 	}
 	
+	@Override
 	public void showNoEdit()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -42,6 +42,7 @@ public class TransitionModelPerson extends TransitionModel
 			    }		
 	}
 	
+	@Override
 	public void showEditable()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -58,6 +59,8 @@ public class TransitionModelPerson extends TransitionModel
 			      e.printStackTrace();
 			    }		
 	}
+	
+	@Override
 	public void showCanEdit()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -73,7 +76,7 @@ public class TransitionModelPerson extends TransitionModel
 			      e.printStackTrace();
 			    }		
 	}
-		
+	
 	public void initializeFollowButton(Button followedButton)
 	{
 		Person p = (Person) Storage.pull(currentlyViewedId);
@@ -107,36 +110,14 @@ public class TransitionModelPerson extends TransitionModel
 		{
 			u.follow(p);
 		}
-		// TODO the button should be bound to the current value of 'following'
 	}	
-	
-//	public void showFollowedNoEdit()
-//	{
-//		FXMLLoader loader = new FXMLLoader();
-//		 loader.setLocation(PageTransitionModelPerson.class
-//			        .getResource("../mvcViews/PersonFollowedView.fxml"));
-//			    try {
-//			      Node view = loader.load();
-//			      mainview.setCenter(view);
-//			      PersonCanEditController cont = loader.getController();
-//			      cont.setModel(personPageId,this);
-//			    } catch (IOException e) {
-//			      e.printStackTrace();
-//			    }		
-//	}
-
-	@Override
-	public void showFollowed()
-	{
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void showLinks()
 	{
 		// TODO auto-gen method stub
-	};
+	}
+
 	
 	
 }

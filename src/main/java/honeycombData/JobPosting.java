@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import mvcModel.PageModel;
 import mvcModel.PageModelJobPosting;
-import mvcModel.PageModelPerson;
 
 public class JobPosting extends Page
 {

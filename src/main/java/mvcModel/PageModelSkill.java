@@ -1,6 +1,7 @@
 package mvcModel;
 
 import honeycombData.Page;
+import javafx.scene.layout.BorderPane;
 
 public class PageModelSkill extends PageModel
 {
@@ -19,9 +20,10 @@ public class PageModelSkill extends PageModel
 
 
 	@Override
-	public void getTransitionModel()
+	public TransitionModel getTransitionModel(BorderPane mainview)
 	{
-		
+		return new TransitionModelSkill(mainview, (PageModel) this);
+
 		
 	}
 

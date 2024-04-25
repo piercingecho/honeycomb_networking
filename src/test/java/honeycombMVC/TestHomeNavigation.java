@@ -98,7 +98,7 @@ public class TestHomeNavigation implements HomeNavigationModelInterface
 	{
 		for(int i=0; i<5; i++)
 		{
-			robot.clickOn("#HomeBtn");
+			robot.clickOn("#homeBtnCSS");
 			assertEquals(numTimesHomepageShown,i+1);
 			assertEquals(numTimesLoginShown,0);
 			assertEquals(numTimesSearchShown,0);
@@ -111,7 +111,7 @@ public class TestHomeNavigation implements HomeNavigationModelInterface
 	{
 		for(int i=0; i<5; i++)
 		{
-			robot.clickOn("#LogoutBtn");
+			robot.clickOn("#logoutBtnCSS");
 			assertEquals(numTimesHomepageShown,0);
 			assertEquals(numTimesLoginShown,i+1);
 			assertEquals(numTimesSearchShown,0);
@@ -124,7 +124,7 @@ public class TestHomeNavigation implements HomeNavigationModelInterface
 	{
 		for(int i=0; i<5; i++)
 		{
-			robot.clickOn("#SearchBtn");
+			robot.clickOn("#searchBtnCSS");
 			assertEquals(numTimesHomepageShown,0);
 			assertEquals(numTimesLoginShown,0);
 			assertEquals(numTimesSearchShown,i+1);

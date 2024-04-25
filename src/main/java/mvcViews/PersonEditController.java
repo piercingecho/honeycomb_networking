@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import mvcModel.PersonDemoModel;
 import mvcModel.PageModelPerson;
+import mvcModel.StorageModel;
 import mvcModel.TransitionModelPerson;
 
 public class PersonEditController {
@@ -45,9 +45,10 @@ public class PersonEditController {
     public void setModel(String id, TransitionModelPerson transitionModel)
     {
     	personId = id;
-    	model = new PageModelPerson(id);
+    	model = (PageModelPerson) StorageModel.pull(id);
     	transition = transitionModel;
-    	
+    	System.out.println("Person ID:");
+    	System.out.println(personId);
     	Bindings.bindBidirectional(nameField.textProperty(), model.getName());
     	Bindings.bindBidirectional(pronounsField.textProperty(), model.getPronouns());
     	Bindings.bindBidirectional(emailField.textProperty(), model.getEmail());
@@ -56,6 +57,7 @@ public class PersonEditController {
 
     	
     }
+    
     @FXML
     public void onUpdateClick(ActionEvent event) {
     	//update variables
@@ -63,6 +65,7 @@ public class PersonEditController {
     	
     	transition.showCanEdit();
     }
+    
     public void onCancelClick(ActionEvent event) {
     	transition.showCanEdit();
     }

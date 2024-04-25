@@ -74,7 +74,13 @@ public class UtilTest
 	public static void createSampleData(ArrayList<Person> people, ArrayList<Company> companies, ArrayList<Skill> skills,
 			ArrayList<JobPosting> jobs)
 	{
-		for(int i=0; i<3; i++)
+		
+		Person loggedInPerson = new Person("sampleUserIsAPersonToo","TheValuedTestUser","it/its","robot@css.html","123-456-7890");
+		people.add(loggedInPerson);
+		Storage.create(loggedInPerson);
+		
+		int maxIter = 3;
+		for(int i=0; i<maxIter; i++)
 		{
 			Person personi = new Person("person"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
 			personi.addExternalLink("github.io/" + Integer.toString(i*5));
@@ -108,6 +114,56 @@ public class UtilTest
 			
 			Storage.create(jobi);
 		}
+		
+		// pages that cannot be viewed
+		Person unviewablePerson = new Person("~secret person~007","CLASSIFIED","they/them","CLASSIFIED","***-***-****");
+		unviewablePerson.addInternalLink(unviewablePerson, "viewer");
+		people.add(unviewablePerson);
+		Storage.create(unviewablePerson);
+		
+		Company unviewableCompany = new Company("~secret company~007","CLASSIFIED");
+		unviewableCompany.addInternalLink(unviewablePerson, "viewer");
+		companies.add(unviewableCompany);
+		Storage.create(unviewableCompany);
+		
+		Skill unviewableSkill = new Skill("~secret skill~007","CLASSIFIED");
+		unviewableSkill.addInternalLink(unviewablePerson, "viewer");
+		skills.add(unviewableSkill);
+		Storage.create(unviewableSkill);
+
+		
+		JobPosting unviewableJobPosting = new JobPosting("~secret job~007","CLASSIFIED");
+		unviewableJobPosting.addInternalLink(unviewablePerson, "viewer");
+		jobs.add(unviewableJobPosting);
+		Storage.create(unviewableJobPosting);
+		
+		
+		// pages that can be edited
+		Person editablePerson = new Person("EditMePerson","editableDescription","they/she","email@example.com","111-111-1111");
+		editablePerson.addInternalLink(loggedInPerson, "editor");
+		people.add(editablePerson);
+		Storage.create(editablePerson);
+		
+		Company editableCompany = new Company("~woa u lead this company~","cool description");
+		editableCompany.addInternalLink(loggedInPerson, "editor");
+		companies.add(editableCompany);
+		Storage.create(editableCompany);
+		
+		Skill editableSkill = new Skill("~woa u manage this skill~","fun description");
+		editableSkill.addInternalLink(loggedInPerson, "editor");
+		skills.add(editableSkill);
+		Storage.create(editableSkill);
+
+		
+		JobPosting editableJob = new JobPosting("~woah u made this job!~","classy description");
+		editableJob.addInternalLink(loggedInPerson, "editor");
+		jobs.add(editableJob);
+		Storage.create(editableJob);
+
+
+
+		
+
 		
 	}
 

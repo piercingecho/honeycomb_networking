@@ -2,12 +2,10 @@ package mvcViews;
 
 import javafx.fxml.FXML;
 import mvcModel.DirectoryTransitionModel;
-import mvcModel.PersonDemoModel;
 import javafx.event.ActionEvent;
 
 public class DirectoryController {
 
-	PersonDemoModel person;
 	DirectoryTransitionModel dirModel;
 	
 	public void setModel(DirectoryTransitionModel dirModel) {

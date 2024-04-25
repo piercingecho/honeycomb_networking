@@ -118,7 +118,7 @@ public class Person extends Page
 	
 	public boolean canView(Page page) throws RoleNotAllowedException
 	{
-		if(page.getId() == this.id)
+		if(page.getId().equals(this.id))
 		{
 			return true;
 		}
@@ -138,10 +138,11 @@ public class Person extends Page
 	
 	public boolean canEdit(Page page) throws RoleNotAllowedException
 	{
-		if(page.getId() == this.id)
+		if(page.getId().equals(this.id))
 		{
 			return true;
 		}
+		
 		ArrayList<String> viewers = page.getInternalLinks("editor");
 		
 		if(viewers.contains(this.getId()))
