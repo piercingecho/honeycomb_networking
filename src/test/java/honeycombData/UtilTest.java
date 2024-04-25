@@ -79,42 +79,6 @@ public class UtilTest
 		people.add(loggedInPerson);
 		Storage.create(loggedInPerson);
 		
-		int maxIter = 3;
-		for(int i=0; i<maxIter; i++)
-		{
-			Person personi = new Person("person"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
-			personi.addExternalLink("github.io/" + Integer.toString(i*5));
-			personi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
-
-			people.add(personi);
-			
-			Storage.create(personi);
-			
-			Company companyi = new Company("company"+Integer.toString(i),"Indexed company");
-			companyi.addExternalLink("github.io/" + Integer.toString(i*5));
-			companyi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
-
-			companies.add(companyi);
-			
-			Storage.create(companyi);
-			
-			Skill skilli = new Skill("skill"+Integer.toString(i),"Indexed company");
-			skilli.addExternalLink("github.io/" + Integer.toString(i*5));
-			skilli.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
-
-			skills.add(skilli);
-			
-			Storage.create(skilli);
-			
-			JobPosting jobi = new JobPosting("job"+Integer.toString(i),"Indexed company");
-			jobi.addExternalLink("github.io/" + Integer.toString(i*5));
-			jobi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
-
-			jobs.add(jobi);
-			
-			Storage.create(jobi);
-		}
-		
 		// pages that cannot be viewed
 		Person unviewablePerson = new Person("~secret person~007","CLASSIFIED","they/them","CLASSIFIED","***-***-****");
 		unviewablePerson.addInternalLink(unviewablePerson, "viewer");
@@ -159,6 +123,126 @@ public class UtilTest
 		editableJob.addInternalLink(loggedInPerson, "editor");
 		jobs.add(editableJob);
 		Storage.create(editableJob);
+
+		for(int i=0; i<10; i++)
+		{
+			Person personi = new Person("person"+Integer.toString(i),"Indexed person","theythem","e@mai.l","000-000-0000");
+			personi.addExternalLink("github.io/" + Integer.toString(i*5));
+			personi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			people.add(personi);
+			
+			Storage.create(personi);
+			
+			Company companyi = new Company("company"+Integer.toString(i),"Indexed company");
+			companyi.addExternalLink("github.io/" + Integer.toString(i*5));
+			companyi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			companies.add(companyi);
+			
+			Storage.create(companyi);
+			
+			Skill skilli = new Skill("skill"+Integer.toString(i),"Indexed company");
+			skilli.addExternalLink("github.io/" + Integer.toString(i*5));
+			skilli.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			skills.add(skilli);
+			
+			Storage.create(skilli);
+			
+			JobPosting jobi = new JobPosting("job"+Integer.toString(i),"Indexed company");
+			jobi.addExternalLink("github.io/" + Integer.toString(i*5));
+			jobi.addExternalLink("linkedin.com/" + Integer.toString(i*10+2));
+
+			jobs.add(jobi);
+			
+			Storage.create(jobi);
+		}
+		
+		//we update links for person0, company0, skill0, job0 from the loop above.
+		//person0 is index 4, all others are index 3
+		
+		//person
+		people.get(4).addInternalLink(companies.get(4), "employer");
+		people.get(4).addInternalLink(companies.get(5), "employer");
+		people.get(4).addInternalLink(people.get(5), "friend");
+		people.get(5).addInternalLink(people.get(4), "friend");
+		people.get(4).addInternalLink(jobs.get(3), "job_posting");
+		people.get(4).addInternalLink(jobs.get(6), "job_posting");
+		
+
+		
+		//company
+		companies.get(3).addInternalLink(people.get(6), "employee");
+		companies.get(3).addInternalLink(people.get(7), "employee");
+		companies.get(3).addInternalLink(people.get(8), "employee");
+		
+		companies.get(3).addInternalLink(jobs.get(3), "job_posting");
+		companies.get(3).addInternalLink(jobs.get(4), "job_posting");
+
+
+		
+		//skill
+		
+		
+		//job
+		jobs.get(3).addInternalLink(people.get(4), "contributor");
+		jobs.get(3).addInternalLink(companies.get(4), "contributor");
+		jobs.get(3).addInternalLink(people.get(4), "applicant");
+		jobs.get(3).addInternalLink(people.get(5), "applicant");
+		jobs.get(3).addInternalLink(skills.get(4), "qualification");
+		jobs.get(3).addInternalLink(skills.get(5), "qualification");
+		jobs.get(6).addInternalLink(people.get(4), "applicant");
+
+
+
+		
+		//everyone's viewers
+		people.get(4).addInternalLink(people.get(0), "viewer");
+		companies.get(3).addInternalLink(people.get(0), "viewer");
+		skills.get(3).addInternalLink(people.get(0), "viewer");
+		jobs.get(3).addInternalLink(people.get(0), "viewer");
+
+		
+		//everyone's editors
+		people.get(4).addInternalLink(people.get(5), "editor");
+		companies.get(3).addInternalLink(people.get(5), "editor");
+		skills.get(3).addInternalLink(people.get(5), "editor");
+		jobs.get(3).addInternalLink(people.get(5), "editor");
+
+		
+		
+		//everything's mentors
+		people.get(4).addInternalLink(people.get(3), "mentor");
+		companies.get(3).addInternalLink(people.get(4), "mentor");
+		skills.get(3).addInternalLink(people.get(4), "mentor");
+		jobs.get(3).addInternalLink(people.get(4), "mentor");
+
+		
+		//everyone's followers
+		people.get(4).follow(skills.get(3));
+		people.get(4).follow(companies.get(3));
+		people.get(4).follow(jobs.get(3));
+		people.get(4).follow(people.get(3));
+
+		
+		for(Person p: people)
+		{
+			Storage.update(p);
+		}
+		for(Company c: companies)
+		{
+			Storage.update(c);
+		}
+		for(Skill s: skills)
+		{
+			Storage.update(s);
+		}
+		for(JobPosting j: jobs)
+		{
+			Storage.update(j);
+		}
+
 
 
 

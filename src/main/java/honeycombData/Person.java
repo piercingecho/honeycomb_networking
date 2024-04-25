@@ -61,6 +61,7 @@ public class Person extends Page
 				"project",
 				"skill",
 				"news",
+				"mentor",
 				"job_posting",
 				"pending_job",
 				"viewer",

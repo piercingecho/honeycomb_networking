@@ -31,12 +31,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <Label id="nameLabelCSS" fx:id="nameLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="descriptionLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="TOP">
+                  <Label id="descriptionLabelCSS" fx:id="descriptionLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="4" GridPane.rowSpan="2" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -52,22 +52,22 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label fx:id="pronounsLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <Label id="pronounsLabelCSS" fx:id="pronounsLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
+                  <Label id="emailLabelCSS" fx:id="emailLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="phoneLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                  <Label id="phoneLabelCSS" fx:id="phoneLabel" text="Label" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onEditClick" text="Edit" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+                  <Button id="editBtnCSS" fx:id="editBtn" mnemonicParsing="false" onAction="#onEditClick" text="Edit" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 //import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -37,6 +38,12 @@ public class PersonEditController {
 
     @FXML
     private TextField pronounsField;
+    
+    @FXML
+    private Button cancelBtn;
+    
+    @FXML
+    private Button updateBtn;
     
     @FXML
     void onAddLinkClick(ActionEvent event) {

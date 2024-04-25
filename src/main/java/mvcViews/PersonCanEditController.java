@@ -32,6 +32,9 @@ public class PersonCanEditController {
     @FXML
     private Button followedButton;
     
+    @FXML
+    private Button editBtn;
+    
     public void setModel(String id, TransitionModelPerson newTransitionModel)
     {
     	transitionModel = newTransitionModel;
