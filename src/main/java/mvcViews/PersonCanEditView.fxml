@@ -97,7 +97,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#onLinksClick" text="Links" GridPane.columnIndex="4">
+                  <Button id="linksBtnCSS" fx:id="linksBtn" mnemonicParsing="false" onAction="#onLinksClick" text="Links" GridPane.columnIndex="4">
                      <font>
                         <Font size="18.0" />
                      </font>

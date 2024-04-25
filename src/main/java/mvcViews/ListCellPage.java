@@ -60,7 +60,8 @@ public class ListCellPage extends ListCell<PageModel>
 
     @Override
     public void updateItem(PageModel pageModel, boolean empty) {
-        if (empty || pageModel == null) {
+        super.updateItem(pageModel, empty);
+    	if (empty || pageModel == null) {
         	listCellPageController.updateView(null);
         } else {
         	listCellPageController.updateView(pageModel);

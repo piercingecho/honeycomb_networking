@@ -3,6 +3,7 @@ package mvcViews;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import mvcModel.TransitionModelPage;
 import mvcModel.PageModel;
@@ -30,6 +31,12 @@ public class PageCanEditController
 
     @FXML
     private Label nameLabel;
+    
+    @FXML
+    private Button editBtn;
+    
+    @FXML
+    private Button linksBtn;
     
     @FXML
     public void onEditClick(ActionEvent event)

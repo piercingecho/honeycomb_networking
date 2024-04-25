@@ -100,14 +100,6 @@ public class AllPageTypesFlowController implements ShowItemInterface{
 			{
 				return new ListCellPage(listViewPages, getShowItemController(), mainview);
 			}
-//            @Override
-//            protected void updateItem(PageModel page, boolean empty) {
-//                super.updateItem(page, empty);
-//                if (empty || page == null) {
-//                    setText(null);
-//                } else {
-//                    setText(page.getName());
-//                }
 		  });
 
 		allPagesListView.setItems(FXCollections.observableArrayList());
@@ -115,12 +107,13 @@ public class AllPageTypesFlowController implements ShowItemInterface{
 	
     @FXML
     void onNewsArticlePageClick(ActionEvent event) {
+		allPagesListView.setItems(FXCollections.observableArrayList());
 
     }
     
     @FXML
     void onProjectPageClick(ActionEvent event) {
-
+		allPagesListView.setItems(FXCollections.observableArrayList());
     }
 
 	@Override

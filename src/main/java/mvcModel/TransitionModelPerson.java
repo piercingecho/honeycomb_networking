@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import mvcViews.PageCanEditController;
+import mvcViews.PageLinksPersonController;
 import mvcViews.PersonCanEditController;
 import mvcViews.PersonEditController;
 
@@ -115,7 +115,17 @@ public class TransitionModelPerson extends TransitionModelPage
 	@Override
 	public void showLinks()
 	{
-		// TODO auto-gen method stub
+		FXMLLoader loader = new FXMLLoader();
+		 loader.setLocation(TransitionModelPerson.class
+			        .getResource("../mvcViews/PageLinksPersonView.fxml"));
+			    try {
+			      Node view = loader.load();
+			      mainview.setCenter(view);
+			      PageLinksPersonController cont = loader.getController();
+			      cont.setModel(new AllLinksModel(mainview, currentPage.getId().getValue()), mainview);
+			    } catch (IOException e) {
+			      e.printStackTrace();
+			    }
 	}
 
 	

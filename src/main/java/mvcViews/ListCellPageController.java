@@ -17,8 +17,6 @@ public class ListCellPageController {
 
     @FXML
     void onPageListCellClick(ActionEvent event) {
-    	System.out.println("Page clicked!");
-    	System.out.println(pageModel.getName());
     	TransitionModelPage transition = (TransitionModelPage) pageModel.getTransitionModel(mainview);
     	System.out.println(transition.getClass());
     	transition.showLinkedPage();

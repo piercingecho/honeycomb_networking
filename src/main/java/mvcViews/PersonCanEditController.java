@@ -35,6 +35,9 @@ public class PersonCanEditController {
     @FXML
     private Button editBtn;
     
+    @FXML
+    private Button linksBtn;
+    
     public void setModel(String id, TransitionModelPerson newTransitionModel)
     {
     	transitionModel = newTransitionModel;
@@ -60,7 +63,7 @@ public class PersonCanEditController {
     @FXML
     public void onLinksClick(ActionEvent event)
     {
-    	
+    	transitionModel.showLinks();
     }
     
 }
