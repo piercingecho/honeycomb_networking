@@ -39,18 +39,18 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-                  <TextArea fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                  <TextField id="nameFieldCSS" fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+                  <TextArea id="descriptionFieldCSS" fx:id="descriptionField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#onUpdateClick" text="Update" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                  <Button id="updateBtnCSS" fx:id="updateBtn" mnemonicParsing="false" onAction="#onUpdateClick" text="Update" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancelClick" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Button id="cancelBtnCSS" fx:id="cancelBtn" mnemonicParsing="false" onAction="#onCancelClick" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>

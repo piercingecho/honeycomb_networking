@@ -25,6 +25,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -33,6 +34,7 @@ import javafx.stage.Stage;
 import mvcMain.Main;
 import mvcModel.LoginNavigationModel;
 import mvcModel.LoginNavigationModelInterface;
+import mvcModel.PageModel;
 import mvcViews.LoginPageController;
 
 @ExtendWith(ApplicationExtension.class)
@@ -133,114 +135,119 @@ public class TestPageEditScreen
 	  WaitForAsyncUtils.waitForFxEvents();
 	  
   }
+  
+  @SuppressWarnings("unchecked")
+  ListView<PageModel> getPages(FxRobot robot)
+
+  {
+   return (ListView<PageModel>) robot.lookup("#allPagesListViewCSS")
+       .queryAll().iterator().next();
+  }
+  
+  private void scrollToItem(FxRobot robot, int index)
+  {
+	  Platform.runLater(()->{
+		  ListView<PageModel> pages = getPages(robot);
+		  pages.scrollTo(index);
+		  //pages.getSelectionModel().clearAndSelect(index);
+	  });
+	  WaitForAsyncUtils.waitForFxEvents();
+}
+
 
   
   
-  private void setPersonData(FxRobot robot, String name, String pronouns, 
-		  String email, String phone, String description)
+  private void setPageData(FxRobot robot, String name, String description)
   {
 	  clearTextField(robot, "#nameFieldCSS");
-	  clearTextField(robot, "#pronounsFieldCSS");
-	  clearTextField(robot, "#emailFieldCSS");
-	  clearTextField(robot, "#phoneFieldCSS");
 	  clearTextArea(robot, "#descriptionFieldCSS");
 	  
 	  robot.clickOn("#nameFieldCSS");
 	  robot.write(name);
 	  
-	  robot.clickOn("#pronounsFieldCSS");
-	  robot.write(pronouns);
-
-	  robot.clickOn("#emailFieldCSS");
-	  robot.write(email);
-
-	  robot.clickOn("#phoneFieldCSS");
-	  robot.write(phone);
-
 	  robot.clickOn("#descriptionFieldCSS");
 	  robot.write(description);
 
 	  
   }
   
-  @Test
-  void testUserEditSelf(FxRobot robot)
+  private void goToCompanyView(FxRobot robot, Company sampleCompany, int index)
   {
-	  //log in as user zero
+	  robot.clickOn("#searchBtnCSS");
+	  robot.clickOn("#allPagesBtnCSS");
+	  robot.clickOn("#companyPageTypeBtnCSS");
+	  scrollToItem(robot,index);
+	  robot.clickOn(sampleCompany.getName());
+  }
+
+  
+  /**
+   * The views are designed such that this 
+   * exact functionality is shared across all
+   * page subclasses that are not Person. Their
+   * transition model implementations all call
+   * these edit screens, and they each only have
+   * a name and description to display.
+   * 
+   * Hence, by testing one subclass in company,
+   * this is shown to work for all subclasses.
+   */
+  @Test
+  void testCompanyEdit(FxRobot robot)
+  {
 	  
 	  Person sampleUser = people.get(0);
 	  
-	  
-	  fail("Haven't started implementing");
 	  
 	  
 	  setUserPass(robot, sampleUser.getId(), "warblgarbl");
 	  robot.clickOn("#loginButton");
 	  
 	  
+	  int companyIndex = 1;
+	  Company sampleCompany = companies.get(companyIndex);
 	  
-	  checkLabelValue(robot, sampleUser.getName(), "#nameLabelCSS");
-	  checkLabelValue(robot, sampleUser.getPronouns(), "#pronounsLabelCSS");
-	  checkLabelValue(robot, sampleUser.getEmail(), "#emailLabelCSS");
-	  checkLabelValue(robot, sampleUser.getPhone(), "#phoneLabelCSS");
-	  checkLabelValue(robot, sampleUser.getDescription(), "#descriptionLabelCSS");
+	  goToCompanyView(robot, sampleCompany, companyIndex);
+
+	  
+	  checkLabelValue(robot, sampleCompany.getName(), "#nameLabelCSS");
+	  checkLabelValue(robot, sampleCompany.getDescription(), "#descriptionLabelCSS");
 
 	  robot.clickOn("#editBtnCSS");
 	  
-	  checkTextFieldValue(robot, sampleUser.getName(), "#nameFieldCSS");
-	  checkTextFieldValue(robot, sampleUser.getPronouns(), "#pronounsFieldCSS");
-	  checkTextFieldValue(robot, sampleUser.getEmail(), "#emailFieldCSS");
-	  checkTextFieldValue(robot, sampleUser.getPhone(), "#phoneFieldCSS");
-	  checkTextAreaValue(robot, sampleUser.getDescription(), "#descriptionFieldCSS");
+	  checkTextFieldValue(robot, sampleCompany.getName(), "#nameFieldCSS");
+	  checkTextAreaValue(robot, sampleCompany.getDescription(), "#descriptionFieldCSS");
 
 	  
-	  String newPersonName = "newname";
-	  String newPersonPhone = "707-070-7070";
-	  String newPersonPronouns = "he/her";
-	  String newPersonDescription = "This is a new description!";
-	  String newPersonEmail = "email@newplace.org";
+	  String newCompanyName = "Neo Company";
+	  String newCompanyDescription = "This is a Neo description!\nall rights reserved.";
 
 
-	  setPersonData(robot, newPersonName, 
-			  newPersonPronouns,
-			  newPersonEmail,
-			  newPersonPhone, 
-			  newPersonDescription);
+	  setPageData(robot, newCompanyName, 
+			  newCompanyDescription);
 	  
 
 	  
 	  robot.clickOn("#cancelBtnCSS");
 
-	  checkLabelValue(robot, sampleUser.getName(), "#nameLabelCSS");
-	  checkLabelValue(robot, sampleUser.getPronouns(), "#pronounsLabelCSS");
-	  checkLabelValue(robot, sampleUser.getEmail(), "#emailLabelCSS");
-	  checkLabelValue(robot, sampleUser.getPhone(), "#phoneLabelCSS");
-	  checkLabelValue(robot, sampleUser.getDescription(), "#descriptionLabelCSS");
+	  checkLabelValue(robot, sampleCompany.getName(), "#nameLabelCSS");
+	  checkLabelValue(robot, sampleCompany.getDescription(), "#descriptionLabelCSS");
 
 	  robot.clickOn("#editBtnCSS");
-	  setPersonData(robot, newPersonName, 
-			  newPersonPronouns,
-			  newPersonEmail,
-			  newPersonPhone, 
-			  newPersonDescription);
+	  setPageData(robot, newCompanyName, 
+			  newCompanyDescription);
 	  
 	  robot.clickOn("#updateBtnCSS");
 	  
-	  checkLabelValue(robot, newPersonName, "#nameLabelCSS");
-	  checkLabelValue(robot, newPersonPronouns, "#pronounsLabelCSS");
-	  checkLabelValue(robot, newPersonEmail, "#emailLabelCSS");
-	  checkLabelValue(robot, newPersonPhone, "#phoneLabelCSS");
-	  checkLabelValue(robot, newPersonDescription, "#descriptionLabelCSS");
+	  checkLabelValue(robot, newCompanyName, "#nameLabelCSS");
+	  checkLabelValue(robot, newCompanyDescription, "#descriptionLabelCSS");
 	  
 	  //check that the person is updated in the REST server
 	  
-	  Person newPerson = (Person) Storage.pull(sampleUser.getId());
+	  Company newCompany = (Company) Storage.pull(sampleCompany.getId());
 	  
-	  assertEquals(newPersonName, newPerson.getName());
-	  assertEquals(newPersonPronouns, newPerson.getPronouns());
-	  assertEquals(newPersonEmail, newPerson.getEmail());
-	  assertEquals(newPersonDescription, newPerson.getDescription());
-	  assertEquals(newPersonPhone, newPerson.getPhone());
+	  assertEquals(newCompanyName, newCompany.getName());
+	  assertEquals(newCompanyDescription, newCompany.getDescription());
 	  
 	  
 	  //check that the edit button is robust to this change
@@ -248,11 +255,8 @@ public class TestPageEditScreen
 	  robot.clickOn("#editBtnCSS");
 	  
 	  
-	  checkTextFieldValue(robot, newPerson.getName(), "#nameFieldCSS");
-	  checkTextFieldValue(robot, newPerson.getPronouns(), "#pronounsFieldCSS");
-	  checkTextFieldValue(robot, newPerson.getEmail(), "#emailFieldCSS");
-	  checkTextFieldValue(robot, newPerson.getPhone(), "#phoneFieldCSS");
-	  checkTextAreaValue(robot, newPerson.getDescription(), "#descriptionFieldCSS");
+	  checkTextFieldValue(robot, newCompany.getName(), "#nameFieldCSS");
+	  checkTextAreaValue(robot, newCompany.getDescription(), "#descriptionFieldCSS");
 	  
 	  //check that logging out and back in is robust to this change
 	  
@@ -260,19 +264,13 @@ public class TestPageEditScreen
 	  setUserPass(robot, sampleUser.getId(), "warblgarbl");
 	  robot.clickOn("#loginButton");
 
-	  checkLabelValue(robot, newPersonName, "#nameLabelCSS");
-	  checkLabelValue(robot, newPersonPronouns, "#pronounsLabelCSS");
-	  checkLabelValue(robot, newPersonEmail, "#emailLabelCSS");
-	  checkLabelValue(robot, newPersonPhone, "#phoneLabelCSS");
-	  checkLabelValue(robot, newPersonDescription, "#descriptionLabelCSS");	  
+	  goToCompanyView(robot, newCompany, companyIndex);
 	  
+	  checkLabelValue(robot, newCompanyName, "#nameLabelCSS");
+	  checkLabelValue(robot, newCompanyDescription, "#descriptionLabelCSS");	  
+
   }
-  
-  @Test
-  void testPageEdit(FxRobot robot)
-  {
-	  fail("Not yet implemented");
-  }
+
 
 
 
