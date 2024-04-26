@@ -49,11 +49,6 @@ public class PageCanEditController
     	transition.showFollowed();
     }
     @FXML
-    public void onUnfollowClick(ActionEvent event)
-    {
-    	transition.showCanEdit();
-    }
-    @FXML
     public void onLinksClick(ActionEvent event)
     {
     	transition.showLinks();
