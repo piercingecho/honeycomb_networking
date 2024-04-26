@@ -3,6 +3,7 @@ package honeycombData;
 import RESTAPI.*;
 import org.springframework.web.client.RestClient;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 
@@ -140,6 +141,13 @@ public class Storage
 			people.add(nextPerson);
 		}
 		
+				
+		people.sort(
+			      (Person p1, Person p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+		
 		return people;
 	}
 	
@@ -162,7 +170,12 @@ public class Storage
 		{
 			pages.add(Storage.pull(id));
 		}
-		
+		pages.sort(
+			      (Page p1, Page p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+
 		return pages;
 	}
 	
@@ -346,46 +359,66 @@ public class Storage
 			skills.add(nextSkill);
 		}
 		
+		skills.sort(
+			      (Page p1, Page p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+
 		return skills;
 	}
 	public static ArrayList<Company> getAllCompanies()
 	{
-		RRestDescriptionResp skillResponse = Storage.client.get()
+		RRestDescriptionResp companyResponse = Storage.client.get()
 				.uri(Storage.uriBase + "/" + "Company")
 				.retrieve()
 				.body(RRestDescriptionResp.class);
 		
-		ArrayList<RRestDescription> skillDescriptions = skillResponse.data();
+		ArrayList<RRestDescription> companyDescriptions = companyResponse.data();
 		
-		ArrayList<Company> skills = new ArrayList<Company>();
-		for(int i=0; i<skillDescriptions.size(); i++)
+		ArrayList<Company> companies = new ArrayList<Company>();
+		for(int i=0; i<companyDescriptions.size(); i++)
 		{
-			String skillId = skillDescriptions.get(i).name();
-			Company nextSkill = (Company) Storage.pull(skillId);
-			skills.add(nextSkill);
+			String companyId = companyDescriptions.get(i).name();
+			Company nextCompany = (Company) Storage.pull(companyId);
+			companies.add(nextCompany);
 		}
 		
-		return skills;
+		companies.sort(
+			      (Page p1, Page p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+
+		
+		return companies;
 	}
 	
 	public static ArrayList<JobPosting> getAllJobs()
 	{
-		RRestDescriptionResp skillResponse = Storage.client.get()
+		RRestDescriptionResp jobResponse = Storage.client.get()
 				.uri(Storage.uriBase + "/" + "JobPosting")
 				.retrieve()
 				.body(RRestDescriptionResp.class);
 		
-		ArrayList<RRestDescription> skillDescriptions = skillResponse.data();
+		ArrayList<RRestDescription> jobDescriptions = jobResponse.data();
 		
-		ArrayList<JobPosting> skills = new ArrayList<JobPosting>();
-		for(int i=0; i<skillDescriptions.size(); i++)
+		ArrayList<JobPosting> jobs = new ArrayList<JobPosting>();
+		for(int i=0; i<jobDescriptions.size(); i++)
 		{
-			String skillId = skillDescriptions.get(i).name();
-			JobPosting nextSkill = (JobPosting) Storage.pull(skillId);
-			skills.add(nextSkill);
+			String jobId = jobDescriptions.get(i).name();
+			JobPosting nextJob = (JobPosting) Storage.pull(jobId);
+			jobs.add(nextJob);
 		}
 		
-		return skills;
+		jobs.sort(
+			      (Page p1, Page p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+
+		
+		return jobs;
 	}
 
 

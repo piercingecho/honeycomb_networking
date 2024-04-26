@@ -18,7 +18,6 @@ public class ListCellPageController {
     @FXML
     void onPageListCellClick(ActionEvent event) {
     	TransitionModelPage transition = (TransitionModelPage) pageModel.getTransitionModel(mainview);
-    	System.out.println(transition.getClass());
     	transition.showLinkedPage();
     	
     }
@@ -39,7 +38,6 @@ public class ListCellPageController {
     	}
     	else
     	{
-    		System.out.println(pageModel.getDescription());
     		pageListCellBtn.setVisible(true);
     		pageListCellBtn.setText(pageModel.getName().getValue());
     		this.pageModel = pageModel;

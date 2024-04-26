@@ -10,37 +10,37 @@
    <top>
       <FlowPane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="contributorLinkBtn" mnemonicParsing="false" onAction="#onContributorBtnClick" text="Contributors">
+            <Button id="contributorLinkBtnCSS" fx:id="contributorLinkBtn" mnemonicParsing="false" onAction="#onContributorBtnClick" text="Contributors">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="followerLinkBtn" mnemonicParsing="false" onAction="#onFollowerBtnClick" text="Followers">
+            <Button id="followerLinkBtnCSS" fx:id="followerLinkBtn" mnemonicParsing="false" onAction="#onFollowerBtnClick" text="Followers">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="editorLinkBtn" mnemonicParsing="false" onAction="#onEditorBtnClick" text="Editors">
+            <Button id="editorLinkBtnCSS" fx:id="editorLinkBtn" mnemonicParsing="false" onAction="#onEditorBtnClick" text="Editors">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="viewerLinkBtn" mnemonicParsing="false" onAction="#onViewerBtnClick" text="Viewers">
+            <Button id="viewerLinkBtnCSS" fx:id="viewerLinkBtn" mnemonicParsing="false" onAction="#onViewerBtnClick" text="Viewers">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="qualificationLinkBtn" mnemonicParsing="false" onAction="#onQualificationBtnClick" text="Qualifications">
+            <Button id="qualificationLinkBtnCSS" fx:id="qualificationLinkBtn" mnemonicParsing="false" onAction="#onQualificationBtnClick" text="Qualifications">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="applicantLinkBtn" mnemonicParsing="false" onAction="#onApplicantBtnClick" text="Applicants">
+            <Button id="applicantLinkBtnCSS" fx:id="applicantLinkBtn" mnemonicParsing="false" onAction="#onApplicantBtnClick" text="Applicants">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="mentorLinkBtn" mnemonicParsing="false" onAction="#onMentorBtnClick" text="Mentors">
+            <Button id="mentorLinkBtnCSS" fx:id="mentorLinkBtn" mnemonicParsing="false" onAction="#onMentorBtnClick" text="Mentors">
                <font>
                   <Font size="19.0" />
                </font>
@@ -49,6 +49,6 @@
       </FlowPane>
    </top>
    <center>
-      <ListView fx:id="allLinksListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView id="allLinksListViewCSS" fx:id="allLinksListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

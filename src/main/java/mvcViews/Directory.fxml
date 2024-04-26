@@ -25,7 +25,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#onClickAll" text="All Pages">
+            <Button id="allPagesBtnCSS" fx:id="allPagesBtn" mnemonicParsing="false" onAction="#onClickAll" text="All Pages">
                <HBox.margin>
                   <Insets left="130.0" top="20.0" />
                </HBox.margin>
@@ -33,7 +33,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onClickMyLinks" text="My Links">
+            <Button id="myLinksBtnCSS" fx:id="myLinksBtn" mnemonicParsing="false" onAction="#onClickMyLinks" text="My Links">
                <HBox.margin>
                   <Insets left="100.0" top="20.0" />
                </HBox.margin>

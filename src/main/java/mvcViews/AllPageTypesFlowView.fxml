@@ -10,32 +10,32 @@
    <top>
       <FlowPane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="personPageTypeBtn" mnemonicParsing="false" onAction="#onPersonPageClick" text="Person">
+            <Button id="personPageTypeBtnCSS" fx:id="personPageTypeBtn" mnemonicParsing="false" onAction="#onPersonPageClick" text="Person">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="companyPageTypeBtn" mnemonicParsing="false" onAction="#onCompanyPageClick" text="Company">
+            <Button id="companyPageTypeBtnCSS" fx:id="companyPageTypeBtn" mnemonicParsing="false" onAction="#onCompanyPageClick" text="Company">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="skillPageTypeBtn" mnemonicParsing="false" onAction="#onSkillPageClick" text="Skill">
+            <Button id="skillPageTypeBtnCSS" fx:id="skillPageTypeBtn" mnemonicParsing="false" onAction="#onSkillPageClick" text="Skill">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="jobPostingPageTypeBtn" mnemonicParsing="false" onAction="#onJobPostingPageClick" text="Job Posting">
+            <Button id="jobPostingPageTypeBtnCSS" fx:id="jobPostingPageTypeBtn" mnemonicParsing="false" onAction="#onJobPostingPageClick" text="Job Posting">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="projectPageTypeBtn" mnemonicParsing="false" onAction="#onProjectPageClick" text="Project">
+            <Button id="projectPageTypeBtnCSS" fx:id="projectPageTypeBtn" mnemonicParsing="false" onAction="#onProjectPageClick" text="Project">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button fx:id="newsArticlePageTypeBtn" mnemonicParsing="false" onAction="#onNewsArticlePageClick" text="News Article">
+            <Button id="newsArticlePageTypeBtnCSS" fx:id="newsArticlePageTypeBtn" mnemonicParsing="false" onAction="#onNewsArticlePageClick" text="News Article">
                <font>
                   <Font size="19.0" />
                </font>
@@ -44,6 +44,6 @@
       </FlowPane>
    </top>
    <center>
-      <ListView fx:id="allPagesListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ListView id="allPagesListViewCSS" fx:id="allPagesListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
