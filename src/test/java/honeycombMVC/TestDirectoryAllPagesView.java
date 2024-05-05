@@ -95,7 +95,6 @@ public class TestDirectoryAllPagesView
   
   @SuppressWarnings("unchecked")
   ListView<PageModel> getPages(FxRobot robot)
-
   {
    return (ListView<PageModel>) robot.lookup("#allPagesListViewCSS")
        .queryAll().iterator().next();

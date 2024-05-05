@@ -48,6 +48,7 @@ public abstract class PageModel
 	}
 	public PageModel(String id)
 	{
+		// storage.pull(id) creates a page. This calls its own constructor.
 		this(Storage.pull(id));
 	}
 

@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class Storage
 {		
 	static RestClient client = RestClient.create();
-	static String uriBase = "http://localhost:9000/v1/Honeycomb";	
+	static String uriBase = "http://localhost:8080/v1/Honeycomb";	
 
 	
 	// For GET/pull to work, we must go through each class that we store.
