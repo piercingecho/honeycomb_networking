@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import javax.print.attribute.standard.PagesPerMinute;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 //import RESTAPI.*;
 import simpleRESTServer.*;
+
 
 class TestStorage
 {
@@ -23,57 +26,7 @@ class TestStorage
 			"Project",
 			"NewsArticle"
 	};
-	public void recreateRestDirectory()
-	{
-		try {
-		Storage.client.delete()
-				.uri(Storage.uriBase)
-				.retrieve()
-				.body(String.class);
-		}
-		catch(Exception e)
-		{
-			//do nothing
-		}
 
-		
-		//create the base directory for Honeycomb
-		RObjectResp rest_result = Storage.client.post()
-				.uri(Storage.uriBase)
-				.body(new RDesc("Honeycomb", "Professional networking app", "v1/Honeycomb"))
-				.retrieve()
-				.body(RObjectResp.class);
-		
-		
-		
-		//create the base directories for other classes
-		for(int i=0; i<Storage.pageTypes.length; i++)
-		{
-			String pageType = pageTypes[i];
-			rest_result = Storage.client.post()
-					.uri(Storage.uriBase + "/" + pageType)
-					.body(new RDesc(pageType, "An instance of " + pageType, "v1/Honeycomb/" + pageType))
-					.retrieve()
-					.body(RObjectResp.class);
-		}
-		//class for ids
-		rest_result = Storage.client.post()
-				.uri(Storage.uriBase + "/" + "IDGenerator")
-				.body(new RDesc("IDGenerator", "An instance of ID Generator", "v1/Honeycomb/IDGeneratorSingleton"))
-				.retrieve()
-				.body(RObjectResp.class);
-		
-		rest_result = Storage.client.post()
-				.uri(Storage.uriBase + "/" + "IDGenerator" + "/" + "0")
-				.body(new RNextID("0", 0))
-				.retrieve()
-				.body(RObjectResp.class);
-		
-		if(!rest_result.successful())
-		{
-			fail("REST Setup unsuccessful");
-		}
-		}
 	
 	@BeforeAll
 	static void setup() throws Exception
@@ -410,6 +363,7 @@ class TestStorage
 		Project project = new Project("Project", "projected to do well");
 		Skill skill = new Skill("Skill", "seems skillful");
 		JobPosting job = new JobPosting("Job", "post pun idk");
+		SimpleMessage message = new SimpleMessage("Message", "simply stated");
 		
 		Storage.create(person);
 		Storage.create(news);
@@ -417,6 +371,7 @@ class TestStorage
 		Storage.create(project);
 		Storage.create(skill);
 		Storage.create(job);
+		Storage.create(message);
 		
 		//person
 		String id = person.getId();
@@ -464,6 +419,13 @@ class TestStorage
 		Page storageJob =  Storage.pageFactory(storageJobResp, "JobPosting");
 		assertEquals(job, storageJob);
 
+		//simple messsage
+		//job
+		id = message.getId();
+		Response messageResp = Storage.responseFactory(id, "SimpleMessage");
+		Page storageMessage =  Storage.pageFactory(messageResp, "SimpleMessage");
+		assertEquals(message, storageMessage);
+
 	}
 	
 	@Test
@@ -475,6 +437,7 @@ class TestStorage
 		Project project = new Project("Project", "projected to do well");
 		Skill skill = new Skill("Skill", "seems skillful");
 		JobPosting job = new JobPosting("Job", "post pun idk");
+		SimpleMessage message = new SimpleMessage("Message", "simply stated");
 		
 		Storage.create(person);
 		Storage.create(news);
@@ -482,6 +445,7 @@ class TestStorage
 		Storage.create(project);
 		Storage.create(skill);
 		Storage.create(job);
+		Storage.create(message);
 
 		ArrayList<Page> pages = new ArrayList<Page>();
 		pages.add(person);
@@ -490,6 +454,7 @@ class TestStorage
 		pages.add(project);
 		pages.add(skill);
 		pages.add(job);
+		pages.add(message);
 		
 		
 		//RPersonResp r = (RPersonResp) Storage.responseFactory("2", "Person");

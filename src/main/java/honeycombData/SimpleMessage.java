@@ -4,24 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mvcModel.PageModel;
+import mvcModel.PageModelSimpleMessage;
 
-public class NewsArticle extends Page
+public class SimpleMessage extends Page
 {
 
-	/**
-	 * @param name
-	 * @param description
-	 */
-	public NewsArticle(String id,
-						String name, 
-						String description, 
-						ArrayList<String> externalLinks, 
-						HashMap<String, ArrayList<String>> internalLinks)
+	public SimpleMessage(String id, String name, String description, ArrayList<String> externalLinks, HashMap<String, ArrayList<String>> internalLinks)
 	{
 		super(id, name, description, externalLinks, internalLinks);
 	}
-	
-	public NewsArticle(String name, String description)
+
+	public SimpleMessage(String name, String description)
 	{
 		super(name, description);
 	}
@@ -30,9 +23,9 @@ public class NewsArticle extends Page
 	public String[] rolesIs()
 	{
 		String[] rolesIs ={
-				"news",
-				"following"
-				};
+				"reply",
+				"root",
+				"post"};
 		return rolesIs;
 	}
 	
@@ -40,18 +33,20 @@ public class NewsArticle extends Page
 	public String[] rolesHas()
 	{
 		String[] rolesHas = {
-				"viewer",
+				"author",
+				"reply",
+				"root",
 				"editor",
-				"contributor",
-				"mentor",
-				"follower"
+				"viewer"
 		};
 		return rolesHas;
 	}
 	
+	@Override
 	public PageModel createPageModel()
 	{
-		return null;
+		return new PageModelSimpleMessage(this);
+		
 	}
 
 }

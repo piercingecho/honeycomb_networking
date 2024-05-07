@@ -3,6 +3,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 
 import java.util.ArrayList;
@@ -260,4 +262,8 @@ public abstract class PageModel
 		return Objects.equals(associatedPage, other.associatedPage);
 	}
 	
+	public TreeItem<PageModel> getTree(GetTreeStrategy strat)
+	{
+		return strat.getTree(this);
+	}
 }

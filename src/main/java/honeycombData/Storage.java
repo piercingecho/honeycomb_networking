@@ -21,7 +21,8 @@ public class Storage
 			"Skill",
 			"JobPosting",
 			"Project",
-			"NewsArticle"
+			"NewsArticle",
+			"SimpleMessage"
 	};
 	
 	
@@ -249,7 +250,16 @@ public class Storage
 			
 			return getProject;
 		}
-		else
+		else if(classString == "SimpleMessage")
+		{
+			RSimpleMessageResp getSimpleMessage = Storage.client.get()
+					.uri(uri)
+					.retrieve()
+					.body(RSimpleMessageResp.class);
+			
+			return getSimpleMessage;
+
+		}
 		{
 			//classString == "NewsArticle"
 			RNewsArticleResp getNews = Storage.client.get()
@@ -338,6 +348,18 @@ public class Storage
 					responseData.internalLinks());
 			return job;
 		}
+		else if(classString == "SimpleMessage")
+		{
+			RSimpleMessage responseData = ((RSimpleMessageResp) r).data();
+			SimpleMessage simpleMessage = new SimpleMessage(
+					responseData.id(),
+					responseData.name(),
+					responseData.description(),
+					responseData.externalLinks(),
+					responseData.internalLinks());
+			return simpleMessage;
+		}
+
 
 		return null;
 	}

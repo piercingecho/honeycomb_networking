@@ -24,6 +24,8 @@ public class Project extends Page
 	{
 		super(name, description);
 	}
+	
+	@Override
 	public String[] rolesIs()
 	{
 		String[] rolesIs ={
@@ -32,6 +34,7 @@ public class Project extends Page
 		return rolesIs;
 	}
 	
+	@Override
 	public String[] rolesHas()
 	{
 		String[] rolesHas = {

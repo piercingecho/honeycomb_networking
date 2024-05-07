@@ -90,8 +90,8 @@ public class TestPageEditScreen
   
   private void checkLabelValue(FxRobot robot,String value, String labelName)
   {
-    Assertions.assertThat(robot.lookup(labelName)
-        .queryAs(Label.class)).hasText(value);    
+	    Assertions.assertThat(robot.lookup(labelName)
+	            .queryAs(Label.class)).hasText(value);    
   }
   
   private void checkTextFieldValue(FxRobot robot,String value, String labelName)

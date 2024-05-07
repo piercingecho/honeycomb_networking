@@ -20,6 +20,7 @@ public class Person extends Page
 		this.phone = phone;
 
 	}
+	
 	public Person(String name, String description)
 	{
 		super(name, description);
@@ -36,10 +37,12 @@ public class Person extends Page
 		this.phone = phone;
 	}
 	
+	@Override
 	public final String[] rolesIs()
 	{
 		String[] rolesIs ={
 				"applicant",
+				"author",
 				"contributor",
 				"employee",
 				"editor",
@@ -51,6 +54,7 @@ public class Person extends Page
 		return rolesIs;
 	}
 	
+	@Override
 	public final String[] rolesHas()
 	{
 		String[] rolesHas ={
@@ -62,6 +66,7 @@ public class Person extends Page
 				"skill",
 				"news",
 				"mentor",
+				"post",
 				"job_posting",
 				"pending_job",
 				"viewer",

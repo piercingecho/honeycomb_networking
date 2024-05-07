@@ -19,7 +19,8 @@ public class UtilTest
 			"Skill",
 			"JobPosting",
 			"Project",
-			"NewsArticle"
+			"NewsArticle",
+			"SimpleMessage"
 	};
 
 	public static void recreateRestDirectory()
@@ -49,6 +50,7 @@ public class UtilTest
 		//create the base directories for other classes
 		for(int i=0; i<Storage.pageTypes.length; i++)
 		{
+			System.out.println(pageTypes[i]);
 			String pageType = pageTypes[i];
 			rest_result = Storage.client.post()
 					.uri(Storage.uriBase + "/" + pageType)

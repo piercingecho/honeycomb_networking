@@ -22,6 +22,8 @@ public class Company extends Page
 	{
 		super(name, description);
 	}
+	
+	@Override
 	public String[] rolesIs()
 	{
 		String[] rolesIs ={
@@ -31,6 +33,7 @@ public class Company extends Page
 		return rolesIs;
 	}
 	
+	@Override
 	public String[] rolesHas()
 	{
 		String[] rolesHas = {
@@ -46,6 +49,7 @@ public class Company extends Page
 		return rolesHas;
 	}
 	
+	@Override
 	public PageModel createPageModel()
 	{
 		return new PageModelCompany(this);

@@ -319,6 +319,12 @@ public abstract class Page
 		this.internalLinks = updatedInternalLinks;
 	}
 	
+	public void addReply(Page reply) throws RoleNotAllowedException
+	{
+		this.addInternalLink(reply, "reply");
+		reply.addInternalLink(this, "root");
+	}
+	
 	abstract public PageModel createPageModel();
 	
 	
