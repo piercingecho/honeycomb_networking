@@ -33,5 +33,11 @@ public class PageModelSimpleMessage extends PageModel
 		return new TransitionModelCompany(mainview, (PageModel) this);
 		
 	}
+	
+	@Override
+	public String toString()
+	{
+		return this.description.getValue();
+	}
 
 }

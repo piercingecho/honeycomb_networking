@@ -17,6 +17,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import honeycombData.Company;
 import honeycombData.JobPosting;
 import honeycombData.Person;
+import honeycombData.SimpleMessage;
 import honeycombData.Skill;
 import honeycombData.UtilTest;
 import javafx.application.Platform;
@@ -42,6 +43,7 @@ public class TestPageVisibility
   	ArrayList<Company> companies;
   	ArrayList<Skill> skills;
   	ArrayList<JobPosting> jobs;
+  	ArrayList<SimpleMessage> messages;
 
   @Start  //Before
   private void start(Stage stage)
@@ -50,8 +52,10 @@ public class TestPageVisibility
 	  	companies = new ArrayList<>();
 	  	skills = new ArrayList<>();
 	  	jobs = new ArrayList<>();
+	  	messages = new ArrayList<>();
+
 		UtilTest.recreateRestDirectory();
-		UtilTest.createSampleData(people, companies, skills, jobs);
+		UtilTest.createSampleData(people, companies, skills, jobs, messages);
 		
 		
 		// from mvcMain.main

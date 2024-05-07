@@ -35,9 +35,13 @@ public class AllPageTypesFlowController implements ShowItemInterface{
     @FXML
     private Button skillPageTypeBtn;
     
+    @FXML
+    private Button simpleMessagePageTypeBtn;
     
     @FXML
     private Button listCellPageBtn;
+    
+
     
     @FXML
     private ListView<PageModel> allPagesListView;
@@ -115,6 +119,13 @@ public class AllPageTypesFlowController implements ShowItemInterface{
     void onProjectPageClick(ActionEvent event) {
 		allPagesListView.setItems(FXCollections.observableArrayList());
     }
+    
+    @FXML
+    void onSimpleMessagePageClick(ActionEvent event) {
+		allPagesListView.setItems(StorageModel.getAllSimpleMessageModels());
+    }
+
+    
 
 	@Override
 	public void showItem(PageModel page)

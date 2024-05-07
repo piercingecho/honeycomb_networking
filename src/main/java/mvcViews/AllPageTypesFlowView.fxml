@@ -40,6 +40,11 @@
                   <Font size="19.0" />
                </font>
             </Button>
+            <Button id="simpleMessagePageTypeBtnCSS" fx:id="simpleMessagePageTypeBtn" mnemonicParsing="false" onAction="#onSimpleMessagePageClick" text="SimpleMessage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
          </children>
       </FlowPane>
    </top>

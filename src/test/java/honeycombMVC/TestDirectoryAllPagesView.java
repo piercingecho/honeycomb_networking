@@ -15,6 +15,7 @@ import org.testfx.framework.junit5.Start;
 import honeycombData.Company;
 import honeycombData.JobPosting;
 import honeycombData.Person;
+import honeycombData.SimpleMessage;
 import honeycombData.Skill;
 import honeycombData.UtilTest;
 import javafx.collections.FXCollections;
@@ -40,6 +41,7 @@ public class TestDirectoryAllPagesView
   	ArrayList<Company> companies;
   	ArrayList<Skill> skills;
   	ArrayList<JobPosting> jobs;
+  	ArrayList<SimpleMessage> messages;
 
   @Start  //Before
   private void start(Stage stage)
@@ -48,8 +50,9 @@ public class TestDirectoryAllPagesView
 	  	companies = new ArrayList<>();
 	  	skills = new ArrayList<>();
 	  	jobs = new ArrayList<>();
+	  	messages = new ArrayList<>();
 		UtilTest.recreateRestDirectory();
-		UtilTest.createSampleData(people, companies, skills, jobs);
+		UtilTest.createSampleData(people, companies, skills, jobs, messages);
 		
 		
 		// from mvcMain.main

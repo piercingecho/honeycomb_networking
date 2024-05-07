@@ -73,8 +73,11 @@ public class UtilTest
 				.body(RObjectResp.class);
 		}
 
-	public static void createSampleData(ArrayList<Person> people, ArrayList<Company> companies, ArrayList<Skill> skills,
-			ArrayList<JobPosting> jobs)
+	public static void createSampleData(ArrayList<Person> people, 
+			ArrayList<Company> companies, 
+			ArrayList<Skill> skills,
+			ArrayList<JobPosting> jobs,
+			ArrayList<SimpleMessage> messages)
 	{
 		
 		Person loggedInPerson = new Person("sampleUserIsAPersonToo","TheValuedTestUser","it/its","robot@css.html","123-456-7890");
@@ -246,7 +249,62 @@ public class UtilTest
 		}
 
 
+		
+		// creating the messages
+		
+		SimpleMessage msgRoot = new SimpleMessage("Reply0", "root message");
+		SimpleMessage msgChild1 = new SimpleMessage("Reply1 to root", "reply1 to root");
+		SimpleMessage msgChild2= new SimpleMessage("Reply2", "reply2 to root");
+		SimpleMessage msgChild3= new SimpleMessage("Reply3", "reply3 to root");
+		SimpleMessage msgLeftLeafOfChild1 = new SimpleMessage("Reply4", "left reply to reply1");
+		SimpleMessage msgRightLeafOfChild1 = new SimpleMessage("Reply5", "right reply to reply1");
+		SimpleMessage msgSingleLeafOfChild2 = new SimpleMessage("Reply6", "reply to reply2");
 
+
+		
+		Person authorOne = new Person("person", "person desc");
+		Person authorTwo = new Person("person", "person desc");
+		Person authorThree = new Person("person", "person desc");
+
+		
+		msgRoot.addReply(msgChild1);
+		msgRoot.addReply(msgChild2);
+		msgRoot.addReply(msgChild3);
+		msgChild1.addReply(msgLeftLeafOfChild1);
+		msgChild1.addReply(msgRightLeafOfChild1);
+		msgChild2.addReply(msgSingleLeafOfChild2);
+
+		msgRoot.addInternalLink(authorOne, "author");
+		msgChild1.addInternalLink(authorOne, "author");
+		msgChild2.addInternalLink(authorTwo, "author");
+		msgChild3.addInternalLink(authorThree, "author");
+		msgLeftLeafOfChild1.addInternalLink(authorTwo, "author");
+		msgRightLeafOfChild1.addInternalLink(authorThree, "author");
+		msgSingleLeafOfChild2.addInternalLink(authorTwo, "author");
+		
+		Storage.create(msgRoot);
+		Storage.create(msgChild1);
+		Storage.create(msgChild2);
+		Storage.create(msgChild3);
+		Storage.create(msgLeftLeafOfChild1);
+		Storage.create(msgRightLeafOfChild1);
+		Storage.create(msgSingleLeafOfChild2);
+		Storage.create(authorOne);
+		Storage.create(authorTwo);
+		Storage.create(authorThree);
+		
+		messages.add(msgRoot);
+		messages.add(msgChild1);
+		messages.add(msgChild2);
+		messages.add(msgChild3);
+		messages.add(msgLeftLeafOfChild1);
+		messages.add(msgRightLeafOfChild1);
+		messages.add(msgSingleLeafOfChild2);
+
+		
+		people.add(authorOne);
+		people.add(authorTwo);
+		people.add(authorThree);
 
 		
 

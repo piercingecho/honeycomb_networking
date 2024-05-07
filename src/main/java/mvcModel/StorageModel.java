@@ -6,6 +6,7 @@ import honeycombData.Company;
 import honeycombData.JobPosting;
 import honeycombData.Page;
 import honeycombData.Person;
+import honeycombData.SimpleMessage;
 import honeycombData.Skill;
 import honeycombData.Storage;
 import javafx.collections.FXCollections;
@@ -86,6 +87,21 @@ public class StorageModel
 	{
 		// TODO Auto-generated method stub
 		return Storage.pull(userId).createPageModel();
+	}
+
+
+
+	public static ObservableList<PageModel> getAllSimpleMessageModels()
+	{
+		ArrayList<SimpleMessage> allSimpleMsgs = Storage.getAllSimpleMessages();
+		
+		ArrayList<PageModel> simpleMsgModels = new ArrayList<>();
+		for(SimpleMessage m: allSimpleMsgs)
+		{
+			simpleMsgModels.add(m.createPageModel());
+		}
+		
+		return FXCollections.observableList(simpleMsgModels);
 	}
 
 

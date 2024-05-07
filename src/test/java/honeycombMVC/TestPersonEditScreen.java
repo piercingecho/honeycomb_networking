@@ -17,6 +17,7 @@ import org.testfx.util.WaitForAsyncUtils;
 import honeycombData.Company;
 import honeycombData.JobPosting;
 import honeycombData.Person;
+import honeycombData.SimpleMessage;
 import honeycombData.Skill;
 import honeycombData.Storage;
 import honeycombData.UtilTest;
@@ -43,6 +44,8 @@ public class TestPersonEditScreen
   	ArrayList<Company> companies;
   	ArrayList<Skill> skills;
   	ArrayList<JobPosting> jobs;
+  	ArrayList<SimpleMessage> messages;
+
 
   @Start  //Before
   private void start(Stage stage)
@@ -51,8 +54,10 @@ public class TestPersonEditScreen
 	  	companies = new ArrayList<>();
 	  	skills = new ArrayList<>();
 	  	jobs = new ArrayList<>();
+	  	messages = new ArrayList<>();
+
 		UtilTest.recreateRestDirectory();
-		UtilTest.createSampleData(people, companies, skills, jobs);
+		UtilTest.createSampleData(people, companies, skills, jobs, messages);
 		
 		
 		// from mvcMain.main

@@ -443,5 +443,32 @@ public class Storage
 		return jobs;
 	}
 
+	public static ArrayList<SimpleMessage> getAllSimpleMessages()
+	{
+		RRestDescriptionResp msgResponse = Storage.client.get()
+				.uri(Storage.uriBase + "/" + "SimpleMessage")
+				.retrieve()
+				.body(RRestDescriptionResp.class);
+		
+		ArrayList<RRestDescription> msgDescriptions = msgResponse.data();
+		
+		ArrayList<SimpleMessage> messages = new ArrayList<SimpleMessage>();
+		for(int i=0; i<msgDescriptions.size(); i++)
+		{
+			String msgId = msgDescriptions.get(i).name();
+			SimpleMessage nextMsg = (SimpleMessage) Storage.pull(msgId);
+			messages.add(nextMsg);
+		}
+		
+		messages.sort(
+			      (Page p1, Page p2) -> Integer.compare(
+			    		  Integer.parseInt(p1.getId()),
+			    		  Integer.parseInt(p2.getId()))
+			      );
+
+		
+		return messages;
+	}
+
 
 }
