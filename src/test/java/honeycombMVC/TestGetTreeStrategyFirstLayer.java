@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 
 
 @ExtendWith(ApplicationExtension.class)
-public class TestMessageTreeView
+public class TestGetTreeStrategyFirstLayer
 {
 	SimpleMessage msgRoot;
 	SimpleMessage msgChild1;

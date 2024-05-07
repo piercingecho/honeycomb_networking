@@ -158,6 +158,10 @@ public class TestDirectoryAllPagesView
 	  ObservableList<PageModel> jobPages = getPages(robot).getItems();
 	  testObservableListEquality(jobPages, StorageModel.getAllJobModels());
 
+	  robot.clickOn("#simpleMessagePageTypeBtnCSS");
+	  ObservableList<PageModel> messagePages = getPages(robot).getItems();
+	  testObservableListEquality(messagePages, StorageModel.getAllSimpleMessageModels());
+
   }
 }
   
