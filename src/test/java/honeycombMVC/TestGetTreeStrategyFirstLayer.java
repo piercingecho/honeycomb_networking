@@ -132,7 +132,8 @@ public class TestGetTreeStrategyFirstLayer
 	{
 		try
 		{
-			Thread.sleep(1000 * 60);
+			Thread.sleep(1);
+			//Thread.sleep(1000 * 60);
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();
