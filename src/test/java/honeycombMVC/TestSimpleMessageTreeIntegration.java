@@ -123,6 +123,38 @@ public class TestSimpleMessageTreeIntegration
 	  });
 	  WaitForAsyncUtils.waitForFxEvents();
 }
+  
+  private void searchForMessage(FxRobot robot, int id)
+  {
+	  robot.clickOn("#searchBtnCSS");
+	  robot.clickOn("#allPagesBtnCSS");
+	  robot.clickOn("#simpleMessagePageTypeBtnCSS");
+	  scrollToItem(robot, id);
+	  robot.clickOn(messages.get(id).getName()); //can be refactored
+
+  }
+  
+  private void expandTreeView(TreeItem<PageModel> item){
+	    if(item != null && !item.isLeaf()){
+	    	
+	    	/**
+	    	 * Sleep for the purpose of showing the test
+	    	 */
+	    	try
+			{
+				Thread.sleep(300);
+			} catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        item.setExpanded(true);
+	        for(TreeItem<PageModel> child:item.getChildren()){
+	            expandTreeView(child);
+	        }
+	    }
+	}
+  
   @Test
   void testAllPagesListViews(FxRobot robot)
   {
@@ -132,17 +164,22 @@ public class TestSimpleMessageTreeIntegration
 	  
 	  setUserPass(robot, sampleUser.getId(), "w");
 	  robot.clickOn("#loginButton");
-	  robot.clickOn("#searchBtnCSS");
-	  robot.clickOn("#allPagesBtnCSS");
-	  robot.clickOn("#simpleMessagePageTypeBtnCSS");
-	  scrollToItem(robot, 0);
-	  robot.clickOn(messages.get(0).getName()); //can be refactored
+	  searchForMessage(robot, 0);
 	  
-	  TreeItem<PageModel> actual = getTree(robot).getRoot();	  
+	  
+	  TreeItem<PageModel> actual = getTree(robot).getRoot();
+	  
+	  TreeItem<PageModel> expected = new TreeItem<PageModel>(messages.get(0).createPageModel());
+	  
+	  assertEquals(actual.toString(), new TreeItem<String>("root message").toString()); 
+	       // check the tree node is displaying the correct thing
+	  
+	  
+	  // Show visible.
+	  expandTreeView(actual);
 	  
 	  //EXPECTED 
 	  
-		TreeItem<PageModel> expected = new TreeItem<PageModel>(messages.get(0).createPageModel());
 		TreeItem<PageModel> expectedChildOne = new TreeItem<PageModel>(messages.get(1).createPageModel());
 		TreeItem<PageModel> expectedChildTwo = new TreeItem<PageModel>(messages.get(2).createPageModel());
 		TreeItem<PageModel> expectedChildThree = new TreeItem<PageModel>(messages.get(3).createPageModel());
@@ -182,7 +219,49 @@ public class TestSimpleMessageTreeIntegration
 		assertEquals(receivedLeftLeaf.getAssociatedPage(), expectedLeftLeaf.getValue().getAssociatedPage());
 		assertEquals(receivedRightLeaf.getAssociatedPage(), expectedRightLeaf.getValue().getAssociatedPage());
 		assertEquals(receivedOnlyLeaf.getAssociatedPage(), expectedOnlyLeaf.getValue().getAssociatedPage());
+		
+		
+		try
+		{
+			Thread.sleep(15000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		// test the "change strategy" button
+		
+		
+		
+		
+		// now test the recursive version for a different tree element.
+		searchForMessage(robot, 1);
+		actual = getTree(robot).getRoot();
+		  
+		expandTreeView(actual);
+		expectedChildOne = new TreeItem<PageModel>(messages.get(1).createPageModel());
+		expectedLeftLeaf = new TreeItem<PageModel>(messages.get(4).createPageModel());
+		expectedRightLeaf = new TreeItem<PageModel>(messages.get(5).createPageModel());
+
+		
+		assertEquals(actual.getValue().getAssociatedPage(), 
+				expectedChildOne.getValue().getAssociatedPage());
+
+		assertEquals(actual.getChildren().get(0).getValue().getAssociatedPage(), 
+				expectedLeftLeaf.getValue().getAssociatedPage());
+		assertEquals(actual.getChildren().get(1).getValue().getAssociatedPage(), 
+				expectedRightLeaf.getValue().getAssociatedPage());
+
+		
+		try
+		{
+			Thread.sleep(5000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	  
 	  

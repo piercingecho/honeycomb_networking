@@ -253,7 +253,7 @@ public class UtilTest
 		// creating the messages
 		
 		SimpleMessage msgRoot = new SimpleMessage("Reply0", "root message");
-		SimpleMessage msgChild1 = new SimpleMessage("Reply1 to root", "reply1 to root");
+		SimpleMessage msgChild1 = new SimpleMessage("Reply1", "reply1 to root");
 		SimpleMessage msgChild2= new SimpleMessage("Reply2", "reply2 to root");
 		SimpleMessage msgChild3= new SimpleMessage("Reply3", "reply3 to root");
 		SimpleMessage msgLeftLeafOfChild1 = new SimpleMessage("Reply4", "left reply to reply1");
