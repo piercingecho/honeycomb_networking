@@ -3,7 +3,6 @@ package mvcModel;
 import honeycombData.Page;
 import honeycombData.RoleNotAllowedException;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 
 public class GetTreeStrategyFullTree implements GetTreeStrategy
 {

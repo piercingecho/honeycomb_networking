@@ -5,11 +5,9 @@ import mvcModel.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 class TestPageModel
 {
@@ -107,7 +105,6 @@ class TestPageModel
 		c.addInternalLink(people.get(1), "employee");
 		
 		PageModel pModel = pageModels.get(0);
-		String personId = peopleIds.get(1);
 		
 		//adding a company to person's employer
 		pModel.getInternalLinks().get("employee").add(peopleIds.get(1));

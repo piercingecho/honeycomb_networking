@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.PagesPerMinute;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 //import org.springframework.http.MediaType;
 
 //import RESTAPI.*;
-import simpleRESTServer.*;
 
 
 class TestStorage

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
@@ -19,17 +18,12 @@ import honeycombData.Skill;
 import honeycombData.UtilTest;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import mvcMain.Main;
-import mvcModel.HomeNavigationModel;
 import mvcModel.HomeNavigationModelInterface;
 import mvcModel.LoginNavigationModel;
-import mvcModel.SessionSingleton;
 import mvcViews.HomeBarController;
-import mvcViews.LoginPageController;
 
 @ExtendWith(ApplicationExtension.class)
 public class TestHomeNavigation implements HomeNavigationModelInterface

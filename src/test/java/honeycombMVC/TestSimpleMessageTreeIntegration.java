@@ -19,8 +19,6 @@ import honeycombData.SimpleMessage;
 import honeycombData.Skill;
 import honeycombData.UtilTest;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -32,7 +30,6 @@ import mvcMain.Main;
 import mvcModel.LoginNavigationModel;
 import mvcModel.LoginNavigationModelInterface;
 import mvcModel.PageModel;
-import mvcModel.StorageModel;
 import mvcViews.LoginPageController;
 
 @ExtendWith(ApplicationExtension.class)

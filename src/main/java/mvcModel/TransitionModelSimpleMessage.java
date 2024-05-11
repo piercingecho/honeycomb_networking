@@ -5,8 +5,6 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
-import mvcViews.PageCanEditController;
-import mvcViews.PageLinksCompanyController;
 import mvcViews.SimpleMessageCanEditController;
 
 public class TransitionModelSimpleMessage extends TransitionModelPage

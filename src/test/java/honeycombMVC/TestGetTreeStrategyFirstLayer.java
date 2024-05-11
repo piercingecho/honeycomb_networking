@@ -8,15 +8,10 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import mvcModel.GetTreeStrategyFirstLayer;
-import mvcModel.GetTreeStrategyFullTree;
-import mvcModel.HomeNavigationModelInterface;
 import mvcModel.LoginNavigationModel;
 import mvcModel.PageModel;
-import mvcViews.HomeBarController;
 import mvcViews.MessageTreeController;
 
 import org.junit.jupiter.api.Test;
@@ -27,12 +22,8 @@ import honeycombData.Person;
 import honeycombData.SimpleMessage;
 import honeycombData.Storage;
 import honeycombData.UtilTest;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 

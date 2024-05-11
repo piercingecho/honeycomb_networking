@@ -1,6 +1,5 @@
 package mvcModel;
 
-import honeycombData.Company;
 import honeycombData.Page;
 import honeycombData.SimpleMessage;
 import honeycombData.Storage;

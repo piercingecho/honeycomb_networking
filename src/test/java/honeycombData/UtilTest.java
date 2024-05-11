@@ -38,7 +38,7 @@ public class UtilTest
 
 		
 		//create the base directory for Honeycomb
-		RObjectResp rest_result = Storage.client.post()
+		Storage.client.post()
 				.uri(Storage.uriBase)
 				.body(new RDesc("Honeycomb", "Professional networking app", "v1/Honeycomb"))
 				.retrieve()
@@ -52,7 +52,7 @@ public class UtilTest
 		{
 			System.out.println(pageTypes[i]);
 			String pageType = pageTypes[i];
-			rest_result = Storage.client.post()
+			Storage.client.post()
 					.uri(Storage.uriBase + "/" + pageType)
 					.body(new RDesc(pageType, "An instance of " + pageType, "v1/Honeycomb/" + pageType))
 					.retrieve()
@@ -60,17 +60,18 @@ public class UtilTest
 		}
 		
 		//class for ids
-		rest_result = Storage.client.post()
+		Storage.client.post()
 				.uri(Storage.uriBase + "/" + "IDGenerator")
 				.body(new RDesc("IDGenerator", "An instance of ID Generator", "v1/Honeycomb/IDGeneratorSingleton"))
 				.retrieve()
 				.body(RObjectResp.class);
 		
-		rest_result = Storage.client.post()
+		Storage.client.post()
 				.uri(Storage.uriBase + "/" + "IDGenerator" + "/" + "0")
 				.body(new RNextID("0", 0))
 				.retrieve()
 				.body(RObjectResp.class);
+		
 		}
 
 	public static void createSampleData(ArrayList<Person> people, 
