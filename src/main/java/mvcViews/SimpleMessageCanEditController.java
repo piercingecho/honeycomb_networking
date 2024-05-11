@@ -38,7 +38,6 @@ public class SimpleMessageCanEditController {
     	// create the full tree here
 		TreeItem<PageModel> treeRoot = model.getTree(new GetTreeStrategyFullTree());
     	MessageTreeView.setRoot(treeRoot);
-
 		
     	Bindings.bindBidirectional(nameLabel.textProperty(), model.getName());
     	

@@ -154,7 +154,8 @@ public class TestSimpleMessageTreeIntegration
 	        }
 	    }
 	}
-  
+
+    
   @Test
   void testAllPagesListViews(FxRobot robot)
   {
@@ -173,11 +174,7 @@ public class TestSimpleMessageTreeIntegration
 	  
 	  assertEquals(actual.toString(), new TreeItem<String>("root message").toString()); 
 	       // check the tree node is displaying the correct thing
-	  
-	  
-	  // Show visible.
-	  expandTreeView(actual);
-	  
+	  	  	  
 	  //EXPECTED 
 	  
 		TreeItem<PageModel> expectedChildOne = new TreeItem<PageModel>(messages.get(1).createPageModel());
@@ -221,16 +218,31 @@ public class TestSimpleMessageTreeIntegration
 		assertEquals(receivedOnlyLeaf.getAssociatedPage(), expectedOnlyLeaf.getValue().getAssociatedPage());
 		
 		
+		
+		//TEST ROBOT CLICKING
+		
+		expandTreeView(actual);
+
 		try
 		{
-			Thread.sleep(15000);
-		} catch (InterruptedException e)
+			robot.clickOn(expected.getValue().getDescription().getValue());
+			robot.clickOn(expectedChildOne.getValue().getDescription().getValue());
+			robot.clickOn(expectedOnlyLeaf.getValue().getDescription().getValue());
+
+			robot.clickOn(expectedChildTwo.getValue().getDescription().getValue());
+			robot.clickOn(expectedChildThree.getValue().getDescription().getValue());
+
+			robot.clickOn(expectedLeftLeaf.getValue().getDescription().getValue());
+			robot.clickOn(expectedRightLeaf.getValue().getDescription().getValue());
+
+		}
+		catch(Exception e)
 		{
-			// TODO Auto-generated catch block
+			fail("Robot coud not click on expected tree label.");
 			e.printStackTrace();
 		}
 
-		// test the "change strategy" button
+		
 		
 		
 		
@@ -238,8 +250,9 @@ public class TestSimpleMessageTreeIntegration
 		// now test the recursive version for a different tree element.
 		searchForMessage(robot, 1);
 		actual = getTree(robot).getRoot();
+		 expandTreeView(actual);
+
 		  
-		expandTreeView(actual);
 		expectedChildOne = new TreeItem<PageModel>(messages.get(1).createPageModel());
 		expectedLeftLeaf = new TreeItem<PageModel>(messages.get(4).createPageModel());
 		expectedRightLeaf = new TreeItem<PageModel>(messages.get(5).createPageModel());
@@ -253,14 +266,27 @@ public class TestSimpleMessageTreeIntegration
 		assertEquals(actual.getChildren().get(1).getValue().getAssociatedPage(), 
 				expectedRightLeaf.getValue().getAssociatedPage());
 
+		try
+		{
+			robot.clickOn(expectedChildOne.getValue().getDescription().getValue());
+			robot.clickOn(expectedLeftLeaf.getValue().getDescription().getValue());
+			robot.clickOn(expectedRightLeaf.getValue().getDescription().getValue());
+
+		}
+		catch(Exception e)
+		{
+			fail("Robot coud not click on expected tree label.");
+			e.printStackTrace();
+		}
 		
 		try
 		{
-			Thread.sleep(5000);
-		} catch (InterruptedException e)
+			robot.clickOn(expectedOnlyLeaf.getValue().getDescription().getValue());
+			fail("Robot should not be able to click on root.");
+		}
+		catch(Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 
 	  

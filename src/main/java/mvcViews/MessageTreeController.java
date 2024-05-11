@@ -22,9 +22,5 @@ public class MessageTreeController {
     	MessageTreeView.setRoot(root);
     	
     }
-    
-    
-    
-    
-    
+   
 }

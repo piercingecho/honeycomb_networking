@@ -1,7 +1,10 @@
 package honeycombMVC;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.IOException;
 
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import javafx.fxml.FXMLLoader;
@@ -47,7 +50,8 @@ public class TestGetTreeStrategyFirstLayer
 	Person authorOne;
 	Person authorTwo;
 	Person authorThree;
-
+	
+	TreeItem<PageModel> treeRoot;
 	
 	@Start
 	private void start(Stage stage)
@@ -55,7 +59,7 @@ public class TestGetTreeStrategyFirstLayer
 		createMessagesInRestServer();
 		
 		//TreeItem<PageModel> treeRoot = msgRoot.createPageModel().getTree(new GetTreeStrategyFullTree());
-		TreeItem<PageModel> treeRoot = msgRoot.createPageModel().getTree(new GetTreeStrategyFirstLayer());
+		treeRoot = msgRoot.createPageModel().getTree(new GetTreeStrategyFirstLayer());
 				
 		BorderPane center;
 		
@@ -87,13 +91,13 @@ public class TestGetTreeStrategyFirstLayer
 	{
 		UtilTest.recreateRestDirectory();
 
-		msgRoot = new SimpleMessage("Starting message!", "someDescription");
-		msgChild1 = new SimpleMessage("First reply", "someDescription");
-		msgChild2= new SimpleMessage("Second reply", "someDescription");
-		msgChild3= new SimpleMessage("Third reply", "someDescription");
-		msgLeftLeafOfChild1 = new SimpleMessage("I like the above reply", "someDescription");
-		msgRightLeafOfChild1 = new SimpleMessage("I don't tho... :/", "someDescription");
-		msgSingleLeafOfChild2 = new SimpleMessage("I'm but a leaf, in a world of tree...", "someDescription");
+		msgRoot = new SimpleMessage("Starting message!", "root");
+		msgChild1 = new SimpleMessage("First reply", "reply1");
+		msgChild2= new SimpleMessage("Second reply", "reply2");
+		msgChild3= new SimpleMessage("Third reply", "reply3");
+		msgLeftLeafOfChild1 = new SimpleMessage("I like the above reply", "leaf1");
+		msgRightLeafOfChild1 = new SimpleMessage("I don't tho... :/", "leaf2");
+		msgSingleLeafOfChild2 = new SimpleMessage("I'm but a leaf, in a world of tree...", "leaf3");
 
 		authorOne = new Person("person", "person desc");
 		authorTwo = new Person("person", "person desc");
@@ -127,16 +131,55 @@ public class TestGetTreeStrategyFirstLayer
 		Storage.create(authorThree);
 	}
 	
-	@Test
-	public void testSetup()
-	{
-		try
-		{
-			Thread.sleep(1);
-			//Thread.sleep(1000 * 60);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
+	  private void expandTreeView(TreeItem<PageModel> item){
+		    if(item != null && !item.isLeaf()){
+		    	
+		    	/**
+		    	 * Sleep for the purpose of showing the test
+		    	 */
+		    	try
+				{
+					Thread.sleep(300);
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        item.setExpanded(true);
+		        for(TreeItem<PageModel> child:item.getChildren()){
+		            expandTreeView(child);
+		        }
+		    }
 		}
+
+	@Test
+	public void testSetup(FxRobot robot)
+	{
+		 expandTreeView(treeRoot);
+
+			try
+			{
+				robot.clickOn(msgRoot.getDescription());
+				robot.clickOn(msgChild1.getDescription());
+				robot.clickOn(msgChild2.getDescription());
+				robot.clickOn(msgChild3.getDescription());
+
+			}
+			catch(Exception e)
+			{
+				fail("Robot coud not click on expected tree label.");
+				e.printStackTrace();
+			}
+			
+			try
+			{
+				robot.clickOn(msgLeftLeafOfChild1.getDescription());
+				fail("Robot should not be able to click on tree label.");
+
+			}
+			catch(Exception e)
+			{
+			}
+
 	}
 }
