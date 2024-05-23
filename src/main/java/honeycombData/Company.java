@@ -1,5 +1,11 @@
 package honeycombData;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import mvcModel.PageModel;
+import mvcModel.PageModelCompany;
+
 public class Company extends Page
 {
 
@@ -7,21 +13,30 @@ public class Company extends Page
 	 * @param name
 	 * @param description
 	 */
+	public Company(String id, String name, String description, ArrayList<String> externalLinks, HashMap<String, ArrayList<String>> internalLinks)
+	{
+		super(id, name, description, externalLinks, internalLinks);
+	}
+
 	public Company(String name, String description)
 	{
 		super(name, description);
 	}
-	public String[] getAssumableRoles()
+	
+	@Override
+	public String[] rolesIs()
 	{
-		String[] assumableRoles ={
+		String[] rolesIs ={
 				"employer",
-				"contributor"};
-		return assumableRoles;
+				"contributor",
+				"following"};
+		return rolesIs;
 	}
 	
-	public String[] getLinkableRoles()
+	@Override
+	public String[] rolesHas()
 	{
-		String[] linkableRoles = {
+		String[] rolesHas = {
 				"employee",
 				"follower",
 				"project",
@@ -29,9 +44,16 @@ public class Company extends Page
 				"editor",
 				"viewer",
 				"mentor",
-				"follower",
 				"news"
 		};
-		return linkableRoles;
+		return rolesHas;
 	}
+	
+	@Override
+	public PageModel createPageModel()
+	{
+		return new PageModelCompany(this);
+		
+	}
+
 }

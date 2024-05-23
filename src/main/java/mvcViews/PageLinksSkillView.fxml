@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvcViews.PageLinksSkillController">
+   <top>
+      <FlowPane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="mentorLinkBtnCSS" fx:id="mentorLinkBtn" mnemonicParsing="false" onAction="#onMentorBtnClick" text="Mentors">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="followerLinkBtnCSS" fx:id="followerLinkBtn" mnemonicParsing="false" onAction="#onFollowerBtnClick" text="Followers">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="viewerLinkBtnCSS" fx:id="viewerLinkBtn" mnemonicParsing="false" onAction="#onViewerBtnClick" text="Viewers">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="editorLinkBtnCSS" fx:id="editorLinkBtn" mnemonicParsing="false" onAction="#onEditorBtnClick" text="Editors">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <ListView id="allLinksListViewCSS" fx:id="allLinksListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

@@ -1,6 +1,6 @@
 package honeycombData;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +17,8 @@ class TestCompany
 	@BeforeEach
 	void setUp() throws Exception
 	{
+		UtilTest.recreateRestDirectory();
+
 		c = new Company("a","b");
 		p = new Person("a","b");
 		n = new NewsArticle("a","b");

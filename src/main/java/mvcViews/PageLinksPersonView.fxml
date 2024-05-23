@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mvcViews.PageLinksPersonController">
+   <top>
+      <FlowPane prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="employerLinkBtnCSS" fx:id="employerLinkBtn" mnemonicParsing="false" onAction="#onEmployerBtnClick" text="Employer">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="friendLinkBtnCSS" fx:id="friendLinkBtn" mnemonicParsing="false" onAction="#onFriendBtnClick" text="Friend">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="followerLinkBtnCSS" fx:id="followerLinkBtn" mnemonicParsing="false" onAction="#onFollowerBtnClick" text="Follower">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="followingLinkBtnCSS" fx:id="followingLinkBtn" mnemonicParsing="false" onAction="#onFollowingBtnClick" text="Following">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="projectLinkBtnCSS" fx:id="projectLinkBtn" mnemonicParsing="false" onAction="#onProjectBtnClick" text="Project">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="newsArticleLinkBtnCSS" fx:id="newsArticleLinkBtn" mnemonicParsing="false" onAction="#onNewsArticleBtnClick" text="News Article">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="mentorLinkBtnCSS" fx:id="mentorLinkBtn" mnemonicParsing="false" onAction="#onMentorBtnClick" text="Mentor">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="viewerLinkBtnCSS" fx:id="viewerLinkBtn" mnemonicParsing="false" onAction="#onViewerBtnClick" text="Viewer">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button id="editorLinkBtnCSS" fx:id="editorLinkBtn" mnemonicParsing="false" onAction="#onEditorBtnClick" text="Editor">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <ListView id="allLinksListViewCSS" fx:id="allLinksListView" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
